@@ -20,15 +20,20 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $tabSelected) {
-            tiX(settings: settings)
+            Dashboard(tabSelected: $tabSelected)
                 .tabItem {
-                    Image(systemName: "list.bullet.circle.fill")
+                    Image(systemName: "house.circle")
+                    Text("Dashboard")
+                }.tag(0)
+            Items(settings: settings)
+                .tabItem {
+                    Image(systemName: "list.bullet.circle")
                     Text("Todos")
                 }.tag(1)
             NewItem(tabSelected: $tabSelected)
                 .tabItem {
-                    Image(systemName: "plus")
-                    Text("New")
+                    Image(systemName: "plus.circle")
+                    Text("New Item")
                 }.tag(2)
             
         }

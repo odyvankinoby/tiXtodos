@@ -12,7 +12,6 @@ import Combine
 struct NewItem: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    
     @State private var category = "Business"
     @State private var dueDate = Date()
     @State private var toDoText = ""

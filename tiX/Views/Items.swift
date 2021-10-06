@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct tiX: View {
+struct Items: View {
 
     @Environment(\.managedObjectContext) private var viewContext
     // Observable Objects
@@ -111,24 +111,7 @@ struct tiX: View {
                         }
                     }
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
-                    HStack {
-                        Button(action: {
-                            withAnimation {
-                               
-                            }
-                        }) {
-                            Text("Delete Ticked Items")
-                                .foregroundColor(.indigo)
-                                .shadow(color: .indigo.opacity(0.3), radius: 10, x: 0, y: 10)
-                                
-                        }
-                    }
-                }
             }
-            
-            
-            
         }
     }
 
