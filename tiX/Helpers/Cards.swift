@@ -38,9 +38,6 @@ struct CategoryCards: View {
                     .frame(width: numberOfTasks > 0 ? progress : 0, height: 5)
                     .foregroundColor(color.opacity(0.9))
             }
-            
-            
-            
         }
         .padding(10)
         .frame(width: 200, height: 120, alignment: .leading)
@@ -67,13 +64,3 @@ struct CategoryCards: View {
         .shadow(color: .white.opacity(1), radius: 5, x: -1, y: -1)
     }
 }
-
-struct CategoryCards_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryCards(category: "Business",
-                      color: Color.cyan,
-                      numberOfTasks: 40,
-                      tasksDone: 20)
-    }
-}
-

@@ -71,7 +71,7 @@ struct Items: View {
                 }
                 
             }
-            .listStyle(InsetGroupedListStyle())
+            .listStyle(SidebarListStyle()) //InsetGroupedListStyle()
             .refreshable {
                 //await store.loadStats()
                 print("refreshed")
@@ -79,22 +79,6 @@ struct Items: View {
             //.searchable(text: "Search in history", placement: $searchQuery)
             .navigationTitle("Todos")
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    HStack {
-                        Button(action: {
-                            withAnimation {
-                                deleteTicked.toggle()
-                            }
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.indigo)
-                                .shadow(color: .indigo.opacity(0.3), radius: 10, x: 0, y: 10)
-                                
-                        }
-                    }
-                }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     HStack {
                         Button(action: {

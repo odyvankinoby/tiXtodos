@@ -21,7 +21,7 @@ struct NewItem: View {
     let toDoTextLimit = 70
     
     var body: some View {
-        
+        //NavigationView {
         ZStack {
             
             ScrollView {
@@ -141,7 +141,7 @@ struct NewItem: View {
             }
         }
         
-        
+        //}.navigationTitle("New Todo")
     }
     
     func textChanged(upper: Int, text: inout String) {
