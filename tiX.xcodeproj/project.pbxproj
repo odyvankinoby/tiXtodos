@@ -13,6 +13,11 @@
 		36C1B5BD270CC1C000249259 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */; };
 		36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5BE270CC1C000249259 /* Persistence.swift */; };
 		36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */; };
+		36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C8270CC2F900249259 /* ViewContent.swift */; };
+		36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CA270CC3EF00249259 /* Categories.swift */; };
+		36C1B5CF270CC79700249259 /* tiX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CE270CC79700249259 /* tiX.swift */; };
+		36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D4270CCAFE00249259 /* NewItem.swift */; };
+		36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D8270DD4B100249259 /* UserSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +28,11 @@
 		36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		36C1B5BE270CC1C000249259 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		36C1B5C1270CC1C000249259 /* tiX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tiX.xcdatamodel; sourceTree = "<group>"; };
+		36C1B5C8270CC2F900249259 /* ViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContent.swift; sourceTree = "<group>"; };
+		36C1B5CA270CC3EF00249259 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		36C1B5CE270CC79700249259 /* tiX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiX.swift; sourceTree = "<group>"; };
+		36C1B5D4270CCAFE00249259 /* NewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItem.swift; sourceTree = "<group>"; };
+		36C1B5D8270DD4B100249259 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,11 +66,12 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B5270CC1BF00249259 /* tiXApp.swift */,
-				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
+				36C1B5D6270DCDA200249259 /* Views */,
 				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
-				36C1B5BE270CC1C000249259 /* Persistence.swift */,
+				36C1B5D7270DCDB700249259 /* Helpers */,
 				36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */,
 				36C1B5BB270CC1C000249259 /* Preview Content */,
+				36C1B5D8270DD4B100249259 /* UserSettings.swift */,
 			);
 			path = tiX;
 			sourceTree = "<group>";
@@ -71,6 +82,26 @@
 				36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		36C1B5D6270DCDA200249259 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
+				36C1B5CE270CC79700249259 /* tiX.swift */,
+				36C1B5D4270CCAFE00249259 /* NewItem.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		36C1B5D7270DCDB700249259 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				36C1B5BE270CC1C000249259 /* Persistence.swift */,
+				36C1B5C8270CC2F900249259 /* ViewContent.swift */,
+				36C1B5CA270CC3EF00249259 /* Categories.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,10 +174,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */,
+				36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */,
+				36C1B5CF270CC79700249259 /* tiX.swift in Sources */,
 				36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */,
+				36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */,
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
 				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
+				36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +321,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -295,7 +331,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -315,7 +351,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -325,7 +361,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
