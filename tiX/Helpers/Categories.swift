@@ -19,7 +19,7 @@ struct ItemCategory: Identifiable, Hashable {
 @available(iOS 15.0, *)
 @available(iOS 15.0, *)
 let categories = [
-    ItemCategory(category: "Business", color: Color.cyan),
-    ItemCategory(category: "Personal", color: Color.indigo),
+    ItemCategory(category: "Business", color: Color.tix),
+    ItemCategory(category: "Personal", color: Color.green),
     ItemCategory(category: "Other", color: Color.mint)
 ]

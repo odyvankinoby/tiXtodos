@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		367527782710AA6F0087FC4B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367527772710AA6F0087FC4B /* Colors.swift */; };
 		36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B5270CC1BF00249259 /* tiXApp.swift */; };
 		36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B7270CC1BF00249259 /* ContentView.swift */; };
 		36C1B5BA270CC1C000249259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36C1B5B9270CC1C000249259 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		367527772710AA6F0087FC4B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		36C1B5B2270CC1BF00249259 /* tiX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tiX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36C1B5B5270CC1BF00249259 /* tiXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiXApp.swift; sourceTree = "<group>"; };
 		36C1B5B7270CC1BF00249259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				36C1B5CA270CC3EF00249259 /* Categories.swift */,
 				36C1B5DC270DD82B00249259 /* Cards.swift */,
 				36C1B5DE270DD92B00249259 /* Haptics.swift */,
+				367527772710AA6F0087FC4B /* Colors.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */,
 				36C1B5DD270DD82B00249259 /* Cards.swift in Sources */,
 				36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */,
+				367527782710AA6F0087FC4B /* Colors.swift in Sources */,
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
 				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,

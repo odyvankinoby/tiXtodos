@@ -34,7 +34,7 @@ struct Items: View {
                         HStack {
                             Image(systemName: item.isDone ? "circle.fill" : "circle")
                                 .resizable()
-                                .foregroundColor(Color.indigo)
+                                .foregroundColor(Color.tix)
                                 .frame(width: 30, height: 30)
                                 .onTapGesture {
                                     withAnimation {
@@ -84,21 +84,28 @@ struct Items: View {
                         Button(action: {
                             withAnimation {
                                 settings.hideTicked.toggle()
+                             //   Haptics.giveSmallHaptic()
                             }
+                            Haptics.giveSmallHaptic()
                         }) {
                             Image(systemName: settings.hideTicked ? "list.bullet.circle" : "list.bullet.circle.fill")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(.indigo)
-                                .shadow(color: .indigo.opacity(0.3), radius: 10, x: 0, y: 10)
+                                .foregroundColor(.tix)
+                                //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
                                 
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
             }
         }
     }
 
+  
+    
+    
+    
 private func deleteItems(offsets: IndexSet) {
     withAnimation {
         offsets.map { items[$0] }.forEach(viewContext.delete)

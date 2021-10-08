@@ -40,7 +40,7 @@ struct Dashboard: View {
                             HStack {
                                 Text("Categories")
                                     .font(.body.smallCaps())
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.tix)
                                 Spacer()
                             }
                             .padding(.horizontal)
@@ -70,7 +70,7 @@ struct Dashboard: View {
                             HStack {
                                 Text("Today's tasks")
                                     .font(.body.smallCaps())
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.tix)
                                 Spacer()
                             }
                             .padding(.horizontal)
@@ -145,7 +145,7 @@ struct Dashboard: View {
                                 Image(systemName: "plus.circle.fill")
                                     .resizable()
                                     .frame(width: 70, height: 70)
-                                    .foregroundColor(.indigo)
+                                    .foregroundColor(.tix)
                                     .shadow(color: .indigo.opacity(0.3), radius: 10, x: 0, y: 10)
                                     .padding()
                             }
@@ -155,25 +155,29 @@ struct Dashboard: View {
                 }
                 .navigationTitle(userName.isEmpty ? "Hi there!" : "What's up, \(userName)!")
                 
-                // MARK: Navigation bar buttons to open different menus
-                .navigationBarItems(
-                    
-                   
-                    trailing: Button(action: {
-                        withAnimation {
-                            settingsOpen.toggle()
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        HStack {
+                            Button(action: {
+                                withAnimation {
+                                    settingsOpen.toggle()
+                                 //   Haptics.giveSmallHaptic()
+                                }
+                                Haptics.giveSmallHaptic()
+                            }) {
+                                Image(systemName: "gear.circle.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.tix)
+                                    //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
+                                    
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
-                        Haptics.giveSmallHaptic()
-                    }) {
-                        Image(systemName: "gear.circle.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(Color.indigo)
-                        
                     }
-                        .buttonStyle(PlainButtonStyle())
-                    
-                )
+                }
+                   
+                
             }
 
         }

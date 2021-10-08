@@ -37,7 +37,7 @@ struct ContentView: View {
                 }.tag(2)
             
         }
-        .accentColor(Color.indigo)
+        .accentColor(Color.tix)
     }
 }
 
