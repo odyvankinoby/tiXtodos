@@ -15,9 +15,7 @@ struct NewItem: View {
     @State private var category = "Business"
     @State private var dueDate = Date()
     @State private var toDoText = ""
-    
-    @Binding var tabSelected: Int
-    
+     
     let toDoTextLimit = 70
     
     var body: some View {
@@ -101,9 +99,7 @@ struct NewItem: View {
                     
                     Button(role: .none, action: {
                         ViewContextMethods.addItem(context: viewContext, dueDate: dueDate, toDoText: toDoText, category: category)
-                        withAnimation {
-                            tabSelected = 1
-                        }
+                       
                     }, label: {
                         HStack {
                             Text("New task ")
@@ -120,25 +116,7 @@ struct NewItem: View {
             }
             
             
-            VStack{
-                HStack{
-                    Spacer()
-                    Button(action: {
-                        withAnimation {
-                            tabSelected = 1
-                        }
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.indigo)
-                            .shadow(color: .indigo.opacity(0.3), radius: 10, x: 0, y: 10)
-                            .padding()
-                    }
-                }
-                
-                Spacer()
-            }
+            
         }
         
         //}.navigationTitle("New Todo")

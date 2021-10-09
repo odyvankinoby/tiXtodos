@@ -18,12 +18,18 @@ struct Items: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.dueDate, ascending: false)],
         animation: .default)
     private var items: FetchedResults<Item>
-
+    
+    @Namespace private var namespace
+    
+    @State var settingsOpen = false
+    @State var newItemOpen = false
+    
     @State private var searchQuery: String = ""
     @State private var notDoneOnly = false
     @State private var deleteTicked = false
     
     var body: some View {
+        ZStack {
         NavigationView {
             List {
                 Section {
@@ -76,7 +82,18 @@ struct Items: View {
                 //await store.loadStats()
                 print("refreshed")
             }
-            //.searchable(text: "Search in history", placement: $searchQuery)
+            
+            .sheet(isPresented: $settingsOpen) {
+               
+                Settings(settings: settings)
+                
+            }
+            .sheet(isPresented: $newItemOpen) {
+               
+                NewItem()
+                
+            }
+          //.searchable(text: "Search in history", placement: $searchQuery)
             .navigationTitle("Todos")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -98,6 +115,45 @@ struct Items: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                 }
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    HStack {
+                        Button(action: {
+                            withAnimation {
+                                settingsOpen.toggle()
+                            }
+                            Haptics.giveSmallHaptic()
+                        }) {
+                            Image(systemName: "gear.circle.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.tix)
+                                //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
+                                
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+            }
+        }
+            // MARK: Bottom button to add new item
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    Button(action: {
+                        withAnimation {
+                            newItemOpen.toggle()
+                        }
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                            .foregroundColor(.tix)
+                            .shadow(color: .indigo.opacity(0.3), radius: 10, x: 0, y: 10)
+                            .padding()
+                    }
+                }
+                .matchedGeometryEffect(id: "button", in: namespace)
             }
         }
     }

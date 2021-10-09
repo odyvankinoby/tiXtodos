@@ -30,11 +30,16 @@ struct ContentView: View {
                     Image(systemName: "list.bullet.circle")
                     Text("Todos")
                 }.tag(1)
-            NewItem(tabSelected: $tabSelected)
+            NewItem()
                 .tabItem {
                     Image(systemName: "plus.circle")
                     Text("New Item")
                 }.tag(2)
+            Settings(settings: settings)
+                .tabItem {
+                    Image(systemName: "gear.circle.fill")
+                    Text("Settings")
+                }.tag(3)
             
         }
         .accentColor(Color.tix)
