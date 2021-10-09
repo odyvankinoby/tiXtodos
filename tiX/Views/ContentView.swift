@@ -25,21 +25,18 @@ struct ContentView: View {
                     Image(systemName: "house.circle")
                     Text("Dashboard")
                 }.tag(0)
+            
             Items(settings: settings)
                 .tabItem {
                     Image(systemName: "list.bullet.circle")
                     Text("Todos")
                 }.tag(1)
-            NewItem()
-                .tabItem {
-                    Image(systemName: "plus.circle")
-                    Text("New Item")
-                }.tag(2)
+           
             Settings(settings: settings)
                 .tabItem {
                     Image(systemName: "gear.circle.fill")
                     Text("Settings")
-                }.tag(3)
+                }.tag(2)
             
         }
         .accentColor(Color.tix)
