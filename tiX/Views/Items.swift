@@ -21,8 +21,9 @@ struct Items: View {
     
     @Namespace private var namespace
     
-    @State var newItemOpen = false
-    @State var editThis = false
+    @State var newItem = false
+    @State var editItem = false
+   
     @State private var searchQuery: String = ""
     @State private var notDoneOnly = false
     @State private var deleteTicked = false
@@ -49,55 +50,26 @@ struct Items: View {
                                     }
                                     .padding(.trailing, 10)
                                 
-                                VStack {
-                                    HStack {
-                                        //edittext = item.toDoText ?? ""
-                                        if editThis {
-                                            HStack {
-                                            TextField("\(item.toDoText ?? "")", text: $edittext)
-                                                Spacer()
-                                        
-                                            Button(action: {
-                                                withAnimation {
-                                                    editThis.toggle()
-                                                }
-                                                Haptics.giveSmallHaptic()
-                                            }) {
-                                                Image(systemName: "checkmark.circle")
-                                                    .resizable()
-                                                    .frame(width: 30, height: 30)
-                                                    .foregroundColor(.tix)
-                                                //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
-                                                
-                                            }
-                                            .buttonStyle(PlainButtonStyle())
-                                            }
-                                        }
-                                        else {
-                                        Text("\(item.toDoText ?? "")")
-                                            .fixedSize(horizontal: false, vertical: true)
-                                        }
-                                        Spacer()
-                                    }
-                                    .padding(.bottom, 5)
-                                    .onTapGesture(count: 2) {
-                                        editThis.toggle()
-                                    }
+                                
+                                NavigationLink(destination: EditItem(item: item)) {
                                     
-                                    HStack {
-                                        Text("Due: \(item.dueDate!, formatter: itemFormatter)")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
+                                    VStack(alignment: .leading) {
+                                        HStack {
+                                            Text("\(item.toDoText ?? "")")
+                                                .fixedSize(horizontal: false, vertical: true)
+                                        }
                                         Spacer()
-                                        Text(item.category ?? "Unknown")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
+                                        HStack {
+                                            Text("Due: \(item.dueDate!, formatter: itemFormatter)")
+                                                .font(.caption)
+                                                .foregroundColor(.secondary)
+                                            Spacer()
+                                        }
                                     }
+                                    .padding(.leading, 5)
                                 }
-                                .padding(.leading, 5)
                             }
                             .frame(maxHeight: 130)
-                            //.listRowSeparator(.hidden) // no separators
                         }
                     }
                     .onDelete(perform: deleteItems)
@@ -109,14 +81,32 @@ struct Items: View {
                 //await store.loadStats()
                 print("refreshed")
             }
-            
-            
-            .sheet(isPresented: $newItemOpen) {
+            .sheet(isPresented: $newItem) {
                 NewItem()
             }
+            
             //.searchable(text: "Search in history", placement: $searchQuery)
             .navigationTitle("Todos")
             .toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    HStack {
+                        Button(action: {
+                            withAnimation {
+                                settings.hideTicked.toggle()
+                                //   Haptics.giveSmallHaptic()
+                            }
+                            Haptics.giveSmallHaptic()
+                        }) {
+                            Image(systemName: settings.listMode ? "xmark" : "checklist")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.tix)
+                            //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
+                            
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     HStack {
                         Button(action: {
