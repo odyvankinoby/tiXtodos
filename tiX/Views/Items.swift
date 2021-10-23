@@ -23,7 +23,7 @@ struct Items: View {
     
     @State var newItem = false
     @State var editItem = false
-   
+    
     @State private var searchQuery: String = ""
     @State private var notDoneOnly = false
     @State private var deleteTicked = false
@@ -31,7 +31,55 @@ struct Items: View {
     @State var edittext = ""
     
     var body: some View {
-        NavigationView {
+        VStack {
+            
+            
+            HStack {
+               
+                 Button(action: {
+                    withAnimation {
+                        settings.hideTicked.toggle()
+                        //   Haptics.giveSmallHaptic()
+                    }
+                    Haptics.giveSmallHaptic()
+                }) {
+                    Image(systemName: settings.hideTicked ? "list.bullet.circle" : "list.bullet.circle.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.white)
+                    //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
+                    
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.leading, 10)
+                
+                Spacer()
+                
+                Text("Items").font(.title).foregroundColor(.white)
+               
+                Spacer()
+                
+                Button(action: {
+                    withAnimation {
+                        newItem.toggle()
+                        //   Haptics.giveSmallHaptic()
+                    }
+                    Haptics.giveSmallHaptic()
+                }) {
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.white)
+                    //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
+                    
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.trailing, 10)
+                
+            }
+            
+            
+            
             List {
                 Section {
                     ForEach(searchResults, id: \.self) { item in
@@ -85,67 +133,7 @@ struct Items: View {
                 NewItem()
             }
             
-            //.searchable(text: "Search in history", placement: $searchQuery)
-            .navigationTitle("Todos")
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    HStack {
-                        Button(action: {
-                            withAnimation {
-                                settings.hideTicked.toggle()
-                                //   Haptics.giveSmallHaptic()
-                            }
-                            Haptics.giveSmallHaptic()
-                        }) {
-                            Image(systemName: settings.listMode ? "xmark" : "checklist")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.tix)
-                            //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
-                            
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    HStack {
-                        Button(action: {
-                            withAnimation {
-                                settings.hideTicked.toggle()
-                                //   Haptics.giveSmallHaptic()
-                            }
-                            Haptics.giveSmallHaptic()
-                        }) {
-                            Image(systemName: settings.listMode ? "checklist" : "checklist")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.tix)
-                            //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
-                            
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }.padding(.trailing, 10)
-                    HStack {
-                        Button(action: {
-                            withAnimation {
-                                settings.hideTicked.toggle()
-                                //   Haptics.giveSmallHaptic()
-                            }
-                            Haptics.giveSmallHaptic()
-                        }) {
-                            Image(systemName: settings.hideTicked ? "list.bullet.circle" : "list.bullet.circle.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.tix)
-                            //.shadow(color: .tix.opacity(0.3), radius: 10, x: 0, y: 10)
-                            
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                }
-            }
-        }
-        
+        }.background(LinearGradient(gradient: Gradient(colors: [.tix, .green]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
     }
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
