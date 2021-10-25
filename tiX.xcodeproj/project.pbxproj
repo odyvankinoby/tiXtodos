@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		360A63EC27118DFE005E9AAB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A63EB27118DFE005E9AAB /* Settings.swift */; };
+		361C8C972727248C00EA0737 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361C8C962727248C00EA0737 /* Todos.swift */; };
 		367527782710AA6F0087FC4B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367527772710AA6F0087FC4B /* Colors.swift */; };
 		36B6F2982716078F003B7C79 /* EditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F2972716078F003B7C79 /* EditItem.swift */; };
 		36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B5270CC1BF00249259 /* tiXApp.swift */; };
@@ -18,7 +19,6 @@
 		36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */; };
 		36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C8270CC2F900249259 /* ViewContent.swift */; };
 		36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CA270CC3EF00249259 /* Categories.swift */; };
-		36C1B5CF270CC79700249259 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CE270CC79700249259 /* Todos.swift */; };
 		36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D4270CCAFE00249259 /* NewItem.swift */; };
 		36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D8270DD4B100249259 /* UserSettings.swift */; };
 		36C1B5DB270DD6F100249259 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DA270DD6F100249259 /* Dashboard.swift */; };
@@ -28,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		360A63EB27118DFE005E9AAB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		361C8C962727248C00EA0737 /* Todos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		367527772710AA6F0087FC4B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		36B6F2972716078F003B7C79 /* EditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItem.swift; sourceTree = "<group>"; };
 		36C1B5B2270CC1BF00249259 /* tiX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tiX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,7 +40,6 @@
 		36C1B5C1270CC1C000249259 /* tiX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tiX.xcdatamodel; sourceTree = "<group>"; };
 		36C1B5C8270CC2F900249259 /* ViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContent.swift; sourceTree = "<group>"; };
 		36C1B5CA270CC3EF00249259 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
-		36C1B5CE270CC79700249259 /* Todos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		36C1B5D4270CCAFE00249259 /* NewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItem.swift; sourceTree = "<group>"; };
 		36C1B5D8270DD4B100249259 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		36C1B5DA270DD6F100249259 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
-				36C1B5CE270CC79700249259 /* Todos.swift */,
+				361C8C962727248C00EA0737 /* Todos.swift */,
 				36C1B5DA270DD6F100249259 /* Dashboard.swift */,
 				36C1B5D4270CCAFE00249259 /* NewItem.swift */,
 				36B6F2972716078F003B7C79 /* EditItem.swift */,
@@ -205,7 +205,6 @@
 				36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */,
 				36C1B5DB270DD6F100249259 /* Dashboard.swift in Sources */,
 				360A63EC27118DFE005E9AAB /* Settings.swift in Sources */,
-				36C1B5CF270CC79700249259 /* Todos.swift in Sources */,
 				36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */,
 				36C1B5DD270DD82B00249259 /* Cards.swift in Sources */,
 				36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */,
@@ -215,6 +214,7 @@
 				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
 				36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */,
+				361C8C972727248C00EA0737 /* Todos.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,17 +17,15 @@ struct Todos: View {
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
 
     @State var newItem = false
-    @State var editItem = false
-    
+  
     @State private var searchQuery: String = ""
     @State private var notDoneOnly = false
     @State private var deleteTicked = false
-    
-    @State var edittext = ""
-    
+  
     var body: some View {
-        VStack {
-            HStack {
+        NavigationView {
+            
+            /*HStack {
                 
                 Button(action: {
                     withAnimation {
@@ -65,11 +63,14 @@ struct Todos: View {
                 .buttonStyle(PlainButtonStyle())
                 .padding(.trailing, 10)
                 
-            }
+            }*/
             
             List {
                 ForEach(todos, id: \.self) { todo in
                     
+                    if !(settings.hideTicked && todo.isDone) {
+                    NavigationLink(destination: EditItem(todo: todo).environment(\.managedObjectContext, self.viewContext))
+                    {
                         VStack(alignment: .leading){
                             HStack(alignment: .center){
                                 Image(systemName: todo.isDone ? "circle.fill" : "circle")
@@ -81,7 +82,9 @@ struct Todos: View {
                                         }
                                     }
                                     .foregroundColor(.tix)
-                                    .padding(10)
+                                    .padding(.trailing, 10)
+                                    .padding(.bottom, 10)
+                                    .padding(.top, 10)
                                 
                                 Text(todo.todo ?? "todo")
                                     .font(.callout)
@@ -90,15 +93,54 @@ struct Todos: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                    
+                    }
+                    }
                 }.onDelete(perform: deleteItems(offsets:))
                     .listStyle(PlainListStyle())
-                
-                
+               
             }
+            .navigationBarTitle("Todos", displayMode: .automatic).allowsTightening(true)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button(action: {
+                        withAnimation {
+                            settings.hideTicked.toggle()
+                            Haptics.giveSmallHaptic()
+                        }
+                        Haptics.giveSmallHaptic()
+                    }) {
+                        Image(systemName: settings.hideTicked ? "list.bullet.circle" : "list.bullet.circle.fill")
+                            .resizable()
+                            .foregroundColor(.tix)
+                       
+                        
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                   
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                      
+                    Button(action: {
+                        withAnimation {
+                            newItem.toggle()
+                            Haptics.giveSmallHaptic()
+                        }
+                        Haptics.giveSmallHaptic()
+                    }) {
+                        Image(systemName: "plus.circle")
+                            .resizable()
+                            .foregroundColor(.tix)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    
+                }
+            }
+            .sheet(isPresented: $newItem) { NewItem() }
+
         }
-        .sheet(isPresented: $newItem) { NewItem() }
-        .background(LinearGradient(gradient: Gradient(colors: [.tix, .green]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+        .navigationViewStyle(StackNavigationViewStyle())
+        .accentColor(.tix) // NAV
     }
     
     private func deleteItems(offsets: IndexSet) {
