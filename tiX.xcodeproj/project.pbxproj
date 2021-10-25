@@ -18,7 +18,7 @@
 		36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */; };
 		36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C8270CC2F900249259 /* ViewContent.swift */; };
 		36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CA270CC3EF00249259 /* Categories.swift */; };
-		36C1B5CF270CC79700249259 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CE270CC79700249259 /* Items.swift */; };
+		36C1B5CF270CC79700249259 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5CE270CC79700249259 /* Todos.swift */; };
 		36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D4270CCAFE00249259 /* NewItem.swift */; };
 		36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D8270DD4B100249259 /* UserSettings.swift */; };
 		36C1B5DB270DD6F100249259 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DA270DD6F100249259 /* Dashboard.swift */; };
@@ -39,7 +39,7 @@
 		36C1B5C1270CC1C000249259 /* tiX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tiX.xcdatamodel; sourceTree = "<group>"; };
 		36C1B5C8270CC2F900249259 /* ViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContent.swift; sourceTree = "<group>"; };
 		36C1B5CA270CC3EF00249259 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
-		36C1B5CE270CC79700249259 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		36C1B5CE270CC79700249259 /* Todos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		36C1B5D4270CCAFE00249259 /* NewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItem.swift; sourceTree = "<group>"; };
 		36C1B5D8270DD4B100249259 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		36C1B5DA270DD6F100249259 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
@@ -58,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36924ED12725721A001D1258 /* Coredata */ = {
+			isa = PBXGroup;
+			children = (
+				36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */,
+			);
+			path = Coredata;
+			sourceTree = "<group>";
+		};
 		36C1B5A9270CC1BF00249259 = {
 			isa = PBXGroup;
 			children = (
@@ -81,7 +89,7 @@
 				36C1B5D6270DCDA200249259 /* Views */,
 				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
 				36C1B5D7270DCDB700249259 /* Helpers */,
-				36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */,
+				36924ED12725721A001D1258 /* Coredata */,
 				36C1B5BB270CC1C000249259 /* Preview Content */,
 				36C1B5D8270DD4B100249259 /* UserSettings.swift */,
 			);
@@ -100,8 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
+				36C1B5CE270CC79700249259 /* Todos.swift */,
 				36C1B5DA270DD6F100249259 /* Dashboard.swift */,
-				36C1B5CE270CC79700249259 /* Items.swift */,
 				36C1B5D4270CCAFE00249259 /* NewItem.swift */,
 				36B6F2972716078F003B7C79 /* EditItem.swift */,
 				360A63EB27118DFE005E9AAB /* Settings.swift */,
@@ -197,7 +205,7 @@
 				36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */,
 				36C1B5DB270DD6F100249259 /* Dashboard.swift in Sources */,
 				360A63EC27118DFE005E9AAB /* Settings.swift in Sources */,
-				36C1B5CF270CC79700249259 /* Items.swift in Sources */,
+				36C1B5CF270CC79700249259 /* Todos.swift in Sources */,
 				36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */,
 				36C1B5DD270DD82B00249259 /* Cards.swift in Sources */,
 				36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */,
@@ -343,6 +351,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -373,6 +382,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -18,12 +18,13 @@ struct ViewContextMethods {
         category: String
     ) {
         withAnimation {
-            let newItem = Item(context: context)
+            let newItem = Todo(context: context)
             newItem.timestamp = Date()
             newItem.dueDate = dueDate
-            newItem.toDoText = toDoText
+            newItem.todo = toDoText
             newItem.isDone = false
-            newItem.category = category
+            newItem.id = UUID()
+            //newItem.category = category
             
             do {
                 try context.save()
@@ -36,9 +37,9 @@ struct ViewContextMethods {
         }
     }
     
-    static func isDone(item: Item, context: NSManagedObjectContext) {
+    static func isDone(todo: Todo, context: NSManagedObjectContext) {
         withAnimation{
-            item.isDone.toggle()
+            todo.isDone.toggle()
         }
         do {
             try context.save()

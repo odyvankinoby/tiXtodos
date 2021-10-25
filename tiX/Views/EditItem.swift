@@ -10,7 +10,7 @@ import Combine
 
 struct EditItem: View {
     
-    @State var item: Item
+    @State var todo: Todo
     
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -54,8 +54,8 @@ struct EditItem: View {
     }
     
     func onAppear() {
-        toDoText = item.toDoText ?? ""
-        dueDate = item.dueDate ?? Date()
+        toDoText = todo.todo ?? ""
+        dueDate = todo.dueDate ?? Date()
     }
     
     func textChanged(upper: Int, text: inout String) {

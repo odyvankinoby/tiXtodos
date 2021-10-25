@@ -26,7 +26,7 @@ struct ContentView: View {
                     Text("Dashboard")
                 }.tag(0)
             */
-            Items(settings: settings)
+            Todos(settings: settings)
                 .tabItem {
                     Image(systemName: "list.bullet.circle")
                     Text("Todos")

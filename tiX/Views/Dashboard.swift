@@ -4,7 +4,7 @@
 //
 //  Created by Nicolas Ott on 06.10.21.
 //
-
+/*
 import SwiftUI
 import CoreData
 
@@ -15,12 +15,12 @@ struct Dashboard: View {
     @Namespace private var namespace
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: false)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Todo.timestamp, ascending: false)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var todos: FetchedResults<Todo>
     
-    private var todaysItems: [Item] {
-        items.filter {
+    private var todaysItems: [Todo] {
+        todos.filter {
             Calendar.current.isDate($0.dueDate ?? Date(), equalTo: Date(), toGranularity: .day)
         }
     }
@@ -45,7 +45,7 @@ struct Dashboard: View {
                             }
                             .padding(.horizontal)
                             
-                            
+                            /*
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 20) {
                                     ForEach(categories) {category in
@@ -61,6 +61,7 @@ struct Dashboard: View {
                                 .padding(.trailing, 30)
                             }
                             .frame(height: 190)
+                            */
                             
                         }
                         .padding(.top, 30)
@@ -88,13 +89,13 @@ struct Dashboard: View {
                                                     .frame(width: 30, height: 30)
                                                     .onTapGesture {
                                                         withAnimation {
-                                                            ViewContextMethods.isDone(item: toDoItem, context: viewContext)
+                                                            ViewContextMethods.isDone(todo: toDoItem, context: viewContext)
                                                         }
                                                     }
                                                     .padding(.leading, 20)
                                                     .padding(.trailing, 10)
                                                 
-                                                Text("\(toDoItem.toDoText ?? "")")
+                                                Text("\(toDoItem.todo ?? "")")
                                                 Spacer()
                                             }
                                         }
@@ -182,12 +183,12 @@ struct Dashboard: View {
 
         }
     }
-    
+    /*
     // MARK: functions
-    func getCategoryColor(toDoItem: Item) -> Color {
+    func getCategoryColor(toDoItem: Todo) -> Color {
         var category: [ItemCategory] {
             categories.filter {
-                $0.category == toDoItem.category
+                //$0.category == toDoItem.category
             }
         }
         
@@ -195,8 +196,8 @@ struct Dashboard: View {
     }
     
     func getTotalTasksNumber(category: ItemCategory) -> Int {
-        var categoryTasks: [Item] {
-            items.filter {
+        var categoryTasks: [Todo] {
+            todos.filter {
                 $0.category == category.category
             }
         }
@@ -206,13 +207,14 @@ struct Dashboard: View {
     
     func getDoneTasksNumber(category: ItemCategory) -> Int {
         var categoryTasksDone: [Item] {
-            items.filter {
+            todos.filter {
                 $0.category == category.category && $0.isDone == true
             }
         }
         
         return categoryTasksDone.count
     }
-    
+    */
 }
 
+*/
