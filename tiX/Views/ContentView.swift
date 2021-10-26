@@ -11,6 +11,22 @@ import CoreData
 struct ContentView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    let coloredNavAppearance = UINavigationBarAppearance()
+    
+    init() {
+        
+      
+        coloredNavAppearance.titleTextAttributes = [.foregroundColor: UIColor(.tix)]
+        
+        coloredNavAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(.tix)]
+        coloredNavAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(.tix)]
+        
+        UINavigationBar.appearance().standardAppearance = coloredNavAppearance
+        UINavigationBar.appearance().barTintColor = UIColor(.tix)
+        //UINavigationBar.appearance().scrollEdgeAppearance = coloredNavAppearance
+     
+    }
+    
     
     // Observable Objects
     @ObservedObject var settings = UserSettings()
@@ -32,7 +48,11 @@ struct ContentView: View {
                     Image(systemName: "list.bullet.circle")
                     Text("Todos")
                 }.tag(1)
-           
+            Cats(settings: settings)
+                .tabItem {
+                    Image(systemName: "folder.circle")
+                    Text("Categories")
+                }.tag(1)
             Settings(settings: settings)
                 .tabItem {
                     Image(systemName: "gear.circle.fill")

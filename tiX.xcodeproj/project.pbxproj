@@ -10,6 +10,9 @@
 		360A63EC27118DFE005E9AAB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A63EB27118DFE005E9AAB /* Settings.swift */; };
 		361C8C972727248C00EA0737 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361C8C962727248C00EA0737 /* Todos.swift */; };
 		367527782710AA6F0087FC4B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367527772710AA6F0087FC4B /* Colors.swift */; };
+		36A250B227282577003BC001 /* NewCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B127282577003BC001 /* NewCategory.swift */; };
+		36A250B4272836C9003BC001 /* EditCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B3272836C9003BC001 /* EditCategory.swift */; };
+		36A250B627283738003BC001 /* Cats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B527283738003BC001 /* Cats.swift */; };
 		36B6F2982716078F003B7C79 /* EditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F2972716078F003B7C79 /* EditItem.swift */; };
 		36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B5270CC1BF00249259 /* tiXApp.swift */; };
 		36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B7270CC1BF00249259 /* ContentView.swift */; };
@@ -30,6 +33,9 @@
 		360A63EB27118DFE005E9AAB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		361C8C962727248C00EA0737 /* Todos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		367527772710AA6F0087FC4B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		36A250B127282577003BC001 /* NewCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategory.swift; sourceTree = "<group>"; };
+		36A250B3272836C9003BC001 /* EditCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategory.swift; sourceTree = "<group>"; };
+		36A250B527283738003BC001 /* Cats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cats.swift; sourceTree = "<group>"; };
 		36B6F2972716078F003B7C79 /* EditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItem.swift; sourceTree = "<group>"; };
 		36C1B5B2270CC1BF00249259 /* tiX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tiX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36C1B5B5270CC1BF00249259 /* tiXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiXApp.swift; sourceTree = "<group>"; };
@@ -64,6 +70,26 @@
 				36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */,
 			);
 			path = Coredata;
+			sourceTree = "<group>";
+		};
+		36A250B727283958003BC001 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				36A250B527283738003BC001 /* Cats.swift */,
+				36A250B127282577003BC001 /* NewCategory.swift */,
+				36A250B3272836C9003BC001 /* EditCategory.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		36A250B827283965003BC001 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				361C8C962727248C00EA0737 /* Todos.swift */,
+				36C1B5D4270CCAFE00249259 /* NewItem.swift */,
+				36B6F2972716078F003B7C79 /* EditItem.swift */,
+			);
+			path = Todo;
 			sourceTree = "<group>";
 		};
 		36C1B5A9270CC1BF00249259 = {
@@ -108,10 +134,9 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
-				361C8C962727248C00EA0737 /* Todos.swift */,
+				36A250B827283965003BC001 /* Todo */,
+				36A250B727283958003BC001 /* Category */,
 				36C1B5DA270DD6F100249259 /* Dashboard.swift */,
-				36C1B5D4270CCAFE00249259 /* NewItem.swift */,
-				36B6F2972716078F003B7C79 /* EditItem.swift */,
 				360A63EB27118DFE005E9AAB /* Settings.swift */,
 			);
 			path = Views;
@@ -204,6 +229,8 @@
 				36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */,
 				36C1B5D5270CCAFE00249259 /* NewItem.swift in Sources */,
 				36C1B5DB270DD6F100249259 /* Dashboard.swift in Sources */,
+				36A250B227282577003BC001 /* NewCategory.swift in Sources */,
+				36A250B627283738003BC001 /* Cats.swift in Sources */,
 				360A63EC27118DFE005E9AAB /* Settings.swift in Sources */,
 				36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */,
 				36C1B5DD270DD82B00249259 /* Cards.swift in Sources */,
@@ -212,6 +239,7 @@
 				367527782710AA6F0087FC4B /* Colors.swift in Sources */,
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
 				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
+				36A250B4272836C9003BC001 /* EditCategory.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
 				36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */,
 				361C8C972727248C00EA0737 /* Todos.swift in Sources */,

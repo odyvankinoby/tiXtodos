@@ -11,4 +11,7 @@ extension Color {
     public static var tix: Color {
         return Color("tix")
     }
+    public static var tixDark: Color {
+        return Color("tixDark")
+    }
 }

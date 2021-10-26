@@ -17,6 +17,7 @@ struct Todos: View {
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
 
     @State var newItem = false
+    @State var newCategory = false
   
     @State private var searchQuery: String = ""
     @State private var notDoneOnly = false
@@ -109,11 +110,9 @@ struct Todos: View {
                         }
                         Haptics.giveSmallHaptic()
                     }) {
-                        Image(systemName: settings.hideTicked ? "list.bullet.circle" : "list.bullet.circle.fill")
+                        Image(systemName: settings.hideTicked ? "circle" : "circle.fill")
                             .resizable()
                             .foregroundColor(.tix)
-                       
-                        
                     }
                     .buttonStyle(PlainButtonStyle())
                    
@@ -122,12 +121,25 @@ struct Todos: View {
                       
                     Button(action: {
                         withAnimation {
+                            newCategory.toggle()
+                            Haptics.giveSmallHaptic()
+                        }
+                        Haptics.giveSmallHaptic()
+                    }) {
+                        Image(systemName: "plus.square.on.square")
+                            .resizable()
+                            .foregroundColor(.tix)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        withAnimation {
                             newItem.toggle()
                             Haptics.giveSmallHaptic()
                         }
                         Haptics.giveSmallHaptic()
                     }) {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "plus")
                             .resizable()
                             .foregroundColor(.tix)
                     }
@@ -136,7 +148,8 @@ struct Todos: View {
                     
                 }
             }
-            .sheet(isPresented: $newItem) { NewItem() }
+            .sheet(isPresented: $newItem) { NewItem(category: Category()) }
+            .sheet(isPresented: $newCategory) { NewCategory() }
 
         }
         .navigationViewStyle(StackNavigationViewStyle())
