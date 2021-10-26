@@ -64,7 +64,7 @@ struct NewItem: View {
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
                 HStack {
-                    Picker("Please choose a Category", selection: $selectedColor) {
+                    Picker("Please choose a Category", selection: $category) {
                                     ForEach(categories, id: \.self) { cat in
                                         Text(cat.category ?? "-none-")
                                             .frame(alignment: .leading)

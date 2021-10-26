@@ -16,8 +16,9 @@ struct EditItem: View {
     @Environment(\.presentationMode) var presentationMode
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
     
-    @State private var dueDate = Date()
-    @State private var toDoText = ""
+    @State  var dueDate = Date()
+    @State  var toDoText = ""
+    @State  var cat: Category
     @State private var selectedColor = "Red"
     var colors = ["Red", "Green", "Blue", "Tartan"]
                     
@@ -47,7 +48,7 @@ struct EditItem: View {
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
                 HStack {
-                    Picker("Please choose a Category", selection: $selectedColor) {
+                    Picker("Please choose a Category", selection: $cat) {
                                     ForEach(categories, id: \.self) { cat in
                                         Text(cat.category ?? "-none-")
                                             .frame(alignment: .leading)
@@ -91,11 +92,8 @@ struct EditItem: View {
                 }) {
                     Text("Save")
                         .foregroundColor(.tix)
-                    
-                    
                 }
                 .buttonStyle(PlainButtonStyle())
-                
             }
         }
             
@@ -108,6 +106,7 @@ struct EditItem: View {
     func onAppear() {
         toDoText = todo.todo ?? ""
         dueDate = todo.dueDate ?? Date()
+        cat = todo.category ?? Category()
     }
     
     func textChanged(upper: Int, text: inout String) {
@@ -116,38 +115,15 @@ struct EditItem: View {
         }
     }
     
-    
-    
-    
-    
-    
     func saveAction() {
-        if self.editMode == true {
-            workout.category = self.textCategory
-            workout.name = self.textName
-            workout.desc = self.textDesc
-            workout.isFavorite = self.boolIsFavorite
-            workout.exerciseCount = self.woExCnt
-            workout.supersetCount = self.woSsCnt
+        todo.todo = self.toDoText
+        todo.dueDate = self.dueDate
+        todo.category = self.cat
             do {
-                try self.managedObjectContext.save()
+                try self.viewContext.save()
             } catch {
                 NSLog(error.localizedDescription)
             }
-        }
-        self.editMode.toggle()
-    }
-    
-    
-    
-    
-    
-    func saveAction() {
-        do {
-            try self.viewContext.save()
-        } catch {
-            NSLog(error.localizedDescription)
-        }
         self.cancelAction()
     }
     
