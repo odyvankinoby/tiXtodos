@@ -9,6 +9,13 @@ import SwiftUI
 
 @main
 struct tiXApp: App {
+
+    init() {
+        ValueTransformer.setValueTransformer(
+              SerializableColorTransformer(),
+              forName: NSValueTransformerName(
+                rawValue: "SerializableColorTransformer"))
+    }
     
     let persistenceController = PersistenceController.shared
 

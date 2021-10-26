@@ -38,7 +38,9 @@ struct Cats: View {
                                             /*ViewContextMethods.isDone(todo: todo, context: viewContext)*/
                                         }
                                     }
-                                    .foregroundColor(.tix)
+                                    .foregroundColor(SerializableColor.
+                                                        
+                                                        .decode(from: cat.color))
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
