@@ -43,7 +43,7 @@ struct ContentView: View {
                     Text("Dashboard")
                 }.tag(0)
             */
-            Todos(settings: settings)
+            Todos(settings: settings, cat: Category())
                 .tabItem {
                     Image(systemName: "list.bullet.circle")
                     Text("Todos")

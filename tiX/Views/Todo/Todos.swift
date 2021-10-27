@@ -14,84 +14,104 @@ struct Todos: View {
     
     @ObservedObject var settings: UserSettings
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
+    
     @State private var newItem = false
     @State private var searchQuery: String = ""
     @State private var deleteTicked = false
+    @State var cat: Category
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(searchResults, id: \.self) { todo in
+            VStack {
+                
+                HStack {
                     
                     
-                    NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category(), col: todo.category?.color?.color ?? Color.tix).environment(\.managedObjectContext, self.viewContext))
-                    {
-                        VStack(alignment: .leading){
+                    List {
+                        ForEach(searchResults, id: \.self) { todo in
                             
-                            HStack(alignment: .center){
-                                Image(systemName: todo.isDone ? "circle.fill" : "circle")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .onTapGesture {
-                                        withAnimation {
-                                            ViewContextMethods.isDone(todo: todo, context: viewContext)
-                                        }
+                            
+                            NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category(), col: todo.category?.color?.color ?? Color.tix).environment(\.managedObjectContext, self.viewContext))
+                            {
+                                VStack(alignment: .leading){
+                                    
+                                    HStack(alignment: .center){
+                                        Image(systemName: todo.isDone ? "circle.fill" : "circle")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .onTapGesture {
+                                                withAnimation {
+                                                    ViewContextMethods.isDone(todo: todo, context: viewContext)
+                                                }
+                                            }
+                                            .foregroundColor(todo.category?.color?.color ?? Color.tix)
+                                            .padding(.trailing, 10)
+                                            .padding(.bottom, 10)
+                                            .padding(.top, 10)
+                                        
+                                        Text(todo.todo ?? "todo")
+                                            .font(.callout)
+                                            .foregroundColor(.tix)
+                                        Spacer()
                                     }
-                                    .foregroundColor(todo.category?.color?.color ?? Color.tix)
-                                    .padding(.trailing, 10)
-                                    .padding(.bottom, 10)
-                                    .padding(.top, 10)
+                                }
+                                .frame(maxWidth: .infinity)
                                 
-                                Text(todo.todo ?? "todo")
-                                    .font(.callout)
-                                    .foregroundColor(.tix)
-                                Spacer()
                             }
-                        }
-                        .frame(maxWidth: .infinity)
+                        }.onDelete(perform: deleteItems(offsets:))
+                            .listStyle(PlainListStyle())
                         
                     }
-                }.onDelete(perform: deleteItems(offsets:))
-                    .listStyle(PlainListStyle())
-                
-            }
-            .searchable(text: $searchQuery)
-            .navigationBarTitle("Todos", displayMode: .automatic).allowsTightening(true)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button(action: {
-                        withAnimation {
-                            settings.hideTicked.toggle()
-                            Haptics.giveSmallHaptic()
+                    .searchable(text: $searchQuery)
+                    .navigationBarTitle("Todos", displayMode: .automatic).allowsTightening(true)
+                    .toolbar {
+                        ToolbarItemGroup(placement: .navigationBarLeading) {
+                            Button(action: {
+                                withAnimation {
+                                    settings.hideTicked.toggle()
+                                    Haptics.giveSmallHaptic()
+                                }
+                                Haptics.giveSmallHaptic()
+                            }) {
+                                Image(systemName: settings.hideTicked ? "circle" : "circle.fill")
+                                    .resizable()
+                                    .foregroundColor(.tix)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
                         }
-                        Haptics.giveSmallHaptic()
-                    }) {
-                        Image(systemName: settings.hideTicked ? "circle" : "circle.fill")
-                            .resizable()
-                            .foregroundColor(.tix)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    
-                    Button(action: {
-                        withAnimation {
-                            newItem.toggle()
-                            Haptics.giveSmallHaptic()
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            
+                            Button(action: {
+                                withAnimation {
+                                    newItem.toggle()
+                                    Haptics.giveSmallHaptic()
+                                }
+                                Haptics.giveSmallHaptic()
+                            }) {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .foregroundColor(.tix)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            
                         }
-                        Haptics.giveSmallHaptic()
-                    }) {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .foregroundColor(.tix)
                     }
-                    .buttonStyle(PlainButtonStyle())
+                    .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
                     
-                    
+                    Picker("Please choose a Category", selection: $cat) {
+                                    ForEach(categories, id: \.self) { catt in
+                                        Text(catt.category ?? "-none-")
+                                            .frame(alignment: .leading)
+                                            .frame(maxWidth: .infinity)
+                                    }
+                                }.onChange(of: cat, perform: { (value) in
+                                    //
+                                })
                 }
             }
-            .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.tix) // NAV
