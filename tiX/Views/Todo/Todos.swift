@@ -82,7 +82,7 @@ struct Todos: View {
                                             ViewContextMethods.isDone(todo: todo, context: viewContext)
                                         }
                                     }
-                                    .foregroundColor(.tix)
+                                    .foregroundColor(todo.category?.color?.color ?? Color.tix)
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
@@ -148,7 +148,7 @@ struct Todos: View {
                     
                 }
             }
-            .sheet(isPresented: $newItem) { NewItem(category: Category()) }
+            .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
             .sheet(isPresented: $newCategory) { NewCategory() }
 
         }

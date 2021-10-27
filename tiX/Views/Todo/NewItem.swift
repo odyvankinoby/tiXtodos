@@ -21,61 +21,75 @@ struct NewItem: View {
     
     @State private var dueDate = Date()
     @State private var toDoText = ""
-    @State var category: Category
+    @State var cat: Category
+    @State var col = Color.tix
     
     let toDoTextLimit = 70
     
     var body: some View {
         NavigationView {
-            VStack {
-               
-                DatePicker(selection: $dueDate, displayedComponents: .date) {
-                    Text("Due date")
-                    
-                }
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                .accentColor(Color.indigo)
-                .padding()
-                
-                
-                if toDoText.isEmpty {
-                    
-                    Text("Enter your todo item")
-                        .font(Font.body)
-                        .foregroundColor(Color.gray)
-                    Spacer()
-                    
-                }
-                TextEditor(text: $toDoText)
-                
-                    .frame(height: 200, alignment: .leading)
+            ScrollView() {
+                Text("Todo")
+                    .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
-                    .lineSpacing(5)
+                    .padding()
+                    .background(Color.tix.opacity(0.5))
+                TextField("", text: $toDoText)
+                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity)
                     .onReceive(Just(toDoText)) { toDoText in
                         textChanged(upper: toDoTextLimit, text: &self.toDoText)
                     }
-                    .zIndex(1)
                     .opacity(toDoText.isEmpty ? 0.25 : 1)
-                
-                
+                    .foregroundColor(Color.tix)
+                    .padding()
+               
                 Text("Category")
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
                 HStack {
-                    Picker("Please choose a Category", selection: $category) {
-                                    ForEach(categories, id: \.self) { cat in
-                                        Text(cat.category ?? "-none-")
+                    Image(systemName: "square.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(self.col)
+                        .padding(.trailing, 10)
+                        .padding(.bottom, 10)
+                        .padding(.top, 10)
+                    Picker("Please choose a Category", selection: $cat) {
+                                    ForEach(categories, id: \.self) { catt in
+                                        Text(catt.category ?? "-none-")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
-                                            .foregroundColor(Color.tix)
                                     }
-                                }
-                   
+                                }.onChange(of: cat, perform: { (value) in
+                                    pickerChanged()
+                                })
                 }.padding()
-               
+                Text("Due date")
+                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity)
+                    .padding().background(Color.tix.opacity(0.5))
+                DatePicker(selection: $dueDate, displayedComponents: .date) {
+                    Text("Due date")
+                    
+                }.foregroundColor(Color.tix)
+                .padding()
+                .accentColor(Color.tix)
             }.toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button(action: {
+                        withAnimation {
+                            cancelAction()
+                            Haptics.giveSmallHaptic()
+                        }
+                    }) {
+                        Text("Discard")
+                            .foregroundColor(.tix)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: {
                         withAnimation {
@@ -85,8 +99,6 @@ struct NewItem: View {
                     }) {
                         Text("Save")
                             .foregroundColor(.tix)
-                        
-                        
                     }
                     .buttonStyle(PlainButtonStyle())
                     
@@ -101,11 +113,14 @@ struct NewItem: View {
         }
     }
     
+    func pickerChanged() {
+        col = cat.color?.color ?? Color.tix
+    }
     
     func saveAction() {
         let newTodo = Todo(context: self.viewContext)
         newTodo.todo = self.toDoText
-        newTodo.category = self.category
+        newTodo.category = self.cat
         newTodo.dueDate = self.dueDate
         newTodo.id = UUID()
         do {

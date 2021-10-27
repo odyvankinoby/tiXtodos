@@ -48,6 +48,19 @@ struct NewCategory: View {
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
             .padding()
             .toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button(action: {
+                        withAnimation {
+                            cancelAction()
+                            Haptics.giveSmallHaptic()
+                        }
+                    }) {
+                        Text("Discard")
+                            .foregroundColor(.tix)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: {
                         withAnimation {
