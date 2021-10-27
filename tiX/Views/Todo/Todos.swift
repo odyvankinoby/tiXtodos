@@ -70,7 +70,7 @@ struct Todos: View {
                 ForEach(todos, id: \.self) { todo in
                     
                     if !(settings.hideTicked && todo.isDone) {
-                        NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category()).environment(\.managedObjectContext, self.viewContext))
+                        NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category(), col: todo.category?.color?.color ?? Color.tix).environment(\.managedObjectContext, self.viewContext))
                     {
                         VStack(alignment: .leading){
                             HStack(alignment: .center){

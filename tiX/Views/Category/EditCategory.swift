@@ -19,6 +19,7 @@ struct EditCategory: View {
     var colors = ["Red", "Green", "Blue", "Tartan"]
                     
     let toDoTextLimit = 70
+    @State var col = Color.tix
     
     var body: some View {
         
@@ -38,6 +39,23 @@ struct EditCategory: View {
                     .opacity(toDoText.isEmpty ? 0.25 : 1)
                     .foregroundColor(Color.tix)
                     .padding()
+                Text("Color")
+                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.tix.opacity(0.5))
+                Image(systemName: "square.fill")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .onTapGesture {
+                        withAnimation {
+                            /*ViewContextMethods.isDone(todo: todo, context: viewContext)*/
+                        }
+                    }
+                    .foregroundColor(self.col)
+                    .padding(.trailing, 10)
+                    .padding(.bottom, 10)
+                    .padding(.top, 10)
                 
                
 
@@ -61,6 +79,7 @@ struct EditCategory: View {
     
     func onAppear() {
         toDoText = cat.category ?? ""
+        col = cat.color?.color ?? Color.tix
       
     }
     

@@ -16,14 +16,15 @@ struct EditItem: View {
     @Environment(\.presentationMode) var presentationMode
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
     
-    @State  var dueDate = Date()
-    @State  var toDoText = ""
-    @State  var cat: Category
+    @State var dueDate = Date()
+    @State var toDoText = ""
+    @State var cat: Category
+    @State var col: Color
     @State private var selectedColor = "Red"
     var colors = ["Red", "Green", "Blue", "Tartan"]
                     
     let toDoTextLimit = 70
-    
+   
     var body: some View {
         
         VStack {
@@ -48,14 +49,22 @@ struct EditItem: View {
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
                 HStack {
+                    Image(systemName: "square.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(self.col)
+                        .padding(.trailing, 10)
+                        .padding(.bottom, 10)
+                        .padding(.top, 10)
                     Picker("Please choose a Category", selection: $cat) {
-                                    ForEach(categories, id: \.self) { cat in
-                                        Text(cat.category ?? "-none-")
+                                    ForEach(categories, id: \.self) { catt in
+                                        Text(catt.category ?? "-none-")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
-                                            .foregroundColor(Color.tix)
                                     }
-                                }
+                                }.onChange(of: cat, perform: { (value) in
+                                    pickerChanged()
+                                })
                    
                 }.padding()
                
@@ -107,6 +116,11 @@ struct EditItem: View {
         toDoText = todo.todo ?? ""
         dueDate = todo.dueDate ?? Date()
         cat = todo.category ?? Category()
+        col = cat.color?.color ?? Color.tix
+    }
+    
+    func pickerChanged() {
+        col = cat.color?.color ?? Color.tix
     }
     
     func textChanged(upper: Int, text: inout String) {
