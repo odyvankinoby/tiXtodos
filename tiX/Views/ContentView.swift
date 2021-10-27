@@ -52,12 +52,12 @@ struct ContentView: View {
                 .tabItem {
                     Image(systemName: "folder.circle")
                     Text("Categories")
-                }.tag(1)
+                }.tag(2)
             Settings(settings: settings)
                 .tabItem {
                     Image(systemName: "gear.circle.fill")
                     Text("Settings")
-                }.tag(2)
+                }.tag(3)
             
         }
         .accentColor(Color.tix)

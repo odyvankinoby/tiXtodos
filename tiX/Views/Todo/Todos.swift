@@ -11,68 +11,23 @@ import CoreData
 struct Todos: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-
-    @ObservedObject var settings: UserSettings
     
+    @ObservedObject var settings: UserSettings
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
-
-    @State var newItem = false
-    @State var newCategory = false
-  
+    @State private var newItem = false
     @State private var searchQuery: String = ""
-    @State private var notDoneOnly = false
     @State private var deleteTicked = false
-  
+    
     var body: some View {
         NavigationView {
-            
-            /*HStack {
-                
-                Button(action: {
-                    withAnimation {
-                        settings.hideTicked.toggle()
-                        //   Haptics.giveSmallHaptic()
-                    }
-                    Haptics.giveSmallHaptic()
-                }) {
-                    Image(systemName: settings.hideTicked ? "list.bullet.circle" : "list.bullet.circle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
-                   
-                    
-                }
-                .buttonStyle(PlainButtonStyle())
-                .padding(.leading, 10)
-                Spacer()
-                
-                Text("Todos").font(.title).foregroundColor(.white)
-                Spacer()
-                
-                Button(action: {
-                    withAnimation {
-                        newItem.toggle()
-                        Haptics.giveSmallHaptic()
-                    }
-                    Haptics.giveSmallHaptic()
-                }) {
-                    Image(systemName: "plus.circle")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
-                }
-                .buttonStyle(PlainButtonStyle())
-                .padding(.trailing, 10)
-                
-            }*/
-            
             List {
-                ForEach(todos, id: \.self) { todo in
+                ForEach(searchResults, id: \.self) { todo in
                     
-                    if !(settings.hideTicked && todo.isDone) {
-                        NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category(), col: todo.category?.color?.color ?? Color.tix).environment(\.managedObjectContext, self.viewContext))
+                    
+                    NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category(), col: todo.category?.color?.color ?? Color.tix).environment(\.managedObjectContext, self.viewContext))
                     {
                         VStack(alignment: .leading){
+                            
                             HStack(alignment: .center){
                                 Image(systemName: todo.isDone ? "circle.fill" : "circle")
                                     .resizable()
@@ -94,12 +49,13 @@ struct Todos: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                    }
+                        
                     }
                 }.onDelete(perform: deleteItems(offsets:))
                     .listStyle(PlainListStyle())
-               
+                
             }
+            .searchable(text: $searchQuery)
             .navigationBarTitle("Todos", displayMode: .automatic).allowsTightening(true)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -115,22 +71,9 @@ struct Todos: View {
                             .foregroundColor(.tix)
                     }
                     .buttonStyle(PlainButtonStyle())
-                   
+                    
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                      
-                    Button(action: {
-                        withAnimation {
-                            newCategory.toggle()
-                            Haptics.giveSmallHaptic()
-                        }
-                        Haptics.giveSmallHaptic()
-                    }) {
-                        Image(systemName: "plus.square.on.square")
-                            .resizable()
-                            .foregroundColor(.tix)
-                    }
-                    .buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         withAnimation {
@@ -149,8 +92,6 @@ struct Todos: View {
                 }
             }
             .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
-            .sheet(isPresented: $newCategory) { NewCategory() }
-
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.tix) // NAV
@@ -163,7 +104,7 @@ struct Todos: View {
             do {
                 try viewContext.save()
             } catch {
-               
+                
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
@@ -180,7 +121,7 @@ struct Todos: View {
     var searchResults: [Todo] {
         if searchQuery.isEmpty{
             // getting all items
-            switch notDoneOnly { //we will need this for our toggle later
+            switch settings.hideTicked { //we will need this for our toggle later
             case true:
                 return todos.filter {
                     !$0.todo!.isEmpty && $0.isDone == false
@@ -192,7 +133,7 @@ struct Todos: View {
             }
         } else {
             // getting only searched items
-            switch notDoneOnly { //we will need this for our toggle later
+            switch settings.hideTicked { //we will need this for our toggle later
             case true:
                 return todos.filter {
                     $0.todo!.lowercased().contains(searchQuery.lowercased()) && $0.isDone == false
