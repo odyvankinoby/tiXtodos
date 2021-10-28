@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		360A63EC27118DFE005E9AAB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A63EB27118DFE005E9AAB /* Settings.swift */; };
 		361C8C972727248C00EA0737 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361C8C962727248C00EA0737 /* Todos.swift */; };
+		36644F64272B0DB100DA328F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36644F63272B0DB100DA328F /* WidgetKit.framework */; };
+		36644F66272B0DB100DA328F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36644F65272B0DB100DA328F /* SwiftUI.framework */; };
+		36644F69272B0DB100DA328F /* tixWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36644F68272B0DB100DA328F /* tixWidget.swift */; };
+		36644F6B272B0DB300DA328F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36644F6A272B0DB300DA328F /* Assets.xcassets */; };
+		36644F6F272B0DB300DA328F /* tixWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 36644F61272B0DB100DA328F /* tixWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		367527782710AA6F0087FC4B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367527772710AA6F0087FC4B /* Colors.swift */; };
 		3681FB562728755E00248951 /* SerializableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3681FB552728755D00248951 /* SerializableColor.swift */; };
 		36A250B227282577003BC001 /* NewCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B127282577003BC001 /* NewCategory.swift */; };
@@ -30,9 +35,41 @@
 		36C1B5DF270DD92B00249259 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DE270DD92B00249259 /* Haptics.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		36644F6D272B0DB300DA328F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 36C1B5AA270CC1BF00249259 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 36644F60272B0DB100DA328F;
+			remoteInfo = tixWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		36644F70272B0DB300DA328F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				36644F6F272B0DB300DA328F /* tixWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		360A63EB27118DFE005E9AAB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		361C8C962727248C00EA0737 /* Todos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
+		36644F61272B0DB100DA328F /* tixWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = tixWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		36644F63272B0DB100DA328F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		36644F65272B0DB100DA328F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		36644F68272B0DB100DA328F /* tixWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tixWidget.swift; sourceTree = "<group>"; };
+		36644F6A272B0DB300DA328F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		36644F6C272B0DB300DA328F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tixWidgetExtension.entitlements; sourceTree = "<group>"; };
+		36644F75272B0DE700DA328F /* tiX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tiX.entitlements; sourceTree = "<group>"; };
 		367527772710AA6F0087FC4B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3681FB552728755D00248951 /* SerializableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializableColor.swift; sourceTree = "<group>"; };
 		36A250B127282577003BC001 /* NewCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategory.swift; sourceTree = "<group>"; };
@@ -56,6 +93,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		36644F5E272B0DB100DA328F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36644F66272B0DB100DA328F /* SwiftUI.framework in Frameworks */,
+				36644F64272B0DB100DA328F /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36C1B5AF270CC1BF00249259 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -66,6 +112,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36644F62272B0DB100DA328F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				36644F63272B0DB100DA328F /* WidgetKit.framework */,
+				36644F65272B0DB100DA328F /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		36644F67272B0DB100DA328F /* tixWidget */ = {
+			isa = PBXGroup;
+			children = (
+				36644F68272B0DB100DA328F /* tixWidget.swift */,
+				36644F6A272B0DB300DA328F /* Assets.xcassets */,
+				36644F6C272B0DB300DA328F /* Info.plist */,
+			);
+			path = tixWidget;
+			sourceTree = "<group>";
+		};
 		36924ED12725721A001D1258 /* Coredata */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,7 +163,10 @@
 		36C1B5A9270CC1BF00249259 = {
 			isa = PBXGroup;
 			children = (
+				36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */,
 				36C1B5B4270CC1BF00249259 /* tiX */,
+				36644F67272B0DB100DA328F /* tixWidget */,
+				36644F62272B0DB100DA328F /* Frameworks */,
 				36C1B5B3270CC1BF00249259 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B2270CC1BF00249259 /* tiX.app */,
+				36644F61272B0DB100DA328F /* tixWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +183,7 @@
 		36C1B5B4270CC1BF00249259 /* tiX */ = {
 			isa = PBXGroup;
 			children = (
+				36644F75272B0DE700DA328F /* tiX.entitlements */,
 				36C1B5B5270CC1BF00249259 /* tiXApp.swift */,
 				36C1B5D6270DCDA200249259 /* Views */,
 				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
@@ -161,6 +231,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		36644F60272B0DB100DA328F /* tixWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 36644F73272B0DB300DA328F /* Build configuration list for PBXNativeTarget "tixWidgetExtension" */;
+			buildPhases = (
+				36644F5D272B0DB100DA328F /* Sources */,
+				36644F5E272B0DB100DA328F /* Frameworks */,
+				36644F5F272B0DB100DA328F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tixWidgetExtension;
+			productName = tixWidgetExtension;
+			productReference = 36644F61272B0DB100DA328F /* tixWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		36C1B5B1270CC1BF00249259 /* tiX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 36C1B5C5270CC1C000249259 /* Build configuration list for PBXNativeTarget "tiX" */;
@@ -168,10 +255,12 @@
 				36C1B5AE270CC1BF00249259 /* Sources */,
 				36C1B5AF270CC1BF00249259 /* Frameworks */,
 				36C1B5B0270CC1BF00249259 /* Resources */,
+				36644F70272B0DB300DA328F /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				36644F6E272B0DB300DA328F /* PBXTargetDependency */,
 			);
 			name = tiX;
 			productName = tiX;
@@ -185,9 +274,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
+					36644F60272B0DB100DA328F = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					36C1B5B1270CC1BF00249259 = {
 						CreatedOnToolsVersion = 13.0;
 					};
@@ -207,11 +299,20 @@
 			projectRoot = "";
 			targets = (
 				36C1B5B1270CC1BF00249259 /* tiX */,
+				36644F60272B0DB100DA328F /* tixWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		36644F5F272B0DB100DA328F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36644F6B272B0DB300DA328F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36C1B5B0270CC1BF00249259 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -224,6 +325,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		36644F5D272B0DB100DA328F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36644F69272B0DB100DA328F /* tixWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		36C1B5AE270CC1BF00249259 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,7 +361,74 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		36644F6E272B0DB300DA328F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 36644F60272B0DB100DA328F /* tixWidgetExtension */;
+			targetProxy = 36644F6D272B0DB300DA328F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		36644F71272B0DB300DA328F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = APRDSH5Y65;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = tixWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = tixWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Debug;
+		};
+		36644F72272B0DB300DA328F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = APRDSH5Y65;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = tixWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = tixWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Release;
+		};
 		36C1B5C3270CC1C000249259 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -372,8 +548,10 @@
 		36C1B5C6270CC1C000249259 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
@@ -383,7 +561,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -394,17 +572,20 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		36C1B5C7270CC1C000249259 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
@@ -414,7 +595,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -425,15 +606,25 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		36644F73272B0DB300DA328F /* Build configuration list for PBXNativeTarget "tixWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				36644F71272B0DB300DA328F /* Debug */,
+				36644F72272B0DB300DA328F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		36C1B5AD270CC1BF00249259 /* Build configuration list for PBXProject "tiX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
