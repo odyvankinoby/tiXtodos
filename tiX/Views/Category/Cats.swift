@@ -14,7 +14,7 @@ struct Cats: View {
 
     @ObservedObject var settings: UserSettings
     
-    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
 
     @State var newCategory = false
    
@@ -43,7 +43,7 @@ struct Cats: View {
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
                                 
-                                Text(cat.category ?? "category")
+                                Text(cat.name ?? "category")
                                     .font(.callout)
                                     .foregroundColor(.tix)
                                 Spacer()

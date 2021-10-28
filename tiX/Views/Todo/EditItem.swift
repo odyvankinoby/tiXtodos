@@ -14,17 +14,14 @@ struct EditItem: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
-    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
     @State var dueDate = Date()
     @State var toDoText = ""
     @State var cat: Category
-    @State var col: Color
-    @State private var selectedColor = "Red"
-    var colors = ["Red", "Green", "Blue", "Tartan"]
-                    
-    let toDoTextLimit = 70
-   
+    @State var col = Color.tix
+    @State var important = false
+    
     var body: some View {
         
         VStack {
@@ -37,9 +34,6 @@ struct EditItem: View {
                 TextField("", text: $toDoText)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
-                    .onReceive(Just(toDoText)) { toDoText in
-                        textChanged(upper: toDoTextLimit, text: &self.toDoText)
-                    }
                     .opacity(toDoText.isEmpty ? 0.25 : 1)
                     .foregroundColor(Color.tix)
                     .padding()
@@ -58,9 +52,10 @@ struct EditItem: View {
                         .padding(.top, 10)
                     Picker("Please choose a Category", selection: $cat) {
                                     ForEach(categories, id: \.self) { catt in
-                                        Text(catt.category ?? "-none-")
+                                        Text(catt.name ?? "-none-")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
+                                            .foregroundColor(catt.color?.color ?? Color.tix)
                                     }
                                 }.onChange(of: cat, perform: { (value) in
                                     pickerChanged()
@@ -77,7 +72,19 @@ struct EditItem: View {
                 DatePicker(selection: $dueDate, displayedComponents: .date) {
                     Text("Due date")
                     
-                }.foregroundColor(Color.tix)
+                }
+                .foregroundColor(Color.tix)
+                .padding()
+                
+                
+                Text("Important")
+                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity)
+                    .padding().background(Color.tix.opacity(0.5))
+                Toggle(isOn: self.$important) {
+                        Text("Important")
+                            .foregroundColor(.tix).frame(alignment: .trailing)
+                }
                 .padding()
                 .accentColor(Color.tix)
 
@@ -115,8 +122,12 @@ struct EditItem: View {
     func onAppear() {
         toDoText = todo.todo ?? ""
         dueDate = todo.dueDate ?? Date()
-        cat = todo.category ?? Category()
-        col = cat.color?.color ?? Color.tix
+        important = todo.important
+        cat = todo.todoCategory ?? Category()
+        col = Color.tix
+        if todo.todoCategory != nil {
+            col = cat.color?.color ?? Color.tix
+        }
     }
     
     func pickerChanged() {
@@ -132,7 +143,8 @@ struct EditItem: View {
     func saveAction() {
         todo.todo = self.toDoText
         todo.dueDate = self.dueDate
-        todo.category = self.cat
+        todo.important = self.important
+        todo.todoCategory = self.cat
             do {
                 try self.viewContext.save()
             } catch {

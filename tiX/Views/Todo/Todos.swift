@@ -14,29 +14,70 @@ struct Todos: View {
     
     @ObservedObject var settings: UserSettings
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
-    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
     @State private var newItem = false
+    @State private var selectCategory = false
     @State private var searchQuery: String = ""
     @State private var deleteTicked = false
+    
     @State var cat: Category
+    @State private var categorySelected = false
     
     var body: some View {
         NavigationView {
             VStack {
-                
                 HStack {
+                    if selectCategory {
+                        List {
+                            ForEach(categories, id: \.self) { catItem in
+                                
+                                VStack(alignment: .leading){
+                                    HStack(alignment: .center){
+                                        Image(systemName: "square.fill")
+                                            .resizable()
+                                            .frame(width: 30, height: 30)
+                                            .onTapGesture {
+                                                withAnimation {
+                                                    cat = catItem
+                                                    categorySelected = true
+                                                    selectCategory.toggle()
+                                                }
+                                            }
+                                            .foregroundColor(catItem.color?.color ?? Color.tix)
+                                            .padding(.trailing, 10)
+                                            .padding(.bottom, 10)
+                                            .padding(.top, 10)
+                                        
+                                        Text(catItem.name ?? "category")
+                                            .font(.callout)
+                                            .foregroundColor(catItem.color?.color ?? Color.tix)
+                                        Spacer()
+                                    }.onTapGesture {
+                                        withAnimation {
+                                            cat = catItem
+                                            categorySelected = true
+                                            selectCategory.toggle()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    
                     
                     
                     List {
                         ForEach(searchResults, id: \.self) { todo in
                             
                             
-                            NavigationLink(destination: EditItem(todo: todo, cat: todo.category ?? Category(), col: todo.category?.color?.color ?? Color.tix).environment(\.managedObjectContext, self.viewContext))
+                            NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
                             {
                                 VStack(alignment: .leading){
                                     
                                     HStack(alignment: .center){
+                                        
                                         Image(systemName: todo.isDone ? "circle.fill" : "circle")
                                             .resizable()
                                             .frame(width: 30, height: 30)
@@ -45,15 +86,22 @@ struct Todos: View {
                                                     ViewContextMethods.isDone(todo: todo, context: viewContext)
                                                 }
                                             }
-                                            .foregroundColor(todo.category?.color?.color ?? Color.tix)
+                                            .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
                                             .padding(.trailing, 10)
                                             .padding(.bottom, 10)
                                             .padding(.top, 10)
                                         
                                         Text(todo.todo ?? "todo")
                                             .font(.callout)
-                                            .foregroundColor(.tix)
+                                            .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
                                         Spacer()
+                                        
+                                        Image(systemName: todo.important ? "exclamationmark.circle" : "")
+                                            //.resizable()
+                                            //.frame(width: 20, height: 20)
+                                            .foregroundColor(.red)
+                                           
+                                        
                                     }
                                 }
                                 .frame(maxWidth: .infinity)
@@ -63,32 +111,45 @@ struct Todos: View {
                             .listStyle(PlainListStyle())
                         
                     }
-                    .searchable(text: $searchQuery)
-                    .navigationBarTitle("Todos", displayMode: .automatic).allowsTightening(true)
+                    //.searchable(text: $searchQuery)
+                    .navigationBarTitle(selectCategory ? "Category" : "Todos", displayMode: .automatic).allowsTightening(true)
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarLeading) {
-                            Button(action: {
-                                withAnimation {
-                                    settings.hideTicked.toggle()
-                                    Haptics.giveSmallHaptic()
-                                }
-                                Haptics.giveSmallHaptic()
-                            }) {
-                                Image(systemName: settings.hideTicked ? "circle" : "circle.fill")
-                                    .resizable()
-                                    .foregroundColor(.tix)
-                            }
-                            .buttonStyle(PlainButtonStyle())
                             
+                            if selectCategory && categorySelected {
+                                Button(action: {
+                                    withAnimation {
+                                        categorySelected = false
+                                        selectCategory.toggle()
+                                    }
+                                }) {
+                                    Text("Show all")
+                                        .foregroundColor(.tix)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            } else {
+                                Button(action: {
+                                    withAnimation {
+                                        selectCategory.toggle()
+                                        
+                                    }
+                                }) {
+                                    Image(systemName: categorySelected ? "folder.fill" : "folder")
+                                        .resizable()
+                                        .foregroundColor(categorySelected ? cat.color?.color : .tix)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                          
                         }
                         ToolbarItemGroup(placement: .navigationBarTrailing) {
                             
                             Button(action: {
                                 withAnimation {
                                     newItem.toggle()
-                                    Haptics.giveSmallHaptic()
+                                    
                                 }
-                                Haptics.giveSmallHaptic()
+                                
                             }) {
                                 Image(systemName: "plus")
                                     .resizable()
@@ -101,20 +162,13 @@ struct Todos: View {
                     }
                     .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
                     
-                    Picker("Please choose a Category", selection: $cat) {
-                                    ForEach(categories, id: \.self) { catt in
-                                        Text(catt.category ?? "-none-")
-                                            .frame(alignment: .leading)
-                                            .frame(maxWidth: .infinity)
-                                    }
-                                }.onChange(of: cat, perform: { (value) in
-                                    //
-                                })
+                    
                 }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.tix) // NAV
+        .accentColor(categorySelected ? cat.color?.color : .tix) // NAV
+        
     }
     
     private func deleteItems(offsets: IndexSet) {
@@ -139,8 +193,20 @@ struct Todos: View {
     
     
     var searchResults: [Todo] {
-        if searchQuery.isEmpty{
+        if categorySelected {
             // getting all items
+            switch settings.hideTicked { //we will need this for our toggle later
+            case true:
+                return todos.filter {
+                    !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat
+                }
+            default:
+                return todos.filter {
+                    !$0.todo!.isEmpty && $0.todoCategory == cat
+                }
+            }
+        } else {
+            // getting only searched items
             switch settings.hideTicked { //we will need this for our toggle later
             case true:
                 return todos.filter {
@@ -149,18 +215,6 @@ struct Todos: View {
             default:
                 return todos.filter {
                     !$0.todo!.isEmpty
-                }
-            }
-        } else {
-            // getting only searched items
-            switch settings.hideTicked { //we will need this for our toggle later
-            case true:
-                return todos.filter {
-                    $0.todo!.lowercased().contains(searchQuery.lowercased()) && $0.isDone == false
-                }
-            default:
-                return todos.filter {
-                    $0.todo!.lowercased().contains(searchQuery.lowercased())
                 }
             }
         }
@@ -173,4 +227,21 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
+
+/**
+ 
+ } else {
+ // getting only searched items
+ switch settings.hideTicked { //we will need this for our toggle later
+ case true:
+ return todos.filter {
+ $0.todo!.lowercased().contains(searchQuery.lowercased()) && $0.isDone == false
+ }
+ default:
+ return todos.filter {
+ $0.todo!.lowercased().contains(searchQuery.lowercased())
+ }
+ }
+ }
+ */
 

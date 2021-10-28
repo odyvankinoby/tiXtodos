@@ -7,20 +7,22 @@
 
 
 import SwiftUI
-import Combine
+import CoreData
 
 struct NewItem: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
     
-    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.category, ascending: true)]) var categories: FetchedResults<Category>
-    
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
+
     @State private var selectedColor = "Red"
     var colors = ["Red", "Green", "Blue", "Tartan"]
     
     @State private var dueDate = Date()
     @State private var toDoText = ""
+    @State private var important = false
+    
     @State var cat: Category
     @State var col = Color.tix
     
@@ -37,9 +39,6 @@ struct NewItem: View {
                 TextField("", text: $toDoText)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
-                    .onReceive(Just(toDoText)) { toDoText in
-                        textChanged(upper: toDoTextLimit, text: &self.toDoText)
-                    }
                     .opacity(toDoText.isEmpty ? 0.25 : 1)
                     .foregroundColor(Color.tix)
                     .padding()
@@ -58,14 +57,16 @@ struct NewItem: View {
                         .padding(.top, 10)
                     Picker("Please choose a Category", selection: $cat) {
                                     ForEach(categories, id: \.self) { catt in
-                                        Text(catt.category ?? "-none-")
+                                        Text(catt.name ?? "-none-")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
+                                            .foregroundColor(catt.color?.color ?? Color.tix)
                                     }
                                 }.onChange(of: cat, perform: { (value) in
                                     pickerChanged()
                                 })
                 }.padding()
+                
                 Text("Due date")
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
@@ -74,6 +75,17 @@ struct NewItem: View {
                     Text("Due date")
                     
                 }.foregroundColor(Color.tix)
+                .padding()
+                .accentColor(Color.tix)
+                
+                Text("Important")
+                    .frame(alignment: .leading)
+                    .frame(maxWidth: .infinity)
+                    .padding().background(Color.tix.opacity(0.5))
+                Toggle(isOn: self.$important) {
+                        Text("Important")
+                            .foregroundColor(.tix).frame(alignment: .trailing)
+                }
                 .padding()
                 .accentColor(Color.tix)
             }.toolbar {
@@ -117,11 +129,32 @@ struct NewItem: View {
         col = cat.color?.color ?? Color.tix
     }
     
+    func onAppear() {
+        
+        let setRequest = NSFetchRequest<Category>(entityName: "Category")
+        let setPredicate = NSPredicate(format: "isDefault == true")
+        let setSortDescriptor1 = NSSortDescriptor(keyPath: \Category.name, ascending: true)
+        setRequest.fetchLimit = 1
+        setRequest.predicate = setPredicate
+        setRequest.sortDescriptors = [setSortDescriptor1]
+        
+        do {
+            let sets = try self.viewContext.fetch(setRequest) as [Category]
+            for cat in sets {
+                self.cat = cat
+            }
+        } catch let error {
+            NSLog("error in FetchRequest trying to get default category: \(error)")
+        }
+        
+    }
     func saveAction() {
         let newTodo = Todo(context: self.viewContext)
         newTodo.todo = self.toDoText
-        newTodo.category = self.cat
+        newTodo.todoCategory = self.cat
         newTodo.dueDate = self.dueDate
+        newTodo.timestamp = Date()
+        newTodo.important = self.important
         newTodo.id = UUID()
         do {
             try self.viewContext.save()

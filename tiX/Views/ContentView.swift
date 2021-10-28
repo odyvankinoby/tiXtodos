@@ -14,25 +14,20 @@ struct ContentView: View {
     let coloredNavAppearance = UINavigationBarAppearance()
     
     init() {
-        
-      
         coloredNavAppearance.titleTextAttributes = [.foregroundColor: UIColor(.tix)]
-        
         coloredNavAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(.tix)]
         coloredNavAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(.tix)]
         
         UINavigationBar.appearance().standardAppearance = coloredNavAppearance
         UINavigationBar.appearance().barTintColor = UIColor(.tix)
-        //UINavigationBar.appearance().scrollEdgeAppearance = coloredNavAppearance
-     
     }
     
     
     // Observable Objects
     @ObservedObject var settings = UserSettings()
-    
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)], predicate: NSPredicate(format: "isDefault == true")) var categories: FetchedResults<Category>
     // Navigation
-    @State var tabSelected: Int = 0
+    @State var tabSelected: Int = 1
     
     var body: some View {
      
@@ -61,6 +56,21 @@ struct ContentView: View {
             
         }
         .accentColor(Color.tix)
+        .onAppear(perform: onAppear)
+    }
+    func onAppear() {
+        if categories.count == 0 {
+            let newC = Category(context: self.viewContext)
+            newC.name = "Inbox"
+            newC.isDefault = true
+            newC.color = SerializableColor(from: Color.tix)
+            newC.id = UUID()
+            do {
+                try self.viewContext.save()
+            } catch {
+                NSLog(error.localizedDescription)
+            }
+        }
     }
 }
 

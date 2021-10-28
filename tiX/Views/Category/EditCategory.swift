@@ -78,7 +78,7 @@ struct EditCategory: View {
     }
     
     func onAppear() {
-        toDoText = cat.category ?? ""
+        toDoText = cat.name ?? ""
         col = cat.color?.color ?? Color.tix
       
     }

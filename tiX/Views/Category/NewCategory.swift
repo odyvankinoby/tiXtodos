@@ -87,7 +87,7 @@ struct NewCategory: View {
     
     func saveAction() {
         let newC = Category(context: self.viewContext)
-        newC.category = self.cat
+        newC.name = self.cat
         newC.color = SerializableColor(from: self.col)
         newC.id = UUID()
         do {
