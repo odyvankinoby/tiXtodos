@@ -33,6 +33,7 @@
 		36C1B5DB270DD6F100249259 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DA270DD6F100249259 /* Dashboard.swift */; };
 		36C1B5DD270DD82B00249259 /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DC270DD82B00249259 /* Cards.swift */; };
 		36C1B5DF270DD92B00249259 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DE270DD92B00249259 /* Haptics.swift */; };
+		36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		36C1B5DA270DD6F100249259 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		36C1B5DC270DD82B00249259 /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
 		36C1B5DE270DD92B00249259 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUpdater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				36C1B5DC270DD82B00249259 /* Cards.swift */,
 				36C1B5DE270DD92B00249259 /* Haptics.swift */,
 				367527772710AA6F0087FC4B /* Colors.swift */,
+				36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
 				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
 				3681FB562728755E00248951 /* SerializableColor.swift in Sources */,
+				36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */,
 				36A250B4272836C9003BC001 /* EditCategory.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
 				36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */,

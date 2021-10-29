@@ -164,11 +164,51 @@ struct Todos: View {
                     
                     
                 }
-            }
+            }.onAppear(perform: onAppear)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .accentColor(categorySelected ? cat.color?.color : .tix) // NAV
         
+    }
+    
+    private func onAppear() {
+        let setRequest = NSFetchRequest<Todo>(entityName: "Todo")
+        //let setPredicate = NSPredicate(format: "isDone == true")
+        let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
+        setRequest.fetchLimit = 3
+        //setRequest.predicate = setPredicate
+        setRequest.sortDescriptors = [setSortDescriptor1]
+        var cnt = 0
+        var one = ""
+        var two = ""
+        var three = ""
+      
+        do {
+            let sets = try self.viewContext.fetch(setRequest) as [Todo]
+            
+            for td in sets {
+                cnt+=1
+                print(td.todo)
+                print("\(cnt)")
+                if cnt == 1 {
+                    one = td.todo ?? ""
+                    
+                }
+                if cnt == 2 {
+                    two = td.todo ?? ""
+                }
+                if cnt == 3 {
+                    three = td.todo ?? ""
+                }
+               
+            }
+        } catch let error {
+            NSLog("error in FetchRequest trying to get top 3 todos: \(error.localizedDescription)")
+        }
+        print(one)
+        print(two)
+        print(three)
+        WidgetUpdater(one: one, two: two, three: three, oneTicked: false, twoTicked: true, threeTicked: false, open: todos.count).updateValues()
     }
     
     private func deleteItems(offsets: IndexSet) {
