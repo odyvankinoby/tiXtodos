@@ -13,16 +13,18 @@ struct Todos: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @ObservedObject var settings: UserSettings
+    
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
+    
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
     @State private var newItem = false
     @State private var selectCategory = false
+    @State private var showImportant = false
     @State private var searchQuery: String = ""
     @State private var deleteTicked = false
-    
-    @State var cat: Category
     @State private var categorySelected = false
+    @State private var cat = Category()
     
     var body: some View {
         NavigationView {
@@ -49,7 +51,7 @@ struct Todos: View {
                                             .padding(.bottom, 10)
                                             .padding(.top, 10)
                                         
-                                        Text(catItem.name ?? "category")
+                                        Text(catItem.name ?? "\(loc_category)")
                                             .font(.callout)
                                             .foregroundColor(catItem.color?.color ?? Color.tix)
                                         Spacer()
@@ -90,11 +92,16 @@ struct Todos: View {
                                             .padding(.trailing, 10)
                                             .padding(.bottom, 10)
                                             .padding(.top, 10)
-                                        
-                                        Text(todo.todo ?? "todo")
-                                            .font(.callout)
-                                            .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
-                                        Spacer()
+                                        VStack(alignment: .leading){
+                                            Text(todo.todo ?? "\(loc_todo)")
+                                                .font(.headline)
+                                                .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
+                                            Text("\(todo.dueDate!, formatter: itemFormatter)").font(.subheadline)
+                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(0.5) ?? Color.tix.opacity(0.5))
+                                            //Text("\(todo.dueDate, formatter: Utils.timeFormatter)")
+                                                
+                                        }
+                                            Spacer()
                                         
                                         Image(systemName: todo.important ? "exclamationmark.circle" : "")
                                             //.resizable()
@@ -112,7 +119,7 @@ struct Todos: View {
                         
                     }
                     //.searchable(text: $searchQuery)
-                    .navigationBarTitle(selectCategory ? "Category" : "Todos", displayMode: .automatic).allowsTightening(true)
+                    .navigationBarTitle(selectCategory ? loc_categories : loc_todos, displayMode: .automatic).allowsTightening(true)
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarLeading) {
                             
@@ -123,10 +130,10 @@ struct Todos: View {
                                         selectCategory.toggle()
                                     }
                                 }) {
-                                    Text("Show all")
+                                    Text(loc_all)
                                         .foregroundColor(.tix)
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                                .toggleStyle(.button)
                             } else {
                                 Button(action: {
                                     withAnimation {
@@ -138,8 +145,20 @@ struct Todos: View {
                                         .resizable()
                                         .foregroundColor(categorySelected ? cat.color?.color : .tix)
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                                .toggleStyle(.button)
                             }
+                            Button(action: {
+                                withAnimation {
+                                    showImportant.toggle()
+                                    
+                                }
+                            }) {
+                                Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
+                                    .resizable()
+                                    .foregroundColor(showImportant ? .red : .tix)
+                            }
+                            .toggleStyle(.button)
+                            .padding(.leading, 10)
                           
                         }
                         ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -167,11 +186,14 @@ struct Todos: View {
             }.onAppear(perform: onAppear)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(categorySelected ? cat.color?.color : .tix) // NAV
+        .accentColor(.tix) // NAV
         
     }
     
     private func onAppear() {
+        
+        getInbox()
+        
         let setRequest = NSFetchRequest<Todo>(entityName: "Todo")
         //let setPredicate = NSPredicate(format: "isDone == true")
         let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
@@ -188,8 +210,7 @@ struct Todos: View {
             
             for td in sets {
                 cnt+=1
-                print(td.todo)
-                print("\(cnt)")
+               
                 if cnt == 1 {
                     one = td.todo ?? ""
                     
@@ -205,12 +226,10 @@ struct Todos: View {
         } catch let error {
             NSLog("error in FetchRequest trying to get top 3 todos: \(error.localizedDescription)")
         }
-        print(one)
-        print(two)
-        print(three)
+       
         WidgetUpdater(one: one, two: two, three: three, oneTicked: false, twoTicked: true, threeTicked: false, open: todos.count).updateValues()
     }
-    
+
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { todos[$0] }.forEach(viewContext.delete)
@@ -250,20 +269,43 @@ struct Todos: View {
             switch settings.hideTicked { //we will need this for our toggle later
             case true:
                 return todos.filter {
-                    !$0.todo!.isEmpty && $0.isDone == false
+                    !$0.todo!.isEmpty && $0.isDone == false && $0.important == self.showImportant
                 }
             default:
                 return todos.filter {
-                    !$0.todo!.isEmpty
+                    !$0.todo!.isEmpty && $0.important == self.showImportant
                 }
             }
         }
     }
+    
+    
+    func getInbox() {
+        let setRequest = NSFetchRequest<Category>(entityName: "Category")
+        let setPredicate = NSPredicate(format: "isDefault == true")
+        //let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
+        setRequest.predicate = setPredicate
+        setRequest.fetchLimit = 1
+        //setRequest.sortDescriptors = [setSortDescriptor1]
+        do {
+            let cats = try self.viewContext.fetch(setRequest) as [Category]
+            
+            for cat in cats {
+                self.cat = cat
+            }
+        } catch let error {
+            NSLog("error in FetchRequest trying to get default category: \(error.localizedDescription)")
+        }
+    }
+    
+    
+    
+    
 }
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
+    formatter.dateStyle = .medium
+    //formatter.timeStyle = .short
     return formatter
 }()
 

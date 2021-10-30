@@ -16,12 +16,11 @@ struct NewItem: View {
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
 
-    @State private var selectedColor = "Red"
-    var colors = ["Red", "Green", "Blue", "Tartan"]
-    
     @State private var dueDate = Date()
-    @State private var toDoText = ""
+    @State private var toDoText: LocalizedStringKey = loc_new_todo
+    @State private var todo = ""
     @State private var important = false
+    @FocusState private var isFocused: Bool
     
     @State var cat: Category
     @State var col = Color.tix
@@ -30,34 +29,35 @@ struct NewItem: View {
     
     var body: some View {
         NavigationView {
-            ScrollView() {
-                Text("Todo")
+            VStack(alignment: .leading) {
+                /*
+                Text("")
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.tix.opacity(0.5))
-                TextField("", text: $toDoText)
+                    .background(self.col)
+                */
+                TextField(loc_todo, text: $todo)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
-                    .opacity(toDoText.isEmpty ? 0.25 : 1)
+                    .opacity(todo == "\(loc_new_todo)" ? 0.5 : 1)
                     .foregroundColor(Color.tix)
+                    .focused($isFocused)
                     .padding()
                
-                Text("Category")
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding().background(Color.tix.opacity(0.5))
+                Divider()
+                
                 HStack {
-                    Image(systemName: "square.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(self.col)
-                        .padding(.trailing, 10)
-                        .padding(.bottom, 10)
-                        .padding(.top, 10)
-                    Picker("Please choose a Category", selection: $cat) {
+                    Text(loc_category)
+                        .foregroundColor(Color.tix)
+                        .frame(alignment: .leading)
+                        .padding()
+                    
+                    Spacer()
+                    
+                    Picker(loc_choose_category, selection: $cat) {
                                     ForEach(categories, id: \.self) { catt in
-                                        Text(catt.name ?? "-none-")
+                                        Text(catt.name ?? "")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
                                             .foregroundColor(catt.color?.color ?? Color.tix)
@@ -65,29 +65,31 @@ struct NewItem: View {
                                 }.onChange(of: cat, perform: { (value) in
                                     pickerChanged()
                                 })
-                }.padding()
+                        .frame(alignment: .trailing)
+                        .padding()
+                   
+                       
+                }
                 
-                Text("Due date")
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding().background(Color.tix.opacity(0.5))
+                Divider()
+                
                 DatePicker(selection: $dueDate, displayedComponents: .date) {
-                    Text("Due date")
+                    Text(loc_duedate)
                     
                 }.foregroundColor(Color.tix)
                 .padding()
                 .accentColor(Color.tix)
                 
-                Text("Important")
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding().background(Color.tix.opacity(0.5))
+                Divider()
+                
                 Toggle(isOn: self.$important) {
-                        Text("Important")
+                        Text(loc_important)
                             .foregroundColor(.tix).frame(alignment: .trailing)
                 }
                 .padding()
                 .accentColor(Color.tix)
+                Spacer()
+                Spacer()
             }.toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(action: {
@@ -96,7 +98,7 @@ struct NewItem: View {
                             Haptics.giveSmallHaptic()
                         }
                     }) {
-                        Text("Discard")
+                        Text(loc_discard)
                             .foregroundColor(.tix)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -109,14 +111,16 @@ struct NewItem: View {
                             Haptics.giveSmallHaptic()
                         }
                     }) {
-                        Text("Save")
+                        Text(loc_save)
                             .foregroundColor(.tix)
                     }
                     .buttonStyle(PlainButtonStyle())
                     
                 }
-            }
-         }.navigationBarTitle("New Todos", displayMode: .automatic).allowsTightening(true)
+            }.navigationBarTitle(self.toDoText, displayMode: .automatic)
+             .allowsTightening(true)
+             .accentColor(.tix)
+        }
     }
     
     func textChanged(upper: Int, text: inout String) {
@@ -130,6 +134,9 @@ struct NewItem: View {
     }
     
     func onAppear() {
+        
+        isFocused = true
+        todo = "\(loc_new_todo)"
         
         let setRequest = NSFetchRequest<Category>(entityName: "Category")
         let setPredicate = NSPredicate(format: "isDefault == true")
@@ -150,7 +157,7 @@ struct NewItem: View {
     }
     func saveAction() {
         let newTodo = Todo(context: self.viewContext)
-        newTodo.todo = self.toDoText
+        newTodo.todo = self.todo
         newTodo.todoCategory = self.cat
         newTodo.dueDate = self.dueDate
         newTodo.timestamp = Date()

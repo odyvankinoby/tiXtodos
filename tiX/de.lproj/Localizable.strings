@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  vcardX
+
+  Created by Nicolas Ott on 03.06.21.
+  
+*/
+
+"loc_all" = "Alle";
+"loc_todo" = "ToDo";
+"loc_todos" = "ToDos";
+"loc_category" = "Kategorie";
+"loc_categories" = "Kategorien";
+"loc_new_todo" = "Neues ToDo";
+
+
+"loc_choose_category" = "Bitte Kategorie wählen";
+"loc_duedate" = "Fällig am";
+"loc_important" = "Wichtig";
+"loc_save" = "Speichern";
+"loc_discard" = "Verwerfen";

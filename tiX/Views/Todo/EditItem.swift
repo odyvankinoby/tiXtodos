@@ -26,7 +26,7 @@ struct EditItem: View {
         
         VStack {
             ScrollView() {
-                Text("Todo")
+                Text(loc_todo)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -38,7 +38,7 @@ struct EditItem: View {
                     .foregroundColor(Color.tix)
                     .padding()
                 
-                Text("Category")
+                Text(loc_category)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
@@ -50,9 +50,9 @@ struct EditItem: View {
                         .padding(.trailing, 10)
                         .padding(.bottom, 10)
                         .padding(.top, 10)
-                    Picker("Please choose a Category", selection: $cat) {
+                    Picker(loc_choose_category, selection: $cat) {
                                     ForEach(categories, id: \.self) { catt in
-                                        Text(catt.name ?? "-none-")
+                                        Text(catt.name ?? "")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
                                             .foregroundColor(catt.color?.color ?? Color.tix)
@@ -65,24 +65,24 @@ struct EditItem: View {
                
               
                 
-                Text("Due date")
+                Text(loc_duedate)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
                 DatePicker(selection: $dueDate, displayedComponents: .date) {
-                    Text("Due date")
+                    Text(loc_duedate)
                     
                 }
                 .foregroundColor(Color.tix)
                 .padding()
                 
                 
-                Text("Important")
+                Text(loc_important)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
                     .padding().background(Color.tix.opacity(0.5))
                 Toggle(isOn: self.$important) {
-                        Text("Important")
+                        Text(loc_important)
                             .foregroundColor(.tix).frame(alignment: .trailing)
                 }
                 .padding()
@@ -106,7 +106,7 @@ struct EditItem: View {
                         Haptics.giveSmallHaptic()
                     }
                 }) {
-                    Text("Save")
+                    Text(loc_save)
                         .foregroundColor(.tix)
                 }
                 .buttonStyle(PlainButtonStyle())

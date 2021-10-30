@@ -32,29 +32,29 @@ struct ContentView: View {
     var body: some View {
      
         TabView(selection: $tabSelected) {
-            /*Dashboard(tabSelected: $tabSelected)
+            Today(settings: settings)
                 .tabItem {
-                    Image(systemName: "house.circle")
-                    Text("Dashboard")
-                }.tag(0)
-            */
-            Todos(settings: settings, cat: Category())
-                .tabItem {
-                    Image(systemName: "list.bullet.circle")
-                    Text("Todos")
+                    Image(systemName: "calendar")
+                    //Text("Todos")
                 }.tag(1)
+            Todos(settings: settings)
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    //Text("Todos")
+                }.tag(2)
             Cats(settings: settings)
                 .tabItem {
-                    Image(systemName: "folder.circle")
-                    Text("Categories")
-                }.tag(2)
+                    Image(systemName: "folder")
+                    //Text("Categories")
+                }.tag(3)
             Settings(settings: settings)
                 .tabItem {
-                    Image(systemName: "gear.circle.fill")
-                    Text("Settings")
-                }.tag(3)
+                    Image(systemName: "gear")
+                    //Text("Settings")
+                }.tag(4)
             
         }
+        //.tabViewStyle(PageTabViewStyle())
         .accentColor(Color.tix)
         .onAppear(perform: onAppear)
     }

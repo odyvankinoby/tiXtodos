@@ -1,0 +1,23 @@
+/*
+  Localizable.strings
+  tiX
+
+  Created by Nicolas Ott on 03.06.21.
+  
+*/
+
+"loc_all" = "All";
+"loc_todo" = "Todo";
+"loc_todos" = "Todos";
+"loc_category" = "Category";
+"loc_categories" = "Categories";
+"loc_new_todo" = "New Todo";
+
+
+
+
+"loc_choose_category" = "Please choose a Category";
+"loc_duedate" = "Due date";
+"loc_important" = "Important";
+"loc_save" = "Save";
+"loc_discard" = "Discard";
