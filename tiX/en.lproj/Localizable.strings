@@ -7,6 +7,10 @@
 */
 
 "loc_all" = "All";
+
+"loc_today" = "Today";
+"loc_overdue" = "Overdue";
+
 "loc_todo" = "Todo";
 "loc_todos" = "Todos";
 "loc_category" = "Category";
@@ -14,10 +18,10 @@
 "loc_new_todo" = "New Todo";
 
 
-
-
 "loc_choose_category" = "Please choose a Category";
 "loc_duedate" = "Due date";
 "loc_important" = "Important";
 "loc_save" = "Save";
 "loc_discard" = "Discard";
+
+"loc_set_duedate" = "Set Due date";

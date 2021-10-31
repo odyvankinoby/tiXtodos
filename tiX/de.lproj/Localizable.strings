@@ -7,6 +7,10 @@
 */
 
 "loc_all" = "Alle";
+
+"loc_today" = "Heute";
+"loc_overdue" = "Überfällig";
+
 "loc_todo" = "ToDo";
 "loc_todos" = "ToDos";
 "loc_category" = "Kategorie";
@@ -19,3 +23,5 @@
 "loc_important" = "Wichtig";
 "loc_save" = "Speichern";
 "loc_discard" = "Verwerfen";
+
+"loc_set_duedate" = "Fälligkeit setzen";

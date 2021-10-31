@@ -12,12 +12,18 @@ struct Today: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var settings: UserSettings
-    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
+    
+    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.todo, ascending: false)], predicate: NSPredicate(format: "dueDate >= %@", Date().midnight as CVarArg)) var todos: FetchedResults<Todo>
+    
+    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.todo, ascending: false)], predicate: NSPredicate(format: "dueDate < %@", Date().midnight as CVarArg)) var overdue: FetchedResults<Todo>
+    
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
     @State private var newItem = false
     @State private var selectCategory = false
     @State private var showImportant = false
+    @State private var showOverdue = false
+    
     @State private var searchQuery: String = ""
     @State private var deleteTicked = false
     @State private var categorySelected = false
@@ -64,8 +70,9 @@ struct Today: View {
                     }
                 }
                 
-                
+                if !showOverdue {
                 List {
+                    
                     ForEach(searchResults, id: \.self) { todo in
                         
                         
@@ -91,10 +98,63 @@ struct Today: View {
                                         Text(todo.todo ?? "\(loc_todo)")
                                             .font(.headline)
                                             .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
-                                        Text("\(todo.dueDate!, formatter: itemFormatter)").font(.subheadline)
+                                       
+                                        Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
+                                            .font(.subheadline)
                                             .foregroundColor(todo.todoCategory?.color?.color.opacity(0.5) ?? Color.tix.opacity(0.5))
-                                        //Text("\(todo.dueDate, formatter: Utils.timeFormatter)")
-                                        
+                                              
+                                    }
+                                    Spacer()
+                                    
+                                    Image(systemName: todo.important ? "exclamationmark.circle" : "")
+                                    //.resizable()
+                                    //.frame(width: 20, height: 20)
+                                        .foregroundColor(.red)
+                                    
+                                    
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            
+                        }
+                    }.onDelete(perform: deleteItems(offsets:))
+                        .listStyle(PlainListStyle())
+                
+                }
+                } else {
+                
+                List {
+                    
+                    ForEach(overdue, id: \.self) { todo in
+                        
+                        
+                        NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
+                        {
+                            VStack(alignment: .leading){
+                                
+                                HStack(alignment: .center){
+                                    
+                                    Image(systemName: todo.isDone ? "circle.fill" : "circle")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .onTapGesture {
+                                            withAnimation {
+                                                ViewContextMethods.isDone(todo: todo, context: viewContext)
+                                            }
+                                        }
+                                        .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
+                                        .padding(.trailing, 10)
+                                        .padding(.bottom, 10)
+                                        .padding(.top, 10)
+                                    VStack(alignment: .leading){
+                                        Text(todo.todo ?? "\(loc_todo)")
+                                            .font(.headline)
+                                            .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
+                                       
+                                        Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
+                                            .font(.subheadline)
+                                            .foregroundColor(todo.todoCategory?.color?.color.opacity(0.5) ?? Color.tix.opacity(0.5))
+                                              
                                     }
                                     Spacer()
                                     
@@ -112,9 +172,14 @@ struct Today: View {
                     }.onDelete(perform: deleteItems(offsets:))
                         .listStyle(PlainListStyle())
                 }
+                
+                
+                
+                }
+                
             }
             //.searchable(text: $searchQuery)
-            .navigationBarTitle(selectCategory ? loc_categories : loc_todos, displayMode: .automatic).allowsTightening(true)
+            .navigationBarTitle(selectCategory ? loc_categories : showOverdue ? loc_overdue : loc_today, displayMode: .automatic).allowsTightening(true)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     
@@ -153,7 +218,18 @@ struct Today: View {
                             .foregroundColor(showImportant ? .red : .tix)
                     }
                     .toggleStyle(.button)
-                    //.padding(.leading, 10)
+                    Button(action: {
+                        withAnimation {
+                            showOverdue.toggle()
+                            
+                        }
+                    }) {
+                        Image(systemName: showOverdue ? "calendar.badge.exclamationmark" : "calendar.badge.exclamationmark")
+                            .resizable()
+                            .foregroundColor(showOverdue ? .red : .tix)
+                    }
+                    .toggleStyle(.button)
+                    
                     
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -174,7 +250,7 @@ struct Today: View {
                     
                 }
             }
-            .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
+            .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
             
             
         }.onAppear(perform: onAppear)
@@ -271,8 +347,7 @@ struct Today: View {
             }
         }
     }
-    
-    
+
     func getInbox() {
         let setRequest = NSFetchRequest<Category>(entityName: "Category")
         let setPredicate = NSPredicate(format: "isDefault == true")

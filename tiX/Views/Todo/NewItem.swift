@@ -15,36 +15,28 @@ struct NewItem: View {
     @Environment(\.presentationMode) var presentationMode
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
-
+    
     @State private var dueDate = Date()
-    @State private var toDoText: LocalizedStringKey = loc_new_todo
-    @State private var todo = ""
+    @State private var todo = "Todo"
     @State private var important = false
+    @State private var hasDueDate = false
     @FocusState private var isFocused: Bool
     
     @State var cat: Category
-    @State var col = Color.tix
+    @State var col: Color
     
     let toDoTextLimit = 70
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                /*
-                Text("")
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(self.col)
-                */
-                TextField(loc_todo, text: $todo)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .opacity(todo == "\(loc_new_todo)" ? 0.5 : 1)
+                TextField(loc_new_todo, text: $todo)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.title2)
+                    .opacity(todo == "Todo" ? 0.5 : 1)
                     .foregroundColor(Color.tix)
                     .focused($isFocused)
                     .padding()
-               
                 Divider()
                 
                 HStack {
@@ -52,39 +44,53 @@ struct NewItem: View {
                         .foregroundColor(Color.tix)
                         .frame(alignment: .leading)
                         .padding()
-                    
                     Spacer()
-                    
+                    Image(systemName: "square.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(col)
+                        
                     Picker(loc_choose_category, selection: $cat) {
-                                    ForEach(categories, id: \.self) { catt in
-                                        Text(catt.name ?? "")
-                                            .frame(alignment: .leading)
-                                            .frame(maxWidth: .infinity)
-                                            .foregroundColor(catt.color?.color ?? Color.tix)
-                                    }
-                                }.onChange(of: cat, perform: { (value) in
-                                    pickerChanged()
-                                })
-                        .frame(alignment: .trailing)
-                        .padding()
-                   
-                       
+                        ForEach(categories, id: \.self) { catt in
+                            HStack {
+                                Text(catt.name ?? "")
+                                    .frame(alignment: .leading)
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(catt.color?.color ?? Color.tix)
+                                    
+                                
+                            }
+                        }
+                    }
+                    .onChange(of: cat, perform: { (value) in
+                        pickerChanged()
+                    })
+                    .frame(alignment: .trailing)
+                    .padding()
+                    
                 }
                 
                 Divider()
                 
-                DatePicker(selection: $dueDate, displayedComponents: .date) {
-                    Text(loc_duedate)
-                    
-                }.foregroundColor(Color.tix)
+                Toggle(isOn: self.$hasDueDate) {
+                    Text(loc_set_duedate)
+                        .foregroundColor(.tix).frame(alignment: .trailing)
+                }
                 .padding()
                 .accentColor(Color.tix)
-                
+                if hasDueDate {
+                    DatePicker(selection: $dueDate, displayedComponents: .date) {
+                        Text(loc_duedate)
+                        
+                    }.foregroundColor(Color.tix)
+                        .padding()
+                        .accentColor(Color.tix)
+                }
                 Divider()
                 
                 Toggle(isOn: self.$important) {
-                        Text(loc_important)
-                            .foregroundColor(.tix).frame(alignment: .trailing)
+                    Text(loc_important)
+                        .foregroundColor(.tix).frame(alignment: .trailing)
                 }
                 .padding()
                 .accentColor(Color.tix)
@@ -117,9 +123,11 @@ struct NewItem: View {
                     .buttonStyle(PlainButtonStyle())
                     
                 }
-            }.navigationBarTitle(self.toDoText, displayMode: .automatic)
-             .allowsTightening(true)
-             .accentColor(.tix)
+            }
+            .navigationBarTitle(self.todo, displayMode: .automatic)
+            .allowsTightening(true)
+            .accentColor(.tix)
+            .onAppear(perform: onAppear)
         }
     }
     
@@ -136,8 +144,8 @@ struct NewItem: View {
     func onAppear() {
         
         isFocused = true
-        todo = "\(loc_new_todo)"
-        
+        self.col = self.cat.color?.color ?? Color.tix
+
         let setRequest = NSFetchRequest<Category>(entityName: "Category")
         let setPredicate = NSPredicate(format: "isDefault == true")
         let setSortDescriptor1 = NSSortDescriptor(keyPath: \Category.name, ascending: true)
@@ -155,11 +163,17 @@ struct NewItem: View {
         }
         
     }
+    
     func saveAction() {
         let newTodo = Todo(context: self.viewContext)
         newTodo.todo = self.todo
         newTodo.todoCategory = self.cat
-        newTodo.dueDate = self.dueDate
+        newTodo.hasDueDate = self.hasDueDate
+        if self.hasDueDate {
+            newTodo.dueDate = self.dueDate
+        } else {
+            newTodo.dueDate = nil
+        }
         newTodo.timestamp = Date()
         newTodo.important = self.important
         newTodo.id = UUID()

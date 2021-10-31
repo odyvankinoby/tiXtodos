@@ -17,110 +17,114 @@ struct EditItem: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
     @State var dueDate = Date()
-    @State var toDoText = ""
+    @State var todotxt = ""
     @State var cat: Category
     @State var col = Color.tix
     @State var important = false
+    @State var hasDueDate = false
+    @FocusState private var isFocused: Bool
     
     var body: some View {
-        
-        VStack {
-            ScrollView() {
-                Text(loc_todo)
+        ScrollView {
+            VStack(alignment: .leading) {
+                
+                TextField(loc_todo, text: $todotxt)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.tix.opacity(0.5))
-                TextField("", text: $toDoText)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .opacity(toDoText.isEmpty ? 0.25 : 1)
                     .foregroundColor(Color.tix)
+                    .focused($isFocused)
                     .padding()
                 
-                Text(loc_category)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding().background(Color.tix.opacity(0.5))
+                Divider()
+                
                 HStack {
+                    Text(loc_category)
+                        .foregroundColor(Color.tix)
+                        .frame(alignment: .leading)
+                        .padding()
+                    
+                    Spacer()
+                    
                     Image(systemName: "square.fill")
                         .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(self.col)
-                        .padding(.trailing, 10)
-                        .padding(.bottom, 10)
-                        .padding(.top, 10)
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(col)
+                    
                     Picker(loc_choose_category, selection: $cat) {
-                                    ForEach(categories, id: \.self) { catt in
-                                        Text(catt.name ?? "")
-                                            .frame(alignment: .leading)
-                                            .frame(maxWidth: .infinity)
-                                            .foregroundColor(catt.color?.color ?? Color.tix)
-                                    }
-                                }.onChange(of: cat, perform: { (value) in
-                                    pickerChanged()
-                                })
-                   
-                }.padding()
-               
-              
-                
-                Text(loc_duedate)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding().background(Color.tix.opacity(0.5))
-                DatePicker(selection: $dueDate, displayedComponents: .date) {
-                    Text(loc_duedate)
+                        ForEach(categories, id: \.self) { catt in
+                            HStack {
+                                Text(catt.name ?? "")
+                                    .frame(alignment: .leading)
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(catt.color?.color ?? Color.tix)
+                                
+                                
+                            }
+                        }
+                    }
+                    .onChange(of: cat, perform: { (value) in
+                        pickerChanged()
+                    })
+                    .frame(alignment: .trailing)
+                    .padding()
                     
                 }
-                .foregroundColor(Color.tix)
-                .padding()
+                
+                Divider()
                 
                 
-                Text(loc_important)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding().background(Color.tix.opacity(0.5))
-                Toggle(isOn: self.$important) {
-                        Text(loc_important)
-                            .foregroundColor(.tix).frame(alignment: .trailing)
+                Toggle(isOn: self.$hasDueDate) {
+                    Text(loc_set_duedate)
+                        .foregroundColor(.tix).frame(alignment: .trailing)
                 }
                 .padding()
                 .accentColor(Color.tix)
-
-            }
-            .frame(maxWidth: .infinity)
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(10)
-            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-            .padding()
-      
-        .onAppear(perform: onAppear)
-     
-        .navigationBarTitle(self.toDoText, displayMode: .automatic).allowsTightening(true)
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(action: {
-                    withAnimation {
-                        saveAction()
-                        Haptics.giveSmallHaptic()
-                    }
-                }) {
-                    Text(loc_save)
-                        .foregroundColor(.tix)
+                if hasDueDate {
+                    DatePicker(selection: $dueDate, displayedComponents: .date) {
+                        Text(loc_duedate)
+                        
+                    }.foregroundColor(Color.tix)
+                        .padding()
+                        .accentColor(Color.tix)
                 }
-                .buttonStyle(PlainButtonStyle())
+                Divider()
+                
+                Toggle(isOn: self.$important) {
+                    Text(loc_important)
+                        .foregroundColor(.tix).frame(alignment: .trailing)
+                }
+                .padding()
+                .accentColor(Color.tix)
+                Spacer()
+                Spacer()
+                
             }
+            .navigationBarTitle(self.todotxt, displayMode: .automatic).allowsTightening(true)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        withAnimation {
+                            saveAction()
+                            Haptics.giveSmallHaptic()
+                        }
+                    }) {
+                        Text(loc_save)
+                            .foregroundColor(.tix)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .navigationBarTitle(self.todotxt, displayMode: .automatic)
+            .allowsTightening(true)
+            .accentColor(.tix)
+            .onAppear(perform: onAppear)
         }
-            
-            
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.tix) // NAV
     }
     
     func onAppear() {
-        toDoText = todo.todo ?? ""
+        isFocused = true
+        todotxt = todo.todo ?? ""
+        hasDueDate = todo.hasDueDate
         dueDate = todo.dueDate ?? Date()
         important = todo.important
         cat = todo.todoCategory ?? Category()
@@ -141,15 +145,21 @@ struct EditItem: View {
     }
     
     func saveAction() {
-        todo.todo = self.toDoText
+        todo.todo = self.todotxt
         todo.dueDate = self.dueDate
         todo.important = self.important
+        todo.hasDueDate = self.hasDueDate
+        if self.hasDueDate {
+            todo.dueDate = self.dueDate
+        } else {
+            todo.dueDate = nil
+        }
         todo.todoCategory = self.cat
-            do {
-                try self.viewContext.save()
-            } catch {
-                NSLog(error.localizedDescription)
-            }
+        do {
+            try self.viewContext.save()
+        } catch {
+            NSLog(error.localizedDescription)
+        }
         self.cancelAction()
     }
     

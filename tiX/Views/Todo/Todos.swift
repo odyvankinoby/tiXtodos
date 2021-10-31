@@ -14,7 +14,7 @@ struct Todos: View {
     
     @ObservedObject var settings: UserSettings
     
-    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.dueDate, ascending: false)]) var todos: FetchedResults<Todo>
+    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.timestamp, ascending: false)]) var todos: FetchedResults<Todo>
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
@@ -76,9 +76,9 @@ struct Todos: View {
                             
                             NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
                             {
-                                VStack(alignment: .leading){
+                                VStack(alignment: .leading) {
                                     
-                                    HStack(alignment: .center){
+                                    HStack(alignment: .center) {
                                         
                                         Image(systemName: todo.isDone ? "circle.fill" : "circle")
                                             .resizable()
@@ -96,7 +96,8 @@ struct Todos: View {
                                             Text(todo.todo ?? "\(loc_todo)")
                                                 .font(.headline)
                                                 .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
-                                            Text("\(todo.dueDate!, formatter: itemFormatter)").font(.subheadline)
+                                            Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
+                                                .font(.subheadline)
                                                 .foregroundColor(todo.todoCategory?.color?.color.opacity(0.5) ?? Color.tix.opacity(0.5))
                                             //Text("\(todo.dueDate, formatter: Utils.timeFormatter)")
                                                 
@@ -104,19 +105,17 @@ struct Todos: View {
                                             Spacer()
                                         
                                         Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                            //.resizable()
-                                            //.frame(width: 20, height: 20)
                                             .foregroundColor(.red)
                                            
                                         
-                                    }
+                                    }//.background(todo.color?.color ?? Color(UIColor.systemBackground))
                                 }
                                 .frame(maxWidth: .infinity)
                                 
                             }
                         }.onDelete(perform: deleteItems(offsets:))
-                            .listStyle(PlainListStyle())
-                        
+                         .listStyle(PlainListStyle())
+                         //.listRowBackground(categorySelected ? cat.color?.color : Color(UIColor.systemBackground))
                     }
                     //.searchable(text: $searchQuery)
                     .navigationBarTitle(selectCategory ? loc_categories : loc_todos, displayMode: .automatic).allowsTightening(true)
@@ -158,7 +157,7 @@ struct Todos: View {
                                     .foregroundColor(showImportant ? .red : .tix)
                             }
                             .toggleStyle(.button)
-                            .padding(.leading, 10)
+                           
                           
                         }
                         ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -179,7 +178,7 @@ struct Todos: View {
                             
                         }
                     }
-                    .sheet(isPresented: $newItem) { NewItem(cat: Category()) }
+                    .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
                     
                     
                 }
@@ -269,11 +268,11 @@ struct Todos: View {
             switch settings.hideTicked { //we will need this for our toggle later
             case true:
                 return todos.filter {
-                    !$0.todo!.isEmpty && $0.isDone == false && $0.important == self.showImportant
+                    !$0.todo!.isEmpty && $0.isDone == false
                 }
             default:
                 return todos.filter {
-                    !$0.todo!.isEmpty && $0.important == self.showImportant
+                    !$0.todo!.isEmpty
                 }
             }
         }
@@ -292,6 +291,7 @@ struct Todos: View {
             
             for cat in cats {
                 self.cat = cat
+
             }
         } catch let error {
             NSLog("error in FetchRequest trying to get default category: \(error.localizedDescription)")
