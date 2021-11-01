@@ -118,7 +118,7 @@ struct Todos: View {
                          //.listRowBackground(categorySelected ? cat.color?.color : Color(UIColor.systemBackground))
                     }
                     //.searchable(text: $searchQuery)
-                    .navigationBarTitle(selectCategory ? loc_categories : loc_todos, displayMode: .automatic).allowsTightening(true)
+                    .navigationBarTitle(selectCategory ? loc_categories : loc_all_todos, displayMode: .automatic).allowsTightening(true)
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarLeading) {
                             
@@ -252,27 +252,52 @@ struct Todos: View {
     
     var searchResults: [Todo] {
         if categorySelected {
-            // getting all items
-            switch settings.hideTicked { //we will need this for our toggle later
-            case true:
-                return todos.filter {
-                    !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat
+            if showImportant {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat && $0.important == true
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.todoCategory == cat && $0.important == true
+                    }
                 }
-            default:
-                return todos.filter {
-                    !$0.todo!.isEmpty && $0.todoCategory == cat
+            } else {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.todoCategory == cat
+                    }
                 }
             }
         } else {
-            // getting only searched items
-            switch settings.hideTicked { //we will need this for our toggle later
-            case true:
-                return todos.filter {
-                    !$0.todo!.isEmpty && $0.isDone == false
+            if showImportant {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false && $0.important == true
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.important == true
+                    }
                 }
-            default:
-                return todos.filter {
-                    !$0.todo!.isEmpty
+            }
+            else {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty
+                    }
                 }
             }
         }

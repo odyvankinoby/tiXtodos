@@ -13,6 +13,8 @@
 
 "loc_todo" = "Todo";
 "loc_todos" = "Todos";
+"loc_all_todos" = "All Todos";
+
 "loc_category" = "Category";
 "loc_categories" = "Categories";
 "loc_new_todo" = "New Todo";
@@ -25,3 +27,15 @@
 "loc_discard" = "Discard";
 
 "loc_set_duedate" = "Set Due date";
+
+"loc_settings" = "Settings";
+
+"loc_hide_ticked" = "Hide ticked Todos";
+"loc_delete_ticked" = "Delete ticked Todos";
+"loc_help" = "Help & Support";
+"loc_feedback" = "Feedback";
+"loc_support" = "Support";
+"loc_contact" = "Contact";
+"loc_about" = "About";
+
+"loc_madewithlove" = "Handmade with ❤️ in Munich.";

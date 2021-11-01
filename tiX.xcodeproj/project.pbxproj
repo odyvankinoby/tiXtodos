@@ -38,6 +38,10 @@
 		36C1B5DF270DD92B00249259 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DE270DD92B00249259 /* Haptics.swift */; };
 		36D3F2A7272D362B00694E0F /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2A6272D362B00694E0F /* Formatter.swift */; };
 		36D3F2A9272D3E0500694E0F /* Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2A8272D3E0500694E0F /* Today.swift */; };
+		36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2AC272FE96C00694E0F /* Onboarding.swift */; };
+		36D3F2AF272FE97F00694E0F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2AE272FE97F00694E0F /* Update.swift */; };
+		36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B0272FF09D00694E0F /* MailView.swift */; };
+		36D3F2B3272FF47300694E0F /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B2272FF47300694E0F /* About.swift */; };
 		36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +104,10 @@
 		36C1B5DE270DD92B00249259 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		36D3F2A6272D362B00694E0F /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		36D3F2A8272D3E0500694E0F /* Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Today.swift; sourceTree = "<group>"; };
+		36D3F2AC272FE96C00694E0F /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		36D3F2AE272FE97F00694E0F /* Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
+		36D3F2B0272FF09D00694E0F /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		36D3F2B2272FF47300694E0F /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUpdater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,10 +228,12 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
-				36D3F2A8272D3E0500694E0F /* Today.swift */,
+				36D3F2AA272FE6B700694E0F /* Today */,
 				36A250B827283965003BC001 /* Todo */,
 				36A250B727283958003BC001 /* Category */,
-				360A63EB27118DFE005E9AAB /* Settings.swift */,
+				36D3F2AB272FE93900694E0F /* Settings */,
+				36D3F2AC272FE96C00694E0F /* Onboarding.swift */,
+				36D3F2AE272FE97F00694E0F /* Update.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,8 +249,26 @@
 				367527772710AA6F0087FC4B /* Colors.swift */,
 				36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */,
 				36D3F2A6272D362B00694E0F /* Formatter.swift */,
+				36D3F2B0272FF09D00694E0F /* MailView.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		36D3F2AA272FE6B700694E0F /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				36D3F2A8272D3E0500694E0F /* Today.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		36D3F2AB272FE93900694E0F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				360A63EB27118DFE005E9AAB /* Settings.swift */,
+				36D3F2B2272FF47300694E0F /* About.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,8 +401,12 @@
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
 				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
 				3681FB562728755E00248951 /* SerializableColor.swift in Sources */,
+				36D3F2B3272FF47300694E0F /* About.swift in Sources */,
 				36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */,
+				36D3F2AF272FE97F00694E0F /* Update.swift in Sources */,
 				36A250B4272836C9003BC001 /* EditCategory.swift in Sources */,
+				36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */,
+				36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
 				36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */,
 				361C8C972727248C00EA0737 /* Todos.swift in Sources */,
@@ -423,7 +455,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -452,7 +484,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -603,7 +635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
@@ -637,7 +669,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
