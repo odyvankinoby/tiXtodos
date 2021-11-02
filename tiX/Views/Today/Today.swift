@@ -29,9 +29,14 @@ struct Today: View {
     @State private var categorySelected = false
     @State private var cat = Category()
     
+    private var todaysItems: [Todo] {
+            today.filter {
+                Calendar.current.isDate($0.dueDate ?? Date(), equalTo: Date(), toGranularity: .day)
+            }
+        }
+    
     var body: some View {
         NavigationView {
-            
             HStack {
                 if selectCategory {
                     List {
@@ -67,7 +72,7 @@ struct Today: View {
                                 }
                             }
                         }
-                    }
+                    }.listRowBackground(Color.clear)
                 }
                 
                 
@@ -170,9 +175,9 @@ struct Today: View {
                     }
                     
                     
-                }
+                }.listRowBackground(Color.clear)
                 
-            }
+            }.background(Color.clear) // RED
             //.searchable(text: $searchQuery)
             .navigationBarTitle(selectCategory ? loc_categories : showOverdue ? loc_overdue : loc_today, displayMode: .automatic).allowsTightening(true)
             .toolbar {
@@ -248,13 +253,17 @@ struct Today: View {
                 }
             }
             .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
-            
-            
-        }.onAppear(perform: onAppear)
-         .navigationViewStyle(StackNavigationViewStyle())
-         .accentColor(.tix) // NAV
-        
+             .onAppear(perform: onAppear)
+             .navigationViewStyle(StackNavigationViewStyle())
+             .accentColor(.tix) // NAV
+             .background(Color.clear)
+             .listRowBackground(Color.clear)
+             .onAppear(){
+                 UITableView.appearance().backgroundColor = .clear
+            }
+        }
     }
+
     
     private func onAppear() {
         

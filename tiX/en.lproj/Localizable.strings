@@ -7,7 +7,10 @@
 */
 
 "loc_all" = "All";
-
+"loc_welcome" = "Welcome";
+"loc_tix" = "to tiX - track your tasks!";
+"loc_how" = "How may I call you?";
+"loc_name" = "Your Name";
 "loc_today" = "Today";
 "loc_overdue" = "Overdue";
 
@@ -18,6 +21,7 @@
 "loc_category" = "Category";
 "loc_categories" = "Categories";
 "loc_new_todo" = "New Todo";
+"loc_new_cat" = "New Category";
 
 
 "loc_choose_category" = "Please choose a Category";
@@ -39,3 +43,6 @@
 "loc_about" = "About";
 
 "loc_madewithlove" = "Handmade with ❤️ in Munich.";
+
+"loc_color" = "Color";
+"loc_select_color" = "Select Color";

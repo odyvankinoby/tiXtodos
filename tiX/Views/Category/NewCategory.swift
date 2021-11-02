@@ -14,39 +14,39 @@ struct NewCategory: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
     
-    @State var cat = ""
+    @State var cat = "Name"
     @State var col = Color.tix
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         NavigationView {
-            ScrollView() {
-                Text("Category")
+            VStack(alignment: .leading) {
+                TextField(loc_new_cat, text: self.$cat)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.tix.opacity(0.5))
-                TextField("", text: self.$cat)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .opacity(cat.isEmpty ? 0.25 : 1)
+                    .font(.title2)
+                    .opacity(cat.isEmpty ? 0.5 : 1)
                     .foregroundColor(Color.tix)
+                    .focused($isFocused)
                     .padding()
-                Text("Color")
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.tix.opacity(0.5))
-                ColorPicker("Set Category color", selection: $col)
-                    .frame(alignment: .leading)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                        
+                Divider()
+               
+                HStack {
+                    Text(loc_color)
+                        .foregroundColor(Color.tix)
+                        .frame(alignment: .leading)
+                    Spacer()
+                    Image(systemName: "square.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(self.col)
+                    Spacer()
+                    ColorPicker("", selection: $col)
+                        .frame(alignment: .trailing)
+                }.padding()
+                Spacer()
+                Spacer()
             }
-            .frame(maxWidth: .infinity)
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(10)
-            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-            .padding()
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(action: {
@@ -55,7 +55,7 @@ struct NewCategory: View {
                             Haptics.giveSmallHaptic()
                         }
                     }) {
-                        Text("Discard")
+                        Text(loc_discard)
                             .foregroundColor(.tix)
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -68,7 +68,7 @@ struct NewCategory: View {
                             Haptics.giveSmallHaptic()
                         }
                     }) {
-                        Text("Save")
+                        Text(loc_save)
                             .foregroundColor(.tix)
                         
                         
@@ -77,13 +77,18 @@ struct NewCategory: View {
                     
                 }
             }
-            .navigationBarTitle("New Category", displayMode: .automatic).allowsTightening(true)
+            
+            .navigationBarTitle(self.cat, displayMode: .automatic)
+            .allowsTightening(true)
+            .onAppear(perform: onAppear)
+            .accentColor(.tix)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.tix) // NAV
+      
     }
     
-    
+    func onAppear() {
+        isFocused = true
+    }
     
     func saveAction() {
         let newC = Category(context: self.viewContext)

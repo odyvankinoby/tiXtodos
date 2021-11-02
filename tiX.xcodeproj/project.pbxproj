@@ -42,6 +42,7 @@
 		36D3F2AF272FE97F00694E0F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2AE272FE97F00694E0F /* Update.swift */; };
 		36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B0272FF09D00694E0F /* MailView.swift */; };
 		36D3F2B3272FF47300694E0F /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B2272FF47300694E0F /* About.swift */; };
+		36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B427307A7000694E0F /* Dashboard.swift */; };
 		36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		36D3F2AE272FE97F00694E0F /* Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		36D3F2B0272FF09D00694E0F /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		36D3F2B2272FF47300694E0F /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		36D3F2B427307A7000694E0F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUpdater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
+				36D3F2B427307A7000694E0F /* Dashboard.swift */,
 				36D3F2AA272FE6B700694E0F /* Today */,
 				36A250B827283965003BC001 /* Todo */,
 				36A250B727283958003BC001 /* Category */,
@@ -406,6 +409,7 @@
 				36D3F2AF272FE97F00694E0F /* Update.swift in Sources */,
 				36A250B4272836C9003BC001 /* EditCategory.swift in Sources */,
 				36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */,
+				36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */,
 				36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
 				36C1B5CB270CC3EF00249259 /* Categories.swift in Sources */,
@@ -444,7 +448,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -473,7 +477,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -619,7 +623,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				ENABLE_PREVIEWS = YES;
@@ -639,6 +643,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -653,7 +658,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				ENABLE_PREVIEWS = YES;
@@ -673,6 +678,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

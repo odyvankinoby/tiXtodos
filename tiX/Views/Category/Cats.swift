@@ -33,11 +33,6 @@ struct Cats: View {
                                 Image(systemName: "square.fill")
                                     .resizable()
                                     .frame(width: 30, height: 30)
-                                    .onTapGesture {
-                                        withAnimation {
-                                            /*ViewContextMethods.isDone(todo: todo, context: viewContext)*/
-                                        }
-                                    }
                                     .foregroundColor(cat.color?.color ?? Color.tix)
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 10)
@@ -45,7 +40,7 @@ struct Cats: View {
                                 
                                 Text(cat.name ?? "category")
                                     .font(.callout)
-                                    .foregroundColor(.tix)
+                                    .foregroundColor(cat.color?.color ?? Color.tix)
                                 Spacer()
                             }
                         }

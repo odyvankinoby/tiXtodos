@@ -11,7 +11,6 @@ import SwiftUI
 struct widgetBundle: WidgetBundle {
     var body: some Widget {
         tixWidget()
-        //tixWidgetPro()
     }
 }
 
@@ -19,15 +18,12 @@ struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date())
     }
-    
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let entry = SimpleEntry(date: Date())
         completion(entry)
     }
-    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [SimpleEntry] = []
-        
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
@@ -35,7 +31,6 @@ struct Provider: TimelineProvider {
             let entry = SimpleEntry(date: entryDate)
             entries.append(entry)
         }
-        
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
@@ -55,7 +50,6 @@ struct SimpleEntry: TimelineEntry {
 @main
 struct tixWidget: Widget {
     let kind: String = "tixWidget"
-    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             tixWidgetEntryView(entry: entry)
@@ -68,7 +62,6 @@ struct tixWidget: Widget {
 
 struct tixWidgetEntryView : View {
     var entry: Provider.Entry
-    
     var body: some View {
         VStack(alignment: .leading){
             Text("Todos (\(entry.open))")

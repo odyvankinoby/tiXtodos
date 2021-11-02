@@ -77,9 +77,7 @@ struct Todos: View {
                             NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
                             {
                                 VStack(alignment: .leading) {
-                                    
                                     HStack(alignment: .center) {
-                                        
                                         Image(systemName: todo.isDone ? "circle.fill" : "circle")
                                             .resizable()
                                             .frame(width: 30, height: 30)
@@ -99,18 +97,12 @@ struct Todos: View {
                                             Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
                                                 .font(.subheadline)
                                                 .foregroundColor(todo.todoCategory?.color?.color.opacity(0.5) ?? Color.tix.opacity(0.5))
-                                            //Text("\(todo.dueDate, formatter: Utils.timeFormatter)")
-                                                
                                         }
-                                            Spacer()
-                                        
+                                        Spacer()
                                         Image(systemName: todo.important ? "exclamationmark.circle" : "")
                                             .foregroundColor(.red)
-                                           
-                                        
-                                    }//.background(todo.color?.color ?? Color(UIColor.systemBackground))
-                                }
-                                .frame(maxWidth: .infinity)
+                                    }
+                                }.frame(maxWidth: .infinity)
                                 
                             }
                         }.onDelete(perform: deleteItems(offsets:))
@@ -121,7 +113,6 @@ struct Todos: View {
                     .navigationBarTitle(selectCategory ? loc_categories : loc_all_todos, displayMode: .automatic).allowsTightening(true)
                     .toolbar {
                         ToolbarItemGroup(placement: .navigationBarLeading) {
-                            
                             if selectCategory && categorySelected {
                                 Button(action: {
                                     withAnimation {
@@ -137,7 +128,6 @@ struct Todos: View {
                                 Button(action: {
                                     withAnimation {
                                         selectCategory.toggle()
-                                        
                                     }
                                 }) {
                                     Image(systemName: categorySelected ? "folder.fill" : "folder")
@@ -157,8 +147,6 @@ struct Todos: View {
                                     .foregroundColor(showImportant ? .red : .tix)
                             }
                             .toggleStyle(.button)
-                           
-                          
                         }
                         ToolbarItemGroup(placement: .navigationBarTrailing) {
                             

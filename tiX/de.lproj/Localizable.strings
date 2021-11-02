@@ -7,6 +7,10 @@
 */
 
 "loc_all" = "Alle";
+"loc_welcome" = "Wollkommen";
+"loc_tix" = "bei tiX - Deinem Task Tracker!";
+"loc_how" = "Wie darf ich dich nennen?";
+"loc_name" = "Dein Name";
 
 "loc_today" = "Heute";
 "loc_overdue" = "Überfällig";
@@ -18,6 +22,7 @@
 "loc_category" = "Kategorie";
 "loc_categories" = "Kategorien";
 "loc_new_todo" = "Neues ToDo";
+"loc_new_cat" = "Neue Kategorie";
 
 
 "loc_choose_category" = "Bitte Kategorie wählen";
@@ -39,3 +44,6 @@
 "loc_about" = "Über";
 
 "loc_madewithlove" = "Handgemacht mit ❤️ in München.";
+
+"loc_color" = "Farbe";
+"loc_select_color" = "Farbe auswählen";

@@ -24,9 +24,7 @@ struct NewItem: View {
     
     @State var cat: Category
     @State var col: Color
-    
-    let toDoTextLimit = 70
-    
+   
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {

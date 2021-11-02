@@ -19,6 +19,8 @@ struct Settings: View {
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var noMail = false
     @State var deletedTodos = 0
+    @State var userName = ""
+    
     var body: some View {
         NavigationView {
         ScrollView {
@@ -29,8 +31,19 @@ struct Settings: View {
                 }.padding()
                  .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
             
+                HStack {
+                    Text(loc_name)
+                        .frame(alignment: .leading)
+                        .foregroundColor(.tix)
+                    Spacer()
+                    TextField("", text: $userName)
+                        .frame(alignment: .center)
+                        .foregroundColor(Color.tix)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }.padding()
                 
-                    
+                Divider()
+                
                 Toggle(isOn: $settings.hideTicked) {
                     Text(loc_hide_ticked)
                         .foregroundColor(.tix).frame(alignment: .trailing)
