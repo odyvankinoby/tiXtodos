@@ -77,13 +77,11 @@ struct NewCategory: View {
                     
                 }
             }
-            
             .navigationBarTitle(self.cat, displayMode: .automatic)
             .allowsTightening(true)
             .onAppear(perform: onAppear)
             .accentColor(.tix)
         }
-      
     }
     
     func onAppear() {

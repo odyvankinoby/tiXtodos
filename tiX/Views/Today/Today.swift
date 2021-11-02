@@ -30,10 +30,10 @@ struct Today: View {
     @State private var cat = Category()
     
     private var todaysItems: [Todo] {
-            today.filter {
-                Calendar.current.isDate($0.dueDate ?? Date(), equalTo: Date(), toGranularity: .day)
-            }
+        today.filter {
+            Calendar.current.isDate($0.dueDate ?? Date(), equalTo: Date(), toGranularity: .day)
         }
+    }
     
     var body: some View {
         NavigationView {
@@ -93,35 +93,38 @@ struct Today: View {
                                                     ViewContextMethods.isDone(todo: todo, context: viewContext)
                                                 }
                                             }
-                                            .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
+                                            .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                             .padding(.trailing, 10)
                                             .padding(.bottom, 10)
                                             .padding(.top, 10)
                                         VStack(alignment: .leading){
                                             Text(todo.todo ?? "\(loc_todo)")
                                                 .font(.headline)
-                                                .foregroundColor(todo.todoCategory?.color?.color ?? Color.tix)
+                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                             
                                             Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
                                                 .font(.subheadline)
-                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(0.5) ?? Color.tix.opacity(0.5))
+                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                             
                                         }
+                                        
                                         Spacer()
-                                        
-                                        Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                        //.resizable()
-                                        //.frame(width: 20, height: 20)
-                                            .foregroundColor(.red)
-                                        
-                                        
+                                        VStack(alignment: .trailing){
+                                            Image(systemName: todo.important ? "exclamationmark.circle" : "")
+                                                .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                            /*
+                                            Text(todo.todoCategory?.name ?? "")
+                                                .font(.subheadline)
+                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                        */
+                                        }
                                     }
-                                }
-                                .frame(maxWidth: .infinity)
+                                    
+                                }.frame(maxWidth: .infinity)
                                 
                             }
                         }.onDelete(perform: deleteToday(offsets:))
-                            .listStyle(PlainListStyle())
+                         .listStyle(PlainListStyle())
                     } else {
                         
                         
@@ -179,91 +182,91 @@ struct Today: View {
                 
             }.background(Color.clear) // RED
             //.searchable(text: $searchQuery)
-            .navigationBarTitle(selectCategory ? loc_categories : showOverdue ? loc_overdue : loc_today, displayMode: .automatic).allowsTightening(true)
-            .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    
-                    if selectCategory && categorySelected {
-                        Button(action: {
-                            withAnimation {
-                                categorySelected = false
-                                selectCategory.toggle()
-                            }
-                        }) {
-                            Text(loc_all)
-                                .foregroundColor(.tix)
-                        }
-                        .toggleStyle(.button)
+                .navigationBarTitle(selectCategory ? loc_categories : showOverdue ? loc_overdue : loc_today, displayMode: .automatic).allowsTightening(true)
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
                         
-                    } else {
+                        if selectCategory && categorySelected {
+                            Button(action: {
+                                withAnimation {
+                                    categorySelected = false
+                                    selectCategory.toggle()
+                                }
+                            }) {
+                                Text(loc_all)
+                                    .foregroundColor(.tix)
+                            }
+                            .toggleStyle(.button)
+                            
+                        } else {
+                            Button(action: {
+                                withAnimation {
+                                    selectCategory.toggle()
+                                    
+                                }
+                            }) {
+                                Image(systemName: categorySelected ? "folder.fill" : "folder")
+                                    .resizable()
+                                    .foregroundColor(categorySelected ? cat.color?.color : .tix)
+                            }
+                            .toggleStyle(.button)
+                            
+                        }
                         Button(action: {
                             withAnimation {
-                                selectCategory.toggle()
+                                showImportant.toggle()
                                 
                             }
                         }) {
-                            Image(systemName: categorySelected ? "folder.fill" : "folder")
+                            Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
                                 .resizable()
-                                .foregroundColor(categorySelected ? cat.color?.color : .tix)
+                                .foregroundColor(showImportant ? .red : .tix)
                         }
                         .toggleStyle(.button)
                         
-                    }
-                    Button(action: {
-                        withAnimation {
-                            showImportant.toggle()
-                            
+                        
+                        Button(action: {
+                            withAnimation {
+                                showOverdue.toggle()
+                                
+                            }
+                        }) {
+                            Image(systemName: showOverdue ? "calendar.badge.exclamationmark" : "calendar.badge.exclamationmark")
+                                .resizable()
+                                .foregroundColor(showOverdue ? .red : .tix)
                         }
-                    }) {
-                        Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
-                            .resizable()
-                            .foregroundColor(showImportant ? .red : .tix)
+                        .toggleStyle(.button)
+                        
+                        
                     }
-                    .toggleStyle(.button)
-                    
-                    
-                    Button(action: {
-                        withAnimation {
-                            showOverdue.toggle()
-                            
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        
+                        Button(action: {
+                            withAnimation {
+                                newItem.toggle()
+                            }
+                        }) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .foregroundColor(.tix)
                         }
-                    }) {
-                        Image(systemName: showOverdue ? "calendar.badge.exclamationmark" : "calendar.badge.exclamationmark")
-                            .resizable()
-                            .foregroundColor(showOverdue ? .red : .tix)
+                        .buttonStyle(PlainButtonStyle())
+                        
+                        
                     }
-                    .toggleStyle(.button)
-                    
-                    
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    
-                    Button(action: {
-                        withAnimation {
-                            newItem.toggle()
-                        }
-                    }) {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .foregroundColor(.tix)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    
+                .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
+                .onAppear(perform: onAppear)
+                .navigationViewStyle(StackNavigationViewStyle())
+                .accentColor(.tix) // NAV
+                .background(Color.clear)
+                .listRowBackground(Color.clear)
+                .onAppear(){
+                    UITableView.appearance().backgroundColor = .clear
                 }
-            }
-            .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
-             .onAppear(perform: onAppear)
-             .navigationViewStyle(StackNavigationViewStyle())
-             .accentColor(.tix) // NAV
-             .background(Color.clear)
-             .listRowBackground(Color.clear)
-             .onAppear(){
-                 UITableView.appearance().backgroundColor = .clear
-            }
         }
     }
-
+    
     
     private func onAppear() {
         

@@ -105,25 +105,30 @@ struct Dashboard: View {
                                         ViewContextMethods.isDone(todo: todo, context: viewContext)
                                     }
                                 }
-                                .foregroundColor(.white)
+                                .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
                                 .padding()
                             VStack(alignment: .leading){
-                                Text(todo.todo ?? "\(loc_todo)")
+                                HStack {
+                                    Text(todo.todo ?? "\(loc_todo)")
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
+                                
+                                Spacer()
+                                Image(systemName: todo.important ? "exclamationmark.circle" : "")
+                                        .font(.headline)
+                                    .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                }
                                 HStack {
                                     Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
                                     Spacer()
                                     Text(todo.todoCategory?.name ?? "")
                                         .font(.subheadline)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
                                 }
                             }
-                            Spacer()
-                            Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                .foregroundColor(.red)
+                            
                             
                         }
                         .padding(.leading).padding(.trailing)

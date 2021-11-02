@@ -118,6 +118,7 @@ struct EditItem: View {
             .allowsTightening(true)
             .accentColor(.tix)
             .onAppear(perform: onAppear)
+            .modifier(AdaptsToKeyboard())
         }
     }
     

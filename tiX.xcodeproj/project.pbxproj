@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3600C6542731B629006E5F53 /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3600C6532731B629006E5F53 /* AdaptsToKeyboard.swift */; };
 		360A63EC27118DFE005E9AAB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A63EB27118DFE005E9AAB /* Settings.swift */; };
 		361C8C972727248C00EA0737 /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361C8C962727248C00EA0737 /* Todos.swift */; };
 		3661F563272C28D300546006 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661F562272C28D300546006 /* Localization.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3600C6532731B629006E5F53 /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
 		360A63EB27118DFE005E9AAB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		361C8C962727248C00EA0737 /* Todos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		3661F562272C28D300546006 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */,
 				36D3F2A6272D362B00694E0F /* Formatter.swift */,
 				36D3F2B0272FF09D00694E0F /* MailView.swift */,
+				3600C6532731B629006E5F53 /* AdaptsToKeyboard.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				36D3F2AF272FE97F00694E0F /* Update.swift in Sources */,
 				36A250B4272836C9003BC001 /* EditCategory.swift in Sources */,
 				36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */,
+				3600C6542731B629006E5F53 /* AdaptsToKeyboard.swift in Sources */,
 				36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */,
 				36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
