@@ -126,7 +126,7 @@ struct NewItem: View {
             .allowsTightening(true)
             .accentColor(.tix)
             .onAppear(perform: onAppear)
-            .modifier(AdaptsToKeyboard())
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     

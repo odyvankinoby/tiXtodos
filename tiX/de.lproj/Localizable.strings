@@ -7,34 +7,28 @@
 */
 
 "loc_all" = "Alle";
-"loc_welcome" = "Wollkommen";
+"loc_welcome" = "Willkommen";
 "loc_tix" = "bei tiX - Deinem Task Tracker!";
 "loc_how" = "Wie darf ich dich nennen?";
 "loc_name" = "Dein Name";
-
+"loc_dashboard" = "Dashboard";
 "loc_today" = "Heute";
 "loc_overdue" = "Überfällig";
-
+"loc_open_tasks" = "Offene Tasks";
 "loc_todo" = "ToDo";
 "loc_todos" = "ToDos";
 "loc_all_todos" = "Alle ToDos";
-
 "loc_category" = "Kategorie";
 "loc_categories" = "Kategorien";
 "loc_new_todo" = "Neues ToDo";
 "loc_new_cat" = "Neue Kategorie";
-
-
 "loc_choose_category" = "Bitte Kategorie wählen";
 "loc_duedate" = "Fällig am";
 "loc_important" = "Wichtig";
 "loc_save" = "Speichern";
 "loc_discard" = "Verwerfen";
-
 "loc_set_duedate" = "Fälligkeit setzen";
-
 "loc_settings" = "Einstellungen";
-
 "loc_hide_ticked" = "Erledigte ToDos ausblenden";
 "loc_delete_ticked" = "Erledigte ToDos löschen";
 "loc_help" = "Hilfe & Support";
@@ -42,8 +36,7 @@
 "loc_support" = "Support";
 "loc_contact" = "Kontakt";
 "loc_about" = "Über";
-
 "loc_madewithlove" = "Handgemacht mit ❤️ in München.";
-
 "loc_color" = "Farbe";
 "loc_select_color" = "Farbe auswählen";
+"loc_your_todos" = "Deine ToDos";

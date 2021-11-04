@@ -34,9 +34,7 @@ class WidgetUpdater {
     
     func updateValues() {
 
-        print(one)
-        print(two)
-        print(three)
+    
         UserDefaults(suiteName: "group.de.nicolasott.tiX")!.set(self.one, forKey: "one")
         UserDefaults(suiteName: "group.de.nicolasott.tiX")!.set(self.two, forKey: "two")
         UserDefaults(suiteName: "group.de.nicolasott.tiX")!.set(self.three, forKey: "three")

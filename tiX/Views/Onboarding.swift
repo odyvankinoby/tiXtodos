@@ -11,8 +11,6 @@ struct SetupView: View {
     
     @ObservedObject var settings: UserSettings
     @Environment(\.presentationMode) var presentationMode
-    
-    @State private var username = ""
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -38,7 +36,7 @@ struct SetupView: View {
                 }.padding()
                 VStack(alignment: .center) {
                     Text(loc_how).font(.body).foregroundColor(.white).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
-                    TextField("", text: $username)
+                    TextField("", text: $settings.userName)
                         .frame(alignment: .center)
                         //.frame(maxWidth: .infinity)
                         .foregroundColor(Color.tix)
@@ -51,13 +49,12 @@ struct SetupView: View {
                 Spacer()
                 Button(action: {
                     withAnimation {
-                        settings.userName = self.username
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }) {
                     Text("Start tiX").foregroundColor(.white)
                 }.customButton()
-                 .frame(maxWidth: .infinity).disabled(username.isEmpty)
+                 .frame(maxWidth: .infinity).disabled(settings.userName.isEmpty)
             }
         }
         .onAppear(perform: onAppear)

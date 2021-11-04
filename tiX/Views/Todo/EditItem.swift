@@ -27,7 +27,6 @@ struct EditItem: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                
                 TextField(loc_todo, text: $todotxt)
                     .frame(alignment: .leading)
                     .frame(maxWidth: .infinity)
@@ -118,7 +117,7 @@ struct EditItem: View {
             .allowsTightening(true)
             .accentColor(.tix)
             .onAppear(perform: onAppear)
-            .modifier(AdaptsToKeyboard())
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     

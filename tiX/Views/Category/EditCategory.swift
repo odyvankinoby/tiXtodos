@@ -48,8 +48,6 @@ struct EditCategory: View {
                
 
             }
-            
-      
         .onAppear(perform: onAppear)
         .navigationBarTitle(self.catText, displayMode: .automatic).allowsTightening(true)
         .toolbar {

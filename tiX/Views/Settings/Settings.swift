@@ -19,8 +19,7 @@ struct Settings: View {
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var noMail = false
     @State var deletedTodos = 0
-    @State var userName = ""
-    
+   
     var body: some View {
         NavigationView {
             ScrollView {
@@ -28,7 +27,8 @@ struct Settings: View {
                     HStack {
                         Text(loc_settings).foregroundColor(.white).font(.title3).bold()
                         Spacer()
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
+                        .padding(.top, 10).padding(.bottom, 10)
                         .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
                     
                     HStack {
@@ -36,18 +36,19 @@ struct Settings: View {
                             .frame(alignment: .leading)
                             .foregroundColor(.tix)
                         Spacer()
-                        TextField("", text: $userName)
+                        TextField("", text: $settings.userName)
                             .frame(alignment: .center)
-                            .foregroundColor(Color.tix)
+                            .foregroundColor(Color.tixDark)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                    }.padding()
+                            .padding(.leading, 20)
+                    }.padding(.leading).padding(.trailing)
                     
                     Divider()
                     
                     Toggle(isOn: $settings.hideTicked) {
                         Text(loc_hide_ticked)
                             .foregroundColor(.tix).frame(alignment: .trailing)
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
                     
                     Divider()
                     
@@ -64,30 +65,30 @@ struct Settings: View {
                         }) {
                             Image(systemName: "circle.slash.fill")
                                 .foregroundColor(.white).frame(alignment: .trailing)
-                        }.customButton().padding(.leading, 50)
+                        }.customButton().padding(.leading, 50).padding(.bottom, 10)
                         
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
                     
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color(UIColor.systemBackground))
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-                .padding()
+                .padding(.leading).padding(.trailing)
                 
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Text(loc_support).foregroundColor(.white).font(.title3).bold()
                         Spacer()
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
+                        .padding(.top, 10).padding(.bottom, 10)
                         .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
                     
                     
                     HStack {
                         Text(loc_help).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
-                    }.padding()
-                        .frame(alignment: .leading).onTapGesture(perform: {
+                    }.padding(.leading).padding(.trailing).frame(alignment: .leading).onTapGesture(perform: {
                             if let url = URL(string: "https://www.nicolasott.de/en/tix/support/index.html") {
                                 UIApplication.shared.open(url)
                             }
@@ -104,15 +105,14 @@ struct Settings: View {
                             }
                         }
                                         .disabled(!MFMailComposeViewController.canSendMail())
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
                     
                     Divider()
                     
                     HStack {
                         Text(loc_contact).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
-                    }.padding()
-                        .frame(alignment: .leading).onTapGesture(perform: {
+                    }.padding(.leading).padding(.trailing).frame(alignment: .leading).onTapGesture(perform: {
                             if let url = URL(string: "https://www.nicolasott.de/en/contact/") {
                                 UIApplication.shared.open(url)
                             }
@@ -121,8 +121,7 @@ struct Settings: View {
                     HStack {
                         Text("Twitter").frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
-                    }.padding()
-                        .frame(alignment: .leading).onTapGesture(perform: {
+                    }.padding(.leading).padding(.trailing).padding(.bottom, 10).frame(alignment: .leading).onTapGesture(perform: {
                             if let url = URL(string: "https://twitter.com/trax_tracker") {
                                 UIApplication.shared.open(url)
                             }
@@ -133,39 +132,39 @@ struct Settings: View {
                 .background(Color(UIColor.systemBackground))
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-                .padding()
+                .padding(.leading).padding(.trailing)
                 
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
                         Text(loc_about).foregroundColor(.white).font(.title3).bold()
                         Spacer()
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
+                        .padding(.top, 10).padding(.bottom, 10)
                         .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
                     
                     HStack {
                         NavigationLink(destination: About().accentColor(Color.tix)
                                         .edgesIgnoringSafeArea(.bottom)) {
                             HStack {
-                                Text(loc_about).frame(alignment: .leading).foregroundColor(.tix)
+                                Text(loc_about).frame(alignment: .leading).padding(.bottom, 10).foregroundColor(.tix)
                                 Spacer()
                             }
                         }
-                    }.padding()
+                    }.padding(.leading).padding(.trailing)
                     
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color(UIColor.systemBackground))
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-                .padding()
+                .padding(.leading).padding(.trailing)
                 
-                Spacer()
+                
                 VStack(alignment: .leading, spacing: 10) {
                     
                     Text(loc_madewithlove).font(.footnote)
                 }
-                .padding()
-                .padding(.bottom, 25)
+                .padding(50)
                 .frame(maxWidth: .infinity)
                 
             }
@@ -173,7 +172,6 @@ struct Settings: View {
             .navigationViewStyle(StackNavigationViewStyle())
             .accentColor(.tix) // NAV
             .onAppear(perform: onAppear)
-            
         }
     }
     

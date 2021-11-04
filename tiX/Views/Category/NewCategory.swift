@@ -81,6 +81,7 @@ struct NewCategory: View {
             .allowsTightening(true)
             .onAppear(perform: onAppear)
             .accentColor(.tix)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     
