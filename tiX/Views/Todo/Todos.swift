@@ -110,6 +110,18 @@ struct Todos: View {
                 }
                 .toggleStyle(.button)
                 
+                Button(action: {
+                    withAnimation {
+                        categorySelected.toggle()
+                    }
+                }) {
+                    Image(systemName: "folder")
+                        .foregroundColor(categorySelected ? .white : .tixDark)
+                        .font(.title2)
+                }
+                .toggleStyle(.button)
+                .disabled(!categorySelected)
+                
                 
                 Spacer()
                 
@@ -131,26 +143,41 @@ struct Todos: View {
                     .foregroundColor(Color.white)
                     .frame(alignment: .leading)
                 Spacer()
-                Picker(loc_choose_category, selection: $cat) {
-                    ForEach(categories, id: \.self) { catt in
-                        HStack {
-                            Text(catt.name ?? "")
-                                .frame(alignment: .leading)
-                                .frame(maxWidth: .infinity)
-                                .foregroundColor(catt.color?.color ?? Color.white)
+                if categorySelected {
+                    Picker(loc_choose_category, selection: $cat) {
+                        ForEach(categories, id: \.self) { catt in
+                            HStack {
+                                Text(catt.name ?? "")
+                                    .frame(alignment: .leading)
+                                    .frame(maxWidth: .infinity)
+                                    .foregroundColor(catt.color?.color ?? Color.white)
+                                    .font(.body)
+                            }
                         }
                     }
+                    .onChange(of: cat, perform: { (value) in
+                        cat = value
+                        categorySelected = true
+                    })
+                    .frame(alignment: .trailing)
+                } else {
+                    HStack {
+                        Text(loc_category)
+                            .foregroundColor(Color.white)
+                            .font(.body)
+                            .onTapGesture {
+                                withAnimation {
+                                    categorySelected = true
+                                    
+                                }
+                            }
+                    }
                 }
-                .onChange(of: cat, perform: { (value) in
-                    cat = value
-                    categorySelected = true
-                })
-                .frame(alignment: .trailing)
-            }
+            }.padding(.top)
             
             ScrollView {
 
-                ForEach(todos, id: \.self) { todo in
+                ForEach(todosFiltered, id: \.self) { todo in
                     
                     // Inline Edit
                     if inlineEdit && todo.id == inlineItem {
@@ -158,7 +185,6 @@ struct Todos: View {
                         TodoEdit(settings: settings, todo: todo, inlineEdit: $inlineEdit, inlineItem: $inlineItem, inlineTodo: todo.todo ?? "", cat: todo.todoCategory ?? self.cat, hasDD: todo.hasDueDate, dd: todo.dueDate ?? Date(), prio: todo.important, accentColor: $accentColor)
                         
                     } else {
-                    // Display Todo
                         HStack(alignment: .center){
                             Image(systemName: todo.isDone ? "circle.fill" : "circle")
                                 .resizable()
@@ -202,12 +228,13 @@ struct Todos: View {
                                 }
                             }
                         }
-                        .padding(.leading).padding(.trailing)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.top, 5).padding(.bottom, 5)
                         .background(Color.white)
                         .cornerRadius(10)
                         .frame(maxWidth: .infinity)
-                        
-                    }
+                                            }
                 }
                 
             }
@@ -285,17 +312,41 @@ struct Todos: View {
         WidgetUpdater(one: one, two: two, three: three, oneTicked: false, twoTicked: true, threeTicked: false, open: today.count).updateValues()
     }
     
-    
-    func textChanged(upper: Int, text: inout String) {
-        if text.count > upper {
-            text = String(text.prefix(upper))
-        }
-    }
-    
     private func endInlineEdit() {
         inlineEdit = false
         inlineItem = UUID()
     }
+    
+    var todosFiltered: [Todo] {
+        
+        if categorySelected {
+            
+            switch settings.hideTicked { //we will need this for our toggle later
+            case true:
+                return todos.filter {
+                    !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat
+                }
+            default:
+                return todos.filter {
+                    !$0.todo!.isEmpty && $0.todoCategory == cat
+                }
+            }
+            
+        } else {
+            
+            switch settings.hideTicked { //we will need this for our toggle later
+            case true:
+                return todos.filter {
+                    !$0.todo!.isEmpty && $0.isDone == false
+                }
+            default:
+                return todos.filter {
+                    !$0.todo!.isEmpty
+                }
+            }
+        }
+    }
+    
     
     var allResults: [Todo] {
         if categorySelected {
@@ -475,15 +526,11 @@ struct Todos: View {
         }
         
     }
-    
-    
-    
 }
+
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     //formatter.timeStyle = .short
     return formatter
 }()
-
-

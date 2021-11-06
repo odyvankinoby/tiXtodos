@@ -247,9 +247,7 @@ struct Dashboard: View {
         
         categorySort = ["\(yyesterday!).\(month!)","\(yesterday!).\(month!)", "\(dayOfMonth!).\(month!)", "\(tomorrow!).\(month!)", "\(ttomorrow!).\(month!)"]
         daySelection = "\(dayOfMonth!).\(month!)"
-        
-        
-        
+
         var one = ""
         var oneTicked = false
         var two = ""
@@ -284,12 +282,7 @@ struct Dashboard: View {
         } catch let error {
             NSLog("error in FetchRequest trying to get the first three todos for Widget: \(error.localizedDescription)")
         }
-        
-        
-        
         WidgetUpdater(one: one, two: two, three: three, oneTicked: oneTicked, twoTicked: twoTicked, threeTicked: threeTicked, open: count).updateValues()
-        
-        
     }
     
     

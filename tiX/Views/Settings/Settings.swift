@@ -21,6 +21,9 @@ struct Settings: View {
     @State var noMail = false
     @State var deletedTodos = 0
     @State var inlineEdit = false
+    @FocusState private var isFocused: Bool
+    
+    @State var colorz = [Color.tix, Color.tixDark, Color.yellow, Color.red, Color.purple, Color.cyan, Color.blue, Color.green, Color.gray]
     
     var body: some View {
         
@@ -62,12 +65,14 @@ struct Settings: View {
                                 .onTapGesture {
                                     withAnimation {
                                         inlineEdit = true
+                                        isFocused = true
                                     }
                                 }
                         } else {
                             Button(action: {
                                 withAnimation {
                                     inlineEdit = false
+                                    isFocused = false
                                 }
                             }) {
                                 Image(systemName: "checkmark.circle").resizable()
@@ -78,10 +83,10 @@ struct Settings: View {
                     
                     if inlineEdit {
                         TextField("", text: $settings.userName)
+                            .focused($isFocused)
                             .frame(alignment: .trailing)
                             .foregroundColor(Color.tixDark)
                     }
-                    
                     
                     Divider()
                     
@@ -116,14 +121,28 @@ struct Settings: View {
                     }
                     
                 }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(10)
+                .frame(maxWidth: .infinity)
+                
+                VStack(alignment: .leading) {
+                    LazyHStack {
+                        ForEach(colorz, id: \.self) { col in
+                            Image(systemName: "square.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(col)
+                        }
+                    }
+                }
                 .padding(10)
                 .background(Color.white)
                 .cornerRadius(10)
                 .frame(maxWidth: .infinity)
                 
                 VStack(alignment: .leading) {
-                    
-                    
+            
                     HStack {
                         Text(loc_help).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()

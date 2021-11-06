@@ -9,8 +9,8 @@ import CoreData
 
 struct TodoEdit: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.managedObjectContext) var viewContext
+    @Environment(\.presentationMode) var presentationMode
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
@@ -76,7 +76,7 @@ struct TodoEdit: View {
                         }
                         .foregroundColor(fgColor)
                         .padding(.trailing, 10)
-                    TextField(loc_todo, text: $inlineTodo)
+                    TextEditor(text: $inlineTodo)
                         .keyboardType(.default)
                         .focused($isFocused)
                         .font(.headline)
@@ -94,7 +94,7 @@ struct TodoEdit: View {
                                 context: viewContext)
                         })
                         .multilineTextAlignment(.leading)
-                        .lineLimit(10)
+                        .lineLimit(3)
                         
                     Spacer()
                 }
