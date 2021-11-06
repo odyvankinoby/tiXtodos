@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct TabViewView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     let coloredNavAppearance = UINavigationBarAppearance()
@@ -21,9 +21,9 @@ struct ContentView: View {
         UINavigationBar.appearance().barTintColor = UIColor(.tix)
         
         // Segmented Picker
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "tix")
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "tixDark")
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tix") ?? Color.black], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tixDark") ?? Color.black], for: .normal)
         
     }
     // Observable Objects
@@ -34,48 +34,47 @@ struct ContentView: View {
     // Navigation
     @State var tabSelected: Int = 1
     
-    @State private var showSetup = false
+    @State var showSetup = false
     
     var body: some View {
        
         TabView(selection: $tabSelected) {
-            Dashboard(settings: settings)
+            Dashboard(settings: settings, tabSelected: $tabSelected)
                 .tabItem {
-                    Image(systemName: "house")
-                    //Text(loc_dashboard)
+                    //Image(systemName: "house")
                 }.tag(1)
             Todos(settings: settings)
                 .tabItem {
-                    Image(systemName: "list.bullet")
-                    //Text(loc_todos)
+                    //Image(systemName: "list.bullet")
                 }.tag(2)
-            Cats(settings: settings)
+            Cats(settings: settings, tabSelected: $tabSelected)
                 .tabItem {
-                    Image(systemName: "folder")
-                    //Text(loc_categories)
+                    //Image(systemName: "folder")
                 }.tag(3)
-            Settings(settings: settings)
+            Settings(settings: settings, tabSelected: $tabSelected)
                 .tabItem {
-                    Image(systemName: "gear")
-                    //Text(loc_settings)
+                    //Image(systemName: "gear")
                 }.tag(4)
         }
+        .edgesIgnoringSafeArea(.all)
+        .tabViewStyle(PageTabViewStyle())
         .sheet(isPresented: self.$showSetup) {
             SetupView(settings: settings)
          }
-        .accentColor(Color.tix)
+        .accentColor(Color.white)
         .onAppear(perform: onAppear)
-       }
+    }
     
     func onAppear() {
-        let launchedBefore = settings.launchedBefore
-        if launchedBefore {
-            settings.launchedBefore = true
+       
+        print("settings.launchedbefore = \(settings.launchedBefore)")
+        
+        if settings.launchedBefore {
             self.showSetup = false
         } else {
             self.showSetup = true
         }
-        
+
         if categories.count == 0 {
             let newC = Category(context: self.viewContext)
             newC.name = "Inbox"

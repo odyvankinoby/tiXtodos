@@ -73,21 +73,3 @@ struct RoundedCorners: View {
         }
     }
 }
-
-extension View {
-    func customButton() -> ModifiedContent<Self, ButtonModifier> {
-        return modifier(ButtonModifier())
-    }
-}
-
-struct ButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(Color.white)
-            .font(.headline)
-            .padding()
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color.tix))
-    }
-}

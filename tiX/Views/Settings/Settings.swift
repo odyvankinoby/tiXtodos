@@ -16,39 +16,79 @@ struct Settings: View {
     // Observable Objects
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var settings: UserSettings
+    @Binding var tabSelected: Int
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var noMail = false
     @State var deletedTodos = 0
-   
+    @State var inlineEdit = false
+    
     var body: some View {
-        NavigationView {
+        
+        VStack {
+            HStack {
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 1
+                    }
+                }) {
+                    Image(systemName: "house").foregroundColor(.white).font(.title2)
+                }
+                .buttonStyle(PlainButtonStyle())
+                Spacer()
+            }
+            
+            HStack {
+                Text(loc_settings)
+                    .font(.title).bold()
+                    .foregroundColor(Color.white)
+                    .frame(alignment: .leading)
+                    .padding(.top)
+                Spacer()
+                
+            }
+            
             ScrollView {
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text(loc_settings).foregroundColor(.white).font(.title3).bold()
-                        Spacer()
-                    }.padding(.leading).padding(.trailing)
-                        .padding(.top, 10).padding(.bottom, 10)
-                        .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
-                    
+                VStack(alignment: .leading) {
+  
                     HStack {
                         Text(loc_name)
                             .frame(alignment: .leading)
                             .foregroundColor(.tix)
                         Spacer()
+                        if !inlineEdit {
+                            Text(settings.userName)
+                                .frame(alignment: .trailing)
+                                .foregroundColor(.tixDark)
+                                .onTapGesture {
+                                    withAnimation {
+                                        inlineEdit = true
+                                    }
+                                }
+                        } else {
+                            Button(action: {
+                                withAnimation {
+                                    inlineEdit = false
+                                }
+                            }) {
+                                Image(systemName: "checkmark.circle").resizable()
+                                    .frame(width: 24, height: 24, alignment: .top).foregroundColor(.tix)
+                            }
+                        }
+                    }
+                    
+                    if inlineEdit {
                         TextField("", text: $settings.userName)
-                            .frame(alignment: .center)
+                            .frame(alignment: .trailing)
                             .foregroundColor(Color.tixDark)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.leading, 20)
-                    }.padding(.leading).padding(.trailing)
+                    }
+                    
                     
                     Divider()
                     
                     Toggle(isOn: $settings.hideTicked) {
                         Text(loc_hide_ticked)
                             .foregroundColor(.tix).frame(alignment: .trailing)
-                    }.padding(.leading).padding(.trailing)
+                    }
                     
                     Divider()
                     
@@ -63,36 +103,35 @@ struct Settings: View {
                                 deleteTicked()
                             }
                         }) {
-                            Image(systemName: "circle.slash.fill")
-                                .foregroundColor(.white).frame(alignment: .trailing)
-                        }.customButton().padding(.leading, 50).padding(.bottom, 10)
+                            HStack {
+                                Image(systemName: "circle.slash.fill")
+                                Text(loc_delete)
+                            }
+                        }
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .background(Color.tix)
+                        .cornerRadius(8)
                         
-                    }.padding(.leading).padding(.trailing)
+                    }
                     
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color(UIColor.systemBackground))
+                .padding(10)
+                .background(Color.white)
                 .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-                .padding(.leading).padding(.trailing)
+                .frame(maxWidth: .infinity)
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text(loc_support).foregroundColor(.white).font(.title3).bold()
-                        Spacer()
-                    }.padding(.leading).padding(.trailing)
-                        .padding(.top, 10).padding(.bottom, 10)
-                        .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
+                VStack(alignment: .leading) {
                     
                     
                     HStack {
                         Text(loc_help).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
-                    }.padding(.leading).padding(.trailing).frame(alignment: .leading).onTapGesture(perform: {
-                            if let url = URL(string: "https://www.nicolasott.de/en/tix/support/index.html") {
-                                UIApplication.shared.open(url)
-                            }
-                        })
+                    }.frame(alignment: .leading).onTapGesture(perform: {
+                        if let url = URL(string: "https://www.nicolasott.de/en/tix/support/index.html") {
+                            UIApplication.shared.open(url)
+                        }
+                    })
                     
                     Divider()
                     
@@ -103,76 +142,63 @@ struct Settings: View {
                                 Text(loc_feedback).frame(alignment: .leading).foregroundColor(noMail ? .gray : .tix)
                                 Spacer()
                             }
-                        }
-                                        .disabled(!MFMailComposeViewController.canSendMail())
-                    }.padding(.leading).padding(.trailing)
+                        }.disabled(!MFMailComposeViewController.canSendMail())
+                    }
                     
                     Divider()
                     
                     HStack {
                         Text(loc_contact).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
-                    }.padding(.leading).padding(.trailing).frame(alignment: .leading).onTapGesture(perform: {
-                            if let url = URL(string: "https://www.nicolasott.de/en/contact/") {
-                                UIApplication.shared.open(url)
-                            }
-                        })
+                    }.frame(alignment: .leading).onTapGesture(perform: {
+                        if let url = URL(string: "https://www.nicolasott.de/en/contact/") {
+                            UIApplication.shared.open(url)
+                        }
+                    })
                     Divider()
                     HStack {
                         Text("Twitter").frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
-                    }.padding(.leading).padding(.trailing).padding(.bottom, 10).frame(alignment: .leading).onTapGesture(perform: {
-                            if let url = URL(string: "https://twitter.com/trax_tracker") {
-                                UIApplication.shared.open(url)
-                            }
-                        })
+                    }.frame(alignment: .leading).onTapGesture(perform: {
+                        if let url = URL(string: "https://twitter.com/trax_tracker") {
+                            UIApplication.shared.open(url)
+                        }
+                    })
                     
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color(UIColor.systemBackground))
+                .padding(10)
+                .background(Color.white)
                 .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-                .padding(.leading).padding(.trailing)
+                .frame(maxWidth: .infinity)
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text(loc_about).foregroundColor(.white).font(.title3).bold()
-                        Spacer()
-                    }.padding(.leading).padding(.trailing)
-                        .padding(.top, 10).padding(.bottom, 10)
-                        .background(RoundedCorners(color: Color.tix, tl: 10, tr: 10, bl: 0, br: 0))
-                    
+                VStack(alignment: .leading) {
                     HStack {
                         NavigationLink(destination: About().accentColor(Color.tix)
                                         .edgesIgnoringSafeArea(.bottom)) {
                             HStack {
-                                Text(loc_about).frame(alignment: .leading).padding(.bottom, 10).foregroundColor(.tix)
+                                Text(loc_about).frame(alignment: .leading).foregroundColor(.tix)
                                 Spacer()
                             }
                         }
-                    }.padding(.leading).padding(.trailing)
-                    
+                    }
                 }
-                .frame(maxWidth: .infinity)
-                .background(Color(UIColor.systemBackground))
+                .padding(10)
+                .background(Color.white)
                 .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.tix.opacity(0.5), lineWidth: 0.5))
-                .padding(.leading).padding(.trailing)
-                
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    
-                    Text(loc_madewithlove).font(.footnote)
-                }
-                .padding(50)
                 .frame(maxWidth: .infinity)
-                
             }
-            .navigationBarTitle(loc_settings, displayMode: .automatic).allowsTightening(true)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .accentColor(.tix) // NAV
-            .onAppear(perform: onAppear)
+            Spacer()
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(loc_madewithlove).font(.footnote).foregroundColor(Color.white)
+                }
+            }
+            .padding(.leading).padding(.trailing).padding(.bottom)
+            .frame(maxWidth: .infinity)
         }
+        .accentColor(.tixDark)
+        .padding(.leading).padding(.trailing)
+        .background(Color.tix)
     }
     
     

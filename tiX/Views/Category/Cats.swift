@@ -13,13 +13,47 @@ struct Cats: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var settings: UserSettings
-    
+    @Binding var tabSelected: Int
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
 
     @State var newCategory = false
    
     var body: some View {
-        NavigationView {
+        VStack {
+            HStack {
+                
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 4
+                    }
+                }) {
+                    Image(systemName: "gear").foregroundColor(.white).font(.title2)
+                }
+                .buttonStyle(PlainButtonStyle())
+                Spacer()
+                
+                Button(action: {
+                    withAnimation {
+                        newCategory.toggle()
+                    }
+                }) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.white).font(.title)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            
+            HStack {
+                Text(loc_categories)
+                    .font(.title).bold()
+                    .foregroundColor(Color.white)
+                    .frame(alignment: .leading)
+                    .padding(.top)
+                Spacer()
+                
+            }
+            
+            //ScrollView {
             
            
             List {
@@ -50,35 +84,14 @@ struct Cats: View {
                     }
                 }.onDelete(perform: deleteItems(offsets:))
                     .listStyle(PlainListStyle())
-               
+                    .listRowBackground(Color.clear)
             }
-            .navigationBarTitle("Categories", displayMode: .automatic).allowsTightening(true)
-            .toolbar {
-               
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                   
-                    
-                    Button(action: {
-                        withAnimation {
-                            newCategory.toggle()
-                            Haptics.giveSmallHaptic()
-                        }
-                        Haptics.giveSmallHaptic()
-                    }) {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .foregroundColor(.tix)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                    
-                    
-                }
-            }
-            .sheet(isPresented: $newCategory) { NewCategory() }
 
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .accentColor(.tix) // NAV
+        .sheet(isPresented: $newCategory) { NewCategory() }
+        .accentColor(.white)
+        .padding(.leading).padding(.trailing)
+        .background(Color.tix)
     }
     
     private func deleteItems(offsets: IndexSet) {

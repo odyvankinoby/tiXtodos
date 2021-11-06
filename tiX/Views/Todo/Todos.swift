@@ -33,10 +33,20 @@ struct Todos: View {
     
     @State private var showAll = true
     
-    @State private var searchQuery: String = ""
     @State private var deleteTicked = false
+    
     @State private var categorySelected = false
+    
     @State private var cat = Category()
+    
+    // Inline Edit
+    @State private var inlineEdit = false
+    @State private var inlineItem = UUID()
+    @State private var inlineTodo = ""
+    @State private var editInProgress = 0
+    
+    
+    @State private var accentColor = Color.white
     
     private var todaysItems: [Todo] {
         today.filter {
@@ -45,306 +55,193 @@ struct Todos: View {
     }
     
     var body: some View {
-        NavigationView {
+        VStack {
             HStack {
-                if selectCategory {
-                    List {
-                        ForEach(categories, id: \.self) { catItem in
-                            
+                Button(action: {
+                    withAnimation {
+                        showAll = true
+                        showOverdue = false
+                        showToday = false
+                        categorySelected = false
+                        showImportant = false
+                        selectCategory = false
+                    }
+                }) {
+                    Image(systemName: "list.bullet")
+                        .foregroundColor(showAll ? .white : .tixDark)
+                        .font(.title2)
+                }
+                .toggleStyle(.button)
+  
+                Button(action: {
+                    withAnimation {
+                        showAll = false
+                        showOverdue = false
+                        showToday = true
+                    }
+                }) {
+                    Image(systemName: "calendar")
+                        .foregroundColor(showToday ? .white : .tixDark)
+                        .font(.title2)
+                }
+                .toggleStyle(.button)
+                
+                Button(action: {
+                    withAnimation {
+                        showAll = false
+                        showOverdue = true
+                        showToday = false
+                    }
+                }) {
+                    Image(systemName: showOverdue ? "calendar.badge.exclamationmark" : "calendar.badge.exclamationmark")
+                        .foregroundColor(showOverdue ? .white : .tixDark)
+                        .font(.title2)
+                }
+                .toggleStyle(.button)
+                
+                Button(action: {
+                    withAnimation {
+                        showImportant.toggle()
+                    }
+                }) {
+                    Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
+                        .foregroundColor(showImportant ? .red : .tixDark)
+                        .font(.title2)
+                }
+                .toggleStyle(.button)
+                
+                
+                Spacer()
+                
+                Button(action: {
+                    withAnimation {
+                        newItem.toggle()
+                    }
+                }) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.white)
+                        .font(.title)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            
+            HStack {
+                Text(loc_all_todos)
+                    .font(.title).bold()
+                    .foregroundColor(Color.white)
+                    .frame(alignment: .leading)
+                Spacer()
+                Picker(loc_choose_category, selection: $cat) {
+                    ForEach(categories, id: \.self) { catt in
+                        HStack {
+                            Text(catt.name ?? "")
+                                .frame(alignment: .leading)
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(catt.color?.color ?? Color.white)
+                        }
+                    }
+                }
+                .onChange(of: cat, perform: { (value) in
+                    cat = value
+                    categorySelected = true
+                })
+                .frame(alignment: .trailing)
+            }
+            
+            ScrollView {
+
+                ForEach(todos, id: \.self) { todo in
+                    
+                    // Inline Edit
+                    if inlineEdit && todo.id == inlineItem {
+                        
+                        TodoEdit(settings: settings, todo: todo, inlineEdit: $inlineEdit, inlineItem: $inlineItem, inlineTodo: todo.todo ?? "", cat: todo.todoCategory ?? self.cat, hasDD: todo.hasDueDate, dd: todo.dueDate ?? Date(), prio: todo.important, accentColor: $accentColor)
+                        
+                    } else {
+                    // Display Todo
+                        HStack(alignment: .center){
+                            Image(systemName: todo.isDone ? "circle.fill" : "circle")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .onTapGesture {
+                                    withAnimation {
+                                        ViewContextMethods.isDone(todo: todo, context: viewContext)
+                                    }
+                                }
+                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                .padding(.trailing, 10)
+                                .padding(.bottom)
+                                .padding(.top)
                             VStack(alignment: .leading){
-                                HStack(alignment: .center){
-                                    Image(systemName: "square.fill")
-                                        .resizable()
-                                        .frame(width: 30, height: 30)
+                                HStack(alignment: .top) {
+                                    Text(todo.todo ?? "\(loc_todo)")
                                         .onTapGesture {
                                             withAnimation {
-                                                cat = catItem
-                                                categorySelected = true
-                                                selectCategory.toggle()
+                                                if !inlineEdit {
+                                                    inlineEdit = true
+                                                    inlineItem = todo.id ?? UUID()
+                                                    //isFocused = true
+                                                    inlineTodo = todo.todo ?? ""
+                                                    accentColor = todo.todoCategory?.color?.color ?? Color.tix
+                                                }
                                             }
                                         }
-                                        .foregroundColor(catItem.color?.color ?? Color.tix)
-                                        .padding(.trailing, 10)
-                                        .padding(.bottom, 10)
-                                        .padding(.top, 10)
-                                    
-                                    Text(catItem.name ?? "\(loc_category)")
-                                        .font(.callout)
-                                        .foregroundColor(catItem.color?.color ?? Color.tix)
+                                        .font(.headline)
+                                        .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                     Spacer()
-                                }.onTapGesture {
-                                    withAnimation {
-                                        cat = catItem
-                                        categorySelected = true
-                                        selectCategory.toggle()
-                                    }
+                                    Image(systemName: todo.important ? "exclamationmark.circle" : "")
+                                        .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                }
+                                HStack(alignment: .bottom) {
+                                    Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
+                                        .font(.subheadline)
+                                        .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                    Spacer()
+                                    Text(todo.todoCategory!.name ?? "").font(.subheadline)
+                                        .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                 }
                             }
                         }
-                    }.listRowBackground(Color.clear)
+                        .padding(.leading).padding(.trailing)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .frame(maxWidth: .infinity)
+                        
+                    }
                 }
                 
-                
-                List {
-                    if showAll {
-                        ForEach(todos, id: \.self) { todo in
-                            NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
-                            {
-                                VStack(alignment: .leading){
-                                    
-                                    HStack(alignment: .center){
-                                        Image(systemName: todo.isDone ? "circle.fill" : "circle")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                            .onTapGesture {
-                                                withAnimation {
-                                                    ViewContextMethods.isDone(todo: todo, context: viewContext)
-                                                }
-                                            }
-                                            .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                            .padding(.trailing, 10)
-                                            .padding(.bottom, 10)
-                                            .padding(.top, 10)
-                                        VStack(alignment: .leading){
-                                            HStack {
-                                            Text(todo.todo ?? "\(loc_todo)")
-                                                .font(.headline)
-                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                Spacer()
-                                                Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                                    .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
-                                            }
-                                            HStack {
-                                            Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
-                                                .font(.subheadline)
-                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                Spacer()
-                                               
-                                            }
-                                        }
-                                        
-                                        
-                                    }
-                                    
-                                }.frame(maxWidth: .infinity)
-                                
-                            }
-                        }.onDelete(perform: deleteToday(offsets:))
-                         .listStyle(PlainListStyle())
+            }
+            
+            
+            Spacer()
+            VStack(alignment: .trailing) {
+                HStack {
+                    Spacer()
+                    Spacer()
+                    Button(action: {
+                        withAnimation {
+                            newItem.toggle()
+                        }
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.white.opacity(0.7))
+                            .padding(.trailing, 10)
                     }
-                    else  {
-                        if showToday {
-                            ForEach(todayResults, id: \.self) { todo in
-                                NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
-                                {
-                                    VStack(alignment: .leading){
-                                        
-                                        HStack(alignment: .center){
-                                            
-                                            Image(systemName: todo.isDone ? "circle.fill" : "circle")
-                                                .resizable()
-                                                .frame(width: 30, height: 30)
-                                                .onTapGesture {
-                                                    withAnimation {
-                                                        ViewContextMethods.isDone(todo: todo, context: viewContext)
-                                                    }
-                                                }
-                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                .padding(.trailing, 10)
-                                                .padding(.bottom, 10)
-                                                .padding(.top, 10)
-                                            VStack(alignment: .leading){
-                                                HStack {
-                                                Text(todo.todo ?? "\(loc_todo)")
-                                                    .font(.headline)
-                                                    .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                    Spacer()
-                                                    Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                                        .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
-                                                }
-                                                HStack {
-                                                Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
-                                                    .font(.subheadline)
-                                                    .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                    Spacer()
-                                                    /*Text(todo.todoCategory?.name ?? "")
-                                                        .font(.subheadline)
-                                                        .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))*/
-                                                }
-                                            }
-                                            
-                                            
-                                        }
-                                        
-                                    }.frame(maxWidth: .infinity)
-                                    
-                                }
-                            }.onDelete(perform: deleteToday(offsets:))
-                             .listStyle(PlainListStyle())
-                            } else {
-                            
-                            
-                            ForEach(overdueResults, id: \.self) { todo in
-                                
-                                
-                                NavigationLink(destination: EditItem(todo: todo, cat: todo.todoCategory ?? Category()).environment(\.managedObjectContext, self.viewContext))
-                                {
-                                    VStack(alignment: .leading){
-                                        
-                                        HStack(alignment: .center){
-                                            
-                                            Image(systemName: todo.isDone ? "circle.fill" : "circle")
-                                                .resizable()
-                                                .frame(width: 30, height: 30)
-                                                .onTapGesture {
-                                                    withAnimation {
-                                                        ViewContextMethods.isDone(todo: todo, context: viewContext)
-                                                    }
-                                                }
-                                                .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                .padding(.trailing, 10)
-                                                .padding(.bottom, 10)
-                                                .padding(.top, 10)
-                                            VStack(alignment: .leading){
-                                                HStack {
-                                                Text(todo.todo ?? "\(loc_todo)")
-                                                    .font(.headline)
-                                                    .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                Spacer()
-                                                    Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                                        .foregroundColor(.red.opacity(todo.isDone ? 0.5 : 1))
-                                                }
-                                                HStack {
-                                                Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
-                                                    .font(.subheadline)
-                                                    .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
-                                                    Spacer()
-                                                }
-                                                
-                                            }
-                                        }
-                                    }
-                                    .frame(maxWidth: .infinity)
-                                    
-                                }
-                            }.onDelete(perform: deleteOverdue(offsets:))
-                                .listStyle(PlainListStyle())
-                        }
-                    }
-                }.listRowBackground(Color.clear)
-            }.background(Color.clear) // RED
-            //.searchable(text: $searchQuery)
-                .navigationBarTitle(selectCategory ? loc_categories : showOverdue ? loc_overdue : showAll ? loc_all_todos : loc_today, displayMode: .automatic).allowsTightening(true)
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        
-                        if selectCategory && categorySelected {
-                            Button(action: {
-                                withAnimation {
-                                    categorySelected = false
-                                    selectCategory.toggle()
-                                }
-                            }) {
-                                Text(loc_all)
-                                    .foregroundColor(.tix)
-                            }
-                            .toggleStyle(.button)
-    
-                        } else {
-                            Button(action: {
-                                withAnimation {
-                                    selectCategory.toggle()
-                                }
-                            }) {
-                                Image(systemName: categorySelected ? "folder.fill" : "folder")
-                                    .resizable()
-                                    .foregroundColor(categorySelected ? cat.color?.color : .tix.opacity(showAll ? 0.5 : 1))
-                            }
-                            .toggleStyle(.button)
-                            .disabled(showAll)
-                        }
-                        Button(action: {
-                            withAnimation {
-                                showImportant.toggle()
-                                
-                            }
-                        }) {
-                            Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
-                                .resizable()
-                                .foregroundColor(showImportant ? .red : .tix.opacity(showAll ? 0.5 : 1))
-                        }
-                        .toggleStyle(.button)
-                        .disabled(showAll)
-                        
-                        Button(action: {
-                            withAnimation {
-                                showAll = false
-                                showOverdue = false
-                                showToday = true
-                            }
-                        }) {
-                            Image(systemName: "calendar")
-                                .resizable()
-                                .foregroundColor(showToday ? .tixDark : .tix)
-                        }
-                        .toggleStyle(.button)
-                        
-                        Button(action: {
-                            withAnimation {
-                                showAll = false
-                                showOverdue = true
-                                showToday = false
-                            }
-                        }) {
-                            Image(systemName: showOverdue ? "calendar.badge.exclamationmark" : "calendar.badge.exclamationmark")
-                                .resizable()
-                                .foregroundColor(showOverdue ? .tixDark : .tix)
-                        }
-                        .toggleStyle(.button)
-                        
-                        Button(action: {
-                            withAnimation {
-                                showAll = true
-                                showOverdue = false
-                                showToday = false
-                                categorySelected = false
-                                showImportant = false
-                                selectCategory = false
-                            }
-                        }) {
-                            Image(systemName: "list.bullet")
-                                .resizable()
-                                .foregroundColor(showAll ? .tixDark : .tix)
-                        }
-                        .toggleStyle(.button)
-                        
-                    }
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        
-                        Button(action: {
-                            withAnimation {
-                                newItem.toggle()
-                            }
-                        }) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .foregroundColor(.tix)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        
-                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
-                .onAppear(perform: onAppear)
-                .navigationViewStyle(StackNavigationViewStyle())
-                .accentColor(.tix) // NAV
-                .background(Color.clear)
-                .listRowBackground(Color.clear)
-                .onAppear(){
-                    UITableView.appearance().backgroundColor = .clear
-                }
+            }
+            .padding(.bottom)
+            .frame(maxWidth: .infinity)
+            
+            
         }
+        .accentColor(self.accentColor)
+        .padding(.leading).padding(.trailing)
+        .background(Color.tix)
+        .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
+        .onAppear(perform: onAppear)
     }
     
     
@@ -388,38 +285,16 @@ struct Todos: View {
         WidgetUpdater(one: one, two: two, three: three, oneTicked: false, twoTicked: true, threeTicked: false, open: today.count).updateValues()
     }
     
-    private func deleteToday(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { today[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    private func deleteOverdue(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { overdue[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
     
     func textChanged(upper: Int, text: inout String) {
         if text.count > upper {
             text = String(text.prefix(upper))
         }
+    }
+    
+    private func endInlineEdit() {
+        inlineEdit = false
+        inlineItem = UUID()
     }
     
     var allResults: [Todo] {
@@ -601,7 +476,7 @@ struct Todos: View {
         
     }
     
-
+    
     
 }
 private let itemFormatter: DateFormatter = {

@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3600C6542731B629006E5F53 /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3600C6532731B629006E5F53 /* AdaptsToKeyboard.swift */; };
 		360A63EC27118DFE005E9AAB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A63EB27118DFE005E9AAB /* Settings.swift */; };
+		364675EB27368E2A00441F65 /* listTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364675EA27368E2A00441F65 /* listTodo.swift */; };
+		364675ED2736D6FB00441F65 /* TodoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364675EC2736D6FB00441F65 /* TodoEdit.swift */; };
 		3661F563272C28D300546006 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661F562272C28D300546006 /* Localization.swift */; };
 		3661F564272C28D300546006 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661F562272C28D300546006 /* Localization.swift */; };
 		3661F568272C3C8300546006 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3661F56B272C3C8300546006 /* Localizable.strings */; };
@@ -25,7 +26,7 @@
 		36A250B627283738003BC001 /* Cats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B527283738003BC001 /* Cats.swift */; };
 		36B6F2982716078F003B7C79 /* EditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B6F2972716078F003B7C79 /* EditItem.swift */; };
 		36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B5270CC1BF00249259 /* tiXApp.swift */; };
-		36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B7270CC1BF00249259 /* ContentView.swift */; };
+		36C1B5B8270CC1BF00249259 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B7270CC1BF00249259 /* TabView.swift */; };
 		36C1B5BA270CC1C000249259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36C1B5B9270CC1C000249259 /* Assets.xcassets */; };
 		36C1B5BD270CC1C000249259 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */; };
 		36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5BE270CC1C000249259 /* Persistence.swift */; };
@@ -71,8 +72,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3600C6532731B629006E5F53 /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
 		360A63EB27118DFE005E9AAB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		364675EA27368E2A00441F65 /* listTodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listTodo.swift; sourceTree = "<group>"; };
+		364675EC2736D6FB00441F65 /* TodoEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEdit.swift; sourceTree = "<group>"; };
 		3661F562272C28D300546006 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3661F56A272C3C8300546006 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3661F56C272C3C8600546006 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -92,7 +94,7 @@
 		36B6F2972716078F003B7C79 /* EditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItem.swift; sourceTree = "<group>"; };
 		36C1B5B2270CC1BF00249259 /* tiX todos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tiX todos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36C1B5B5270CC1BF00249259 /* tiXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiXApp.swift; sourceTree = "<group>"; };
-		36C1B5B7270CC1BF00249259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		36C1B5B7270CC1BF00249259 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		36C1B5B9270CC1C000249259 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		36C1B5BE270CC1C000249259 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -177,6 +179,8 @@
 				36D3F2A8272D3E0500694E0F /* Todos.swift */,
 				36C1B5D4270CCAFE00249259 /* NewItem.swift */,
 				36B6F2972716078F003B7C79 /* EditItem.swift */,
+				364675EA27368E2A00441F65 /* listTodo.swift */,
+				364675EC2736D6FB00441F65 /* TodoEdit.swift */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -229,7 +233,7 @@
 		36C1B5D6270DCDA200249259 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				36C1B5B7270CC1BF00249259 /* ContentView.swift */,
+				36C1B5B7270CC1BF00249259 /* TabView.swift */,
 				36D3F2B427307A7000694E0F /* Dashboard.swift */,
 				36A250B827283965003BC001 /* Todo */,
 				36A250B727283958003BC001 /* Category */,
@@ -252,7 +256,6 @@
 				36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */,
 				36D3F2A6272D362B00694E0F /* Formatter.swift */,
 				36D3F2B0272FF09D00694E0F /* MailView.swift */,
-				3600C6532731B629006E5F53 /* AdaptsToKeyboard.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -394,14 +397,15 @@
 				36B6F2982716078F003B7C79 /* EditItem.swift in Sources */,
 				367527782710AA6F0087FC4B /* Colors.swift in Sources */,
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
-				36C1B5B8270CC1BF00249259 /* ContentView.swift in Sources */,
+				364675EB27368E2A00441F65 /* listTodo.swift in Sources */,
+				36C1B5B8270CC1BF00249259 /* TabView.swift in Sources */,
 				3681FB562728755E00248951 /* SerializableColor.swift in Sources */,
 				36D3F2B3272FF47300694E0F /* About.swift in Sources */,
 				36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */,
 				36D3F2AF272FE97F00694E0F /* Update.swift in Sources */,
 				36A250B4272836C9003BC001 /* EditCategory.swift in Sources */,
+				364675ED2736D6FB00441F65 /* TodoEdit.swift in Sources */,
 				36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */,
-				3600C6542731B629006E5F53 /* AdaptsToKeyboard.swift in Sources */,
 				36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */,
 				36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
@@ -440,7 +444,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -469,7 +473,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -615,7 +619,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				ENABLE_PREVIEWS = YES;
@@ -650,7 +654,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				ENABLE_PREVIEWS = YES;

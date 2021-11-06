@@ -34,15 +34,18 @@ struct SetupView: View {
                     }.padding(.leading, 10)
                    
                 }.padding()
-                VStack(alignment: .center) {
+                
                     Text(loc_how).font(.body).foregroundColor(.white).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
+                VStack(alignment: .center) {
                     TextField("", text: $settings.userName)
                         .frame(alignment: .center)
-                        //.frame(maxWidth: .infinity)
                         .foregroundColor(Color.tix)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
-                }.padding()
+                }
+                
+                .background(Color.white)
+                .cornerRadius(10)
+                .frame(maxWidth: .infinity)
                 Spacer()
                 Spacer()
                 Spacer()
@@ -52,17 +55,24 @@ struct SetupView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }) {
-                    Text("Start tiX").foregroundColor(.white)
-                }.customButton()
-                 .frame(maxWidth: .infinity).disabled(settings.userName.isEmpty)
-            }
+                    Text(loc_go)
+                }.foregroundColor(.tix)
+                    .padding(10)
+                    .background(Color.white)
+                    .cornerRadius(8)
+                 .disabled(settings.userName.isEmpty)
+            }.padding(.leading).padding(.trailing)
         }
         .onAppear(perform: onAppear)
+        .onDisappear(perform: onDisappear)
         .background(Color.tix)
         .edgesIgnoringSafeArea(.all)
     }
     
     func onAppear() {
         isFocused = true
+    }
+    func onDisappear() {
+        settings.launchedBefore = true
     }
 }

@@ -23,155 +23,185 @@ struct Dashboard: View {
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: false)]) var categories: FetchedResults<Category>
     
     @ObservedObject var settings: UserSettings
+    @Binding var tabSelected: Int
+    
     @State private var daySelection = "1"
     @State private var categorySort = ["1"]
     @State private var categorySelected = true
     @State private var cat = Category()
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
+        VStack {
+            HStack {
                 
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 4
+                    }
+                }) {
+                    Image(systemName: "gear").foregroundColor(.white).font(.title2)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 2
+                    }
+                }) {
+                    Image(systemName: "list.bullet").foregroundColor(.white).font(.title2)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+            }
+            
+            HStack {
                 Text("Hi \(settings.userName)!")
                     .font(.title).bold()
-                    .foregroundColor(Color.tix)
+                    .foregroundColor(Color.white)
                     .frame(alignment: .leading)
                     .padding(.top)
+                Spacer()
                 
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(alignment: .center) {
-                        Image("AppIcons")
-                            .resizable()
-                            .cornerRadius(12)
-                            .frame(width: 64, height: 64)
-                            .frame(alignment: .leading)
-                        VStack(alignment: .leading) {
-                            Text(loc_welcome).font(.headline).foregroundColor(.white)
-                            Text(loc_tix).font(.subheadline).foregroundColor(.white)
-                        }
-                    }.padding(.leading).padding(.trailing)
-                    
-                    Divider().foregroundColor(.white)
-                    
-                    HStack(alignment: .top) {
-                        Text(loc_today).font(.headline).foregroundColor(.white)
-                        Spacer()
-                        Text("\(today.count)").font(.subheadline).foregroundColor(.white)
-                    }.padding(.leading).padding(.trailing)
-                    
-                    HStack(alignment: .top) {
-                        Text(loc_overdue).font(.headline).foregroundColor(.white)
-                        Spacer()
-                        Text("\(overdue.count)").font(.subheadline).foregroundColor(.white)
-                        
-                    }.padding(.leading).padding(.trailing)
-                    
-                    HStack(alignment: .top) {
-                        Text(loc_open_tasks).font(.headline).foregroundColor(.white)
-                        Spacer()
-                        Text("\(open.count)").font(.subheadline).foregroundColor(.white)
-                    }.padding(.leading).padding(.trailing)
-                    
-                }.padding()
-                    .frame(maxWidth: .infinity, minHeight: 200, maxHeight: 200)
-                    .background(Color.tix)
-                    .cornerRadius(10)
-                
-                
-            }.padding(.leading).padding(.trailing)
+            }
             
-            LazyVStack {
+            ScrollView {
                 VStack(alignment: .leading) {
-                    Picker(selection: $daySelection, label: Text("blubb")) {
-                        ForEach(categorySort, id: \.self) { day in
-                            Text(day).foregroundColor(.tix)
-                        }
-                    }.onChange(of: daySelection, perform: { (value) in
-                        //self.updateFilter()
-                    })
-                    .padding(.top)
-                    .pickerStyle(SegmentedPickerStyle())
-                    .foregroundColor(.tix)
-                    .labelsHidden()
-                    .disabled(true)
-                    
-                    HStack {
-                        Text(loc_your_todos)
-                            .font(.title).bold()
-                            .foregroundColor(Color.tix)
-                            .frame(alignment: .leading)
-                        Spacer()
-                        Picker(loc_choose_category, selection: $cat) {
-                            ForEach(categories, id: \.self) { catt in
-                                HStack {
-                                    Text(catt.name ?? "")
-                                        .frame(alignment: .leading)
-                                        .frame(maxWidth: .infinity)
-                                        .foregroundColor(catt.color?.color ?? Color.tix)
-                                    
-                                    
-                                }
-                            }
-                        }
-                        .onChange(of: cat, perform: { (value) in
-                            cat = value
-                            categorySelected = true
-                        })
-                        .frame(alignment: .trailing)
-                        .padding()
-                    }
-                    ForEach(todosFiltered, id: \.self) { todo in
-                        
-                        
-                        
+                 
+                    VStack(alignment: .leading, spacing: 10) {
                         HStack(alignment: .center) {
-                            Image(systemName: todo.isDone ? "circle.fill" : "circle")
+                            Image("AppIcons")
                                 .resizable()
-                                .frame(width: 30, height: 30)
-                                .onTapGesture {
-                                    withAnimation {
-                                        ViewContextMethods.isDone(todo: todo, context: viewContext)
+                                .cornerRadius(12)
+                                .frame(width: 64, height: 64)
+                                .frame(alignment: .leading)
+                            VStack(alignment: .leading) {
+                                Text(loc_welcome).font(.headline).foregroundColor(.tix)
+                                Text(loc_tix).font(.subheadline).foregroundColor(.tix)
+                            }
+                        }.padding(.leading).padding(.trailing)
+                        
+                        Divider().foregroundColor(.white)
+                        
+                        HStack(alignment: .top) {
+                            Text(loc_today).font(.headline).foregroundColor(.tix)
+                            Spacer()
+                            Text("\(today.count)").font(.subheadline).foregroundColor(.tix)
+                        }.padding(.leading).padding(.trailing)
+                        
+                        HStack(alignment: .top) {
+                            Text(loc_overdue).font(.headline).foregroundColor(.tix)
+                            Spacer()
+                            Text("\(overdue.count)").font(.subheadline).foregroundColor(.tix)
+                            
+                        }.padding(.leading).padding(.trailing)
+                        
+                        HStack(alignment: .top) {
+                            Text(loc_open_tasks).font(.headline).foregroundColor(.tix)
+                            Spacer()
+                            Text("\(open.count)").font(.subheadline).foregroundColor(.tix)
+                        }.padding(.leading).padding(.trailing)
+                        
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 200, maxHeight: 200)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                }
+                
+                LazyVStack {
+                    VStack(alignment: .leading) {
+                        Picker(selection: $daySelection, label: Text("")) {
+                            ForEach(categorySort, id: \.self) { day in
+                                Text(day).foregroundColor(.tix)
+                            }
+                        }.onChange(of: daySelection, perform: { (value) in
+                            //self.updateFilter()
+                        })
+                            .foregroundColor(.white)
+                            .padding(.top)
+                            .pickerStyle(SegmentedPickerStyle())
+                            .labelsHidden()
+                            .disabled(true)
+                        
+                        HStack {
+                            Text(loc_your_todos)
+                                .font(.title).bold()
+                                .foregroundColor(Color.white)
+                                .frame(alignment: .leading)
+                            Spacer()
+                            Picker(loc_choose_category, selection: $cat) {
+                                ForEach(categories, id: \.self) { catt in
+                                    HStack {
+                                        Text(catt.name ?? "")
+                                            .frame(alignment: .leading)
+                                            .frame(maxWidth: .infinity)
+                                            .foregroundColor(catt.color?.color ?? Color.white)
                                     }
                                 }
-                                .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
-                                .padding()
-                            VStack(alignment: .leading){
-                                HStack {
-                                    Text(todo.todo ?? "\(loc_todo)")
-                                        .font(.headline)
-                                        .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
-                                    
-                                    Spacer()
-                                    Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                        .font(.headline)
-                                        .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
-                                }
-                                HStack {
-                                    Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
-                                        .font(.subheadline)
-                                        .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
-                                    Spacer()
-                                    Text(todo.todoCategory?.name ?? "")
-                                        .font(.subheadline)
-                                        .foregroundColor(Color.white.opacity(todo.isDone ? 0.5 : 1))
-                                }
                             }
+                            .onChange(of: cat, perform: { (value) in
+                                cat = value
+                                categorySelected = true
+                            })
+                            .frame(alignment: .trailing)
+                            .padding()
+                        }
+                        ForEach(todosFiltered, id: \.self) { todo in
                             
+                            
+                            
+                            HStack(alignment: .center) {
+                                Image(systemName: todo.isDone ? "circle.fill" : "circle")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            ViewContextMethods.isDone(todo: todo, context: viewContext)
+                                        }
+                                    }
+                                    .foregroundColor(Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                    .padding(.trailing, 10)
+                                    .padding(.bottom)
+                                    .padding(.top)
+                                VStack(alignment: .leading){
+                                    HStack {
+                                        Text(todo.todo ?? "\(loc_todo)")
+                                            .font(.headline)
+                                            .foregroundColor(Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                        
+                                        Spacer()
+                                        Image(systemName: todo.important ? "exclamationmark.circle" : "")
+                                            .font(.headline)
+                                            .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                    }
+                                    HStack {
+                                        Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
+                                            .font(.subheadline)
+                                            .foregroundColor(Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                        Spacer()
+                                        Text(todo.todoCategory?.name ?? "")
+                                            .font(.subheadline)
+                                            .foregroundColor(Color.tix.opacity(todo.isDone ? 0.5 : 1))
+                                    }
+                                }
+                                
+                                
+                            }
+                            .padding(.leading).padding(.trailing)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity)
                             
                         }
-                        .padding(.leading).padding(.trailing)
-                        .background(Color.tix)
-                        .cornerRadius(10)
-                        .frame(maxWidth: .infinity)
-                        
                     }
                 }
-            }.padding(.leading).padding(.trailing)
-        }//.padding(.leading).padding(.trailing)
+            }
+        }
+        .accentColor(.white)
+        .padding(.leading).padding(.trailing)
+        .background(Color.tix)
         .onAppear(perform: onAppear)
-        
     }
-    
     
     func onAppear() {
         
@@ -214,7 +244,7 @@ struct Dashboard: View {
         let ttDate = Date.now.addingTimeInterval(172800)
         let ttComponents = calendar.dateComponents([.day], from: ttDate)
         let ttomorrow = ttComponents.day
-      
+        
         categorySort = ["\(yyesterday!).\(month!)","\(yesterday!).\(month!)", "\(dayOfMonth!).\(month!)", "\(tomorrow!).\(month!)", "\(ttomorrow!).\(month!)"]
         daySelection = "\(dayOfMonth!).\(month!)"
         
