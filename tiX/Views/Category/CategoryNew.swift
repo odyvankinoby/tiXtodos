@@ -29,7 +29,7 @@ struct CategoryNew: View {
                     }
                 }) {
                     Text(loc_discard)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                 }
                 .buttonStyle(PlainButtonStyle())
                 
@@ -41,7 +41,7 @@ struct CategoryNew: View {
                     }
                 }) {
                     Text(loc_save)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                 }
                 .buttonStyle(PlainButtonStyle())
             }.padding(.top).padding(.bottom)
@@ -49,7 +49,7 @@ struct CategoryNew: View {
             HStack {
                 Text(loc_new_cat)
                     .font(.title).bold()
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
                     .padding(.top)
                 Spacer()
@@ -88,7 +88,7 @@ struct CategoryNew: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .accentColor(.tix)
+        .accentColor(Color(settings.globalForeground))
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
         .onAppear(perform: onAppear)

@@ -36,7 +36,7 @@ struct NewItem: View {
                     }
                 }) {
                     Text(loc_discard)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                 }
                 .buttonStyle(PlainButtonStyle())
                 
@@ -48,7 +48,7 @@ struct NewItem: View {
                     }
                 }) {
                     Text(loc_save)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                 }
                 .buttonStyle(PlainButtonStyle())
             }.padding(.top).padding(.bottom)
@@ -56,14 +56,14 @@ struct NewItem: View {
             HStack {
                 Text(loc_new_todo)
                     .font(.title).bold()
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
                     .padding(.top)
                 Spacer()
                 if important {
                     Image(systemName: "exclamationmark.circle")
                         .font(.title2)
-                        .foregroundColor(Color.red)
+                        .foregroundColor(Color(settings.globalForeground))
                         .padding(.top)
                 }
             }
@@ -150,7 +150,7 @@ struct NewItem: View {
             }
             
         }
-        .accentColor(.tix)
+        .accentColor(Color(settings.globalForeground))
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
         .onAppear(perform: onAppear)

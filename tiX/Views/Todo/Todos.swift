@@ -46,7 +46,7 @@ struct Todos: View {
     @State private var editInProgress = 0
     
     
-    @State private var accentColor = Color.white
+    @State private var accentColor = Color.tix
     
     private var todaysItems: [Todo] {
         today.filter {
@@ -68,7 +68,7 @@ struct Todos: View {
                     }
                 }) {
                     Image(systemName: showAll ? "list.bullet.circle.fill" : "list.bullet.circle")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                         .font(.title2)
                 }
                 .toggleStyle(.button)
@@ -81,7 +81,7 @@ struct Todos: View {
                     }
                 }) {
                     Image(systemName: showToday ? "calendar.circle.fill" : "calendar.circle")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                         .font(.title2)
                 }
                 .toggleStyle(.button)
@@ -94,7 +94,7 @@ struct Todos: View {
                     }
                 }) {
                     Image(systemName: showOverdue ? "clock.badge.exclamationmark.fill" : "clock.badge.exclamationmark")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                         .font(.title2)
                 }
                 .toggleStyle(.button)
@@ -105,7 +105,7 @@ struct Todos: View {
                     }
                 }) {
                     Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
-                        .foregroundColor(showImportant ? .red : .white)
+                        .foregroundColor(Color(settings.globalForeground))
                         .font(.title2)
                 }
                 .toggleStyle(.button)
@@ -118,7 +118,7 @@ struct Todos: View {
                     }
                 }) {
                     Image(systemName: "plus")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                         .font(.title)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -127,19 +127,17 @@ struct Todos: View {
             HStack {
                 Text(showToday ? loc_today : showOverdue ? loc_overdue : loc_all_todos)
                     .font(.title).bold()
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
                 Spacer()
                 if categorySelected {
-                    
-                    
                     Picker(loc_choose_category, selection: $cat) {
                         ForEach(categories, id: \.self) { catt in
                             HStack {
                                 Text(catt.name ?? "")
                                     .frame(alignment: .leading)
                                     .frame(maxWidth: .infinity)
-                                    .foregroundColor(catt.color?.color ?? Color.white)
+                                    .foregroundColor(Color(settings.globalForeground))
                                     .font(.body)
                             }
                         }
@@ -156,7 +154,7 @@ struct Todos: View {
                         }
                     }) {
                         Image(systemName: "xmark.circle")
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(settings.globalForeground))
                             .font(.title3)
                     }
                     .toggleStyle(.button)
@@ -165,7 +163,7 @@ struct Todos: View {
                 } else {
                     HStack {
                         Text(loc_categories)
-                            .foregroundColor(Color.white)
+                            .foregroundColor(Color(settings.globalForeground))
                             .font(.body)
                             .onTapGesture {
                                 withAnimation {

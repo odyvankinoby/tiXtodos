@@ -20,23 +20,23 @@ struct GDPRView: View {
                     }
                 }) {
                     Text(loc_discard)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                 }
                 .buttonStyle(PlainButtonStyle())
             }.padding(.top).padding(.bottom)
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(loc_gdpr_header)
-                        .font(.title2).bold().foregroundColor(.white)
-                    Text(loc_gdpr_subheader).bold().font(.headline).foregroundColor(.white)
-                    Text(loc_gdpr_lastupdated).font(.subheadline).foregroundColor(.white)
-                    Text(loc_gdpr_text).foregroundColor(.white)
+                        .font(.title2).bold().foregroundColor(Color(settings.globalForeground))
+                    Text(loc_gdpr_subheader).bold().font(.headline).foregroundColor(Color(settings.globalForeground))
+                    Text(loc_gdpr_lastupdated).font(.subheadline).foregroundColor(Color(settings.globalForeground))
+                    Text(loc_gdpr_text).foregroundColor(Color(settings.globalForeground))
                 }
             }
         }
         .padding(.leading)
         .padding(.trailing)
-        .accentColor(Color.white)
+        .accentColor(Color(settings.globalForeground))
         .background(Color(settings.globalBackground))
     }
 }

@@ -38,7 +38,7 @@ struct Dashboard: View {
                         self.tabSelected = 4
                     }
                 }) {
-                    Image(systemName: "gear").foregroundColor(.white).font(.title2)
+                    Image(systemName: "gear").foregroundColor(Color(settings.globalForeground)).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
                 
@@ -48,7 +48,7 @@ struct Dashboard: View {
                         self.tabSelected = 2
                     }
                 }) {
-                    Image(systemName: "list.bullet.circle").foregroundColor(.white).font(.title2)
+                    Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -56,7 +56,7 @@ struct Dashboard: View {
             HStack {
                 Text("Hi \(settings.userName)!")
                     .font(.title).bold()
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
                     .padding(.top)
                 Spacer()
@@ -131,7 +131,7 @@ struct Dashboard: View {
                                 Text(day).foregroundColor(.tix)
                             }
                         }
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                         .padding(.top)
                         .pickerStyle(SegmentedPickerStyle())
                         .labelsHidden()
@@ -140,7 +140,7 @@ struct Dashboard: View {
                         HStack {
                             Text(loc_your_todos)
                                 .font(.title).bold()
-                                .foregroundColor(Color.white)
+                                .foregroundColor(Color(settings.globalForeground))
                                 .frame(alignment: .leading)
                             Spacer()
                             Picker(loc_choose_category, selection: $cat) {
@@ -149,7 +149,8 @@ struct Dashboard: View {
                                         Text(catt.name ?? "")
                                             .frame(alignment: .leading)
                                             .frame(maxWidth: .infinity)
-                                            .foregroundColor(catt.color?.color ?? Color.white)
+                                            .foregroundColor(Color(settings.globalForeground))
+                                            .font(.body)
                                     }
                                 }
                             }
@@ -161,9 +162,6 @@ struct Dashboard: View {
                             .padding()
                         }
                         ForEach(todosFiltered, id: \.self) { todo in
-                            
-                            
-                            
                             HStack(alignment: .center) {
                                 Image(systemName: todo.isDone ? "circle.fill" : "circle")
                                     .resizable()

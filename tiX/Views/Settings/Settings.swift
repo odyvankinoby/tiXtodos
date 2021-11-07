@@ -26,9 +26,9 @@ struct Settings: View {
     @State var showGDPR = false
     @FocusState private var isFocused: Bool
     
-    @State var colorz1 = ["tix", "tixDark", "Brown", "Blue", "Cyan"]
-    @State var colorz2 = ["Green", "Orange", "Red", "Purple", "Magenta"]
-    
+    @State var colorz1 = ["tix", "tixDark", "Brown", "Orange", "Red", "Magenta"]
+    @State var colorz2 = ["Cyan", "Green", "Blue", "Purple", "Yellow", "White"]
+     
     var body: some View {
         
         VStack {
@@ -38,7 +38,7 @@ struct Settings: View {
                         self.tabSelected = 1
                     }
                 }) {
-                    Image(systemName: "house.circle").foregroundColor(.white).font(.title2)
+                    Image(systemName: "house.circle").foregroundColor(Color(settings.globalForeground)).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
@@ -47,7 +47,7 @@ struct Settings: View {
                         self.tabSelected = 2
                     }
                 }) {
-                    Image(systemName: "list.bullet.circle").foregroundColor(.white).font(.title2)
+                    Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -55,7 +55,7 @@ struct Settings: View {
             HStack {
                 Text(loc_settings)
                     .font(.title).bold()
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
                     .padding(.top)
                 Spacer()
@@ -134,7 +134,7 @@ struct Settings: View {
                     }
                     
                 }
-                .padding()
+                .padding(10)
                 .background(Color.white)
                 .cornerRadius(10)
                 .frame(maxWidth: .infinity)
@@ -147,14 +147,13 @@ struct Settings: View {
                             Button(action: {
                                 withAnimation {
                                     settings.globalBackground = col
+                                    settings.globalForeground = "White"
                                 }
                             }) {
-                                
                                 Image(systemName: col == settings.globalBackground ? "dot.square.fill" : "square.fill")
                                     .resizable()
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 40, height: 40)
                                     .foregroundColor(Color(col))
-                                   
                             }
                             Spacer()
                         }
@@ -166,14 +165,13 @@ struct Settings: View {
                             Button(action: {
                                 withAnimation {
                                     settings.globalBackground = col
+                                    settings.globalForeground = "tix"
                                 }
                             }) {
-                                
-                                Image(systemName: col == settings.globalBackground ? "dot.square.fill" : "square.fill")
+                                Image(systemName: col == settings.globalBackground ? col == "White" ? "dot.square" : "dot.square.fill" : col == "White" ? "square" : "square.fill")
                                     .resizable()
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(Color(col))
-                                  
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(col == "White" ? Color.tixDark : Color(col))
                             }
                             Spacer()
                         }
@@ -268,13 +266,14 @@ struct Settings: View {
             Spacer()
             VStack(alignment: .leading) {
                 HStack {
-                    Text(loc_madewithlove).font(.footnote).foregroundColor(Color.white)
+                    Text(loc_madewithlove).font(.footnote).foregroundColor(Color(settings.globalForeground))
                 }
             }
             .padding(.leading).padding(.trailing).padding(.bottom)
             .frame(maxWidth: .infinity)
         }
-        .accentColor(.tixDark)
+        .onAppear(perform: onAppear)
+        .accentColor(Color(settings.globalForeground))
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
         .sheet(isPresented: self.$showSheet) {
@@ -296,6 +295,10 @@ struct Settings: View {
         if !MFMailComposeViewController.canSendMail() {
             self.noMail = true
         }
+        
+        print("settings.globalForeground")
+        print(settings.globalForeground)
+        print("----settings.globalForeground")
     }
     
     

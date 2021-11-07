@@ -22,7 +22,7 @@ struct About: View {
                     }
                 }) {
                     Text(loc_discard)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(settings.globalForeground))
                 }
                 .buttonStyle(PlainButtonStyle())
             }.padding(.top).padding(.bottom)
@@ -36,9 +36,9 @@ struct About: View {
                             .padding(.all, 10)
                             .frame(alignment: .leading)
                         VStack(alignment: .leading) {
-                            Text("tiX").font(.headline).foregroundColor(.white)
-                            Text("track your tasks").font(.subheadline).foregroundColor(.white)
-                            Text("Version \(getCurrentAppBuildVersionString())").font(.subheadline).foregroundColor(.white)
+                            Text("tiX").font(.headline).foregroundColor(Color(settings.globalForeground))
+                            Text("track your tasks").font(.subheadline).foregroundColor(Color(settings.globalForeground))
+                            Text("Version \(getCurrentAppBuildVersionString())").font(.subheadline).foregroundColor(Color(settings.globalForeground))
                         }.padding()
                         Spacer()
                     }
@@ -51,45 +51,46 @@ struct About: View {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(alignment: .center) {
                         Image(systemName: "c.circle")
-                            .font(.largeTitle).foregroundColor(.white)
+                            .font(.largeTitle).foregroundColor(Color(settings.globalForeground))
                             .frame(width: 64, height: 64)
                             .padding(.all, 10)
                             .frame(alignment: .leading)
                         VStack(alignment: .leading) {
                             Text("Copyright")
-                                .font(.caption).foregroundColor(.white)
-                            Text("2021 Nicolas Ott").fontWeight(.semibold).foregroundColor(.white)
+                                .font(.caption).foregroundColor(Color(settings.globalForeground))
+                            Text("2021 Nicolas Ott").fontWeight(.semibold).foregroundColor(Color(settings.globalForeground))
                         }.padding()
                         Spacer()
                     }
                     HStack(alignment: .center) {
                         Image(systemName: "globe")
-                            .font(.largeTitle).foregroundColor(.white)
+                            .font(.largeTitle).foregroundColor(Color(settings.globalForeground))
                             .frame(width: 64, height: 64)
                             .padding(.all, 10)
                             .frame(alignment: .leading)
                         VStack(alignment: .leading) {
                             Text("Website")
-                                .font(.caption).foregroundColor(.white)
-                            Text("NicolasOtt.de").fontWeight(.semibold).foregroundColor(.white)
+                                .font(.caption).foregroundColor(Color(settings.globalForeground))
+                            Text("NicolasOtt.de").fontWeight(.semibold).foregroundColor(Color(settings.globalForeground))
                         }.padding()
                         Spacer()
                     }
                    
                     HStack(alignment: .center) {
                         Image(systemName: "at")
-                            .font(.largeTitle).foregroundColor(.white)
+                            .font(.largeTitle).foregroundColor(Color(settings.globalForeground))
                             .frame(width: 64, height: 64)
                             .padding(.all, 10)
                             .frame(alignment: .leading)
                         VStack(alignment: .leading) {
-                            Text("EMail").font(.caption).foregroundColor(.white)
-                            Text("tix(at)nicolasott.de").fontWeight(.semibold).foregroundColor(.white)
+                            Text("EMail").font(.caption).foregroundColor(Color(settings.globalForeground))
+                            Text("tix(at)nicolasott.de").fontWeight(.semibold).foregroundColor(Color(settings.globalForeground))
                         }.padding()
                         Spacer()
                     }
                     
-                }.padding(.horizontal, 10)
+                }
+                .padding(.horizontal, 10)
                 .padding(.top, 10)
                 .frame(maxWidth: .infinity)
                 
@@ -97,7 +98,7 @@ struct About: View {
                 Spacer()
                 Spacer()
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(loc_madewithlove).font(.footnote).foregroundColor(.white)
+                    Text(loc_madewithlove).font(.footnote).foregroundColor(Color(settings.globalForeground))
                 }
                 .padding()
                 .padding(.bottom, 25)
@@ -107,7 +108,7 @@ struct About: View {
         }
         .padding(.leading)
         .padding(.trailing)
-        .accentColor(Color.white)
+        .accentColor(Color(settings.globalForeground))
         .background(Color(settings.globalBackground))
     }
     

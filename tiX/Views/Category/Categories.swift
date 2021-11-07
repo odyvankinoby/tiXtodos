@@ -34,7 +34,7 @@ struct Categories: View {
                         self.tabSelected = 4
                     }
                 }) {
-                    Image(systemName: "gear").foregroundColor(.white).font(.title2)
+                    Image(systemName: "gear").foregroundColor(Color(settings.globalForeground)).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
@@ -45,7 +45,7 @@ struct Categories: View {
                     }
                 }) {
                     Image(systemName: "plus")
-                        .foregroundColor(.white).font(.title)
+                        .foregroundColor(Color(settings.globalForeground)).font(.title)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -53,7 +53,7 @@ struct Categories: View {
             HStack {
                 Text(loc_categories)
                     .font(.title).bold()
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
                     .padding(.top)
                 Spacer()
@@ -112,7 +112,12 @@ struct Categories: View {
         .accentColor(self.accentColor)
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
+        .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
+    }
+
+    private func onAppear() {
+        self.accentColor = Color(settings.globalForeground)
     }
 
     private func onDisappear() {

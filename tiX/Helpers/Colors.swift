@@ -41,4 +41,7 @@ extension Color {
     public static var Yellow: Color {
         return Color("Yellow")
     }
+    public static var White: Color {
+        return Color("White")
+    }
 }

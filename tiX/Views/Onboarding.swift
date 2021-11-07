@@ -19,7 +19,7 @@ struct SetupView: View {
                 Spacer()
                 Button(action: { self.presentationMode.wrappedValue.dismiss() } )
                 {
-                    Image(systemName: "xmark").padding().foregroundColor(.white)
+                    Image(systemName: "xmark").padding().foregroundColor(Color(settings.globalForeground))
                 }
             }
             ScrollView  {
@@ -29,13 +29,13 @@ struct SetupView: View {
                         .cornerRadius(18)
                         .frame(width: 96, height: 96, alignment: .center)
                     VStack(alignment: .leading) {
-                        Text(loc_welcome).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).foregroundColor(.white).allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                    Text(loc_tix).font(.title3).foregroundColor(.white).allowsTightening(true)
+                        Text(loc_welcome).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).foregroundColor(Color(settings.globalForeground)).allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                    Text(loc_tix).font(.title3).foregroundColor(Color(settings.globalForeground)).allowsTightening(true)
                     }.padding(.leading, 10)
                    
                 }.padding()
                 
-                    Text(loc_how).font(.body).foregroundColor(.white).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
+                    Text(loc_how).font(.body).foregroundColor(Color(settings.globalForeground)).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
                 VStack(alignment: .center) {
                     TextField("", text: $settings.userName)
                         .frame(alignment: .center)
@@ -65,7 +65,7 @@ struct SetupView: View {
         }
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
-        .background(Color.tix)
+        .background(Color(settings.globalBackground))
         .edgesIgnoringSafeArea(.all)
     }
     
