@@ -10,85 +10,103 @@ import SwiftUI
 struct About: View {
     
     @ObservedObject var settings: UserSettings
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack(alignment: .center) {
-                    Image("AppIcons")
-                        .resizable()
-                        .cornerRadius(12)
-                        .frame(width: 64, height: 64)
-                        .padding(.all, 10)
-                        .frame(alignment: .leading)
-                    VStack(alignment: .leading) {
-                        Text("tiX").font(.headline).foregroundColor(.white)
-                        Text("track your tasks").font(.subheadline).foregroundColor(.white)
-                        Text("Version \(getCurrentAppBuildVersionString())").font(.subheadline).foregroundColor(.white)
-                    }.padding()
-                    Spacer()
+        VStack {
+            HStack {
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }) {
+                    Text(loc_discard)
+                        .foregroundColor(.white)
                 }
-            }
-            .padding(.horizontal, 10)
-            .padding(.top, 10)
-            .frame(maxWidth: .infinity)
-            
-            
-            VStack(alignment: .leading, spacing: 10) {
-                HStack(alignment: .center) {
-                    Image(systemName: "c.circle")
-                        .font(.largeTitle).foregroundColor(.white)
-                        .frame(width: 64, height: 64)
-                        .padding(.all, 10)
-                        .frame(alignment: .leading)
-                    VStack(alignment: .leading) {
-                        Text("Copyright")
-                            .font(.caption).foregroundColor(.white)
-                        Text("2021 Nicolas Ott").fontWeight(.semibold).foregroundColor(.white)
-                    }.padding()
-                    Spacer()
+                .buttonStyle(PlainButtonStyle())
+            }.padding(.top).padding(.bottom)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(alignment: .center) {
+                        Image("AppIcons")
+                            .resizable()
+                            .cornerRadius(12)
+                            .frame(width: 64, height: 64)
+                            .padding(.all, 10)
+                            .frame(alignment: .leading)
+                        VStack(alignment: .leading) {
+                            Text("tiX").font(.headline).foregroundColor(.white)
+                            Text("track your tasks").font(.subheadline).foregroundColor(.white)
+                            Text("Version \(getCurrentAppBuildVersionString())").font(.subheadline).foregroundColor(.white)
+                        }.padding()
+                        Spacer()
+                    }
                 }
-                HStack(alignment: .center) {
-                    Image(systemName: "globe")
-                        .font(.largeTitle).foregroundColor(.white)
-                        .frame(width: 64, height: 64)
-                        .padding(.all, 10)
-                        .frame(alignment: .leading)
-                    VStack(alignment: .leading) {
-                        Text("Website")
-                            .font(.caption).foregroundColor(.white)
-                        Text("NicolasOtt.de").fontWeight(.semibold).foregroundColor(.white)
-                    }.padding()
-                    Spacer()
-                }
-               
-                HStack(alignment: .center) {
-                    Image(systemName: "at")
-                        .font(.largeTitle).foregroundColor(.white)
-                        .frame(width: 64, height: 64)
-                        .padding(.all, 10)
-                        .frame(alignment: .leading)
-                    VStack(alignment: .leading) {
-                        Text("EMail").font(.caption).foregroundColor(.white)
-                        Text("tix(at)nicolasott.de").fontWeight(.semibold).foregroundColor(.white)
-                    }.padding()
-                    Spacer()
-                }
+                .padding(.horizontal, 10)
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity)
                 
-            }.padding(.horizontal, 10)
-            .padding(.top, 10)
-            .frame(maxWidth: .infinity)
-            
-            Spacer()
-            Spacer()
-            Spacer()
-            VStack(alignment: .leading, spacing: 10) {
-                Text(loc_madewithlove).font(.footnote).foregroundColor(.white)
+                
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(alignment: .center) {
+                        Image(systemName: "c.circle")
+                            .font(.largeTitle).foregroundColor(.white)
+                            .frame(width: 64, height: 64)
+                            .padding(.all, 10)
+                            .frame(alignment: .leading)
+                        VStack(alignment: .leading) {
+                            Text("Copyright")
+                                .font(.caption).foregroundColor(.white)
+                            Text("2021 Nicolas Ott").fontWeight(.semibold).foregroundColor(.white)
+                        }.padding()
+                        Spacer()
+                    }
+                    HStack(alignment: .center) {
+                        Image(systemName: "globe")
+                            .font(.largeTitle).foregroundColor(.white)
+                            .frame(width: 64, height: 64)
+                            .padding(.all, 10)
+                            .frame(alignment: .leading)
+                        VStack(alignment: .leading) {
+                            Text("Website")
+                                .font(.caption).foregroundColor(.white)
+                            Text("NicolasOtt.de").fontWeight(.semibold).foregroundColor(.white)
+                        }.padding()
+                        Spacer()
+                    }
+                   
+                    HStack(alignment: .center) {
+                        Image(systemName: "at")
+                            .font(.largeTitle).foregroundColor(.white)
+                            .frame(width: 64, height: 64)
+                            .padding(.all, 10)
+                            .frame(alignment: .leading)
+                        VStack(alignment: .leading) {
+                            Text("EMail").font(.caption).foregroundColor(.white)
+                            Text("tix(at)nicolasott.de").fontWeight(.semibold).foregroundColor(.white)
+                        }.padding()
+                        Spacer()
+                    }
+                    
+                }.padding(.horizontal, 10)
+                .padding(.top, 10)
+                .frame(maxWidth: .infinity)
+                
+                Spacer()
+                Spacer()
+                Spacer()
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(loc_madewithlove).font(.footnote).foregroundColor(.white)
+                }
+                .padding()
+                .padding(.bottom, 25)
+                .frame(maxWidth: .infinity)
             }
-            .padding()
-            .padding(.bottom, 25)
-            .frame(maxWidth: .infinity)
+        
         }
+        .padding(.leading)
+        .padding(.trailing)
         .accentColor(Color.white)
         .background(Color(settings.globalBackground))
     }

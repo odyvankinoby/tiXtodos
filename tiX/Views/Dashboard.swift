@@ -48,7 +48,7 @@ struct Dashboard: View {
                         self.tabSelected = 2
                     }
                 }) {
-                    Image(systemName: "list.bullet").foregroundColor(.white).font(.title2)
+                    Image(systemName: "list.bullet.circle").foregroundColor(.white).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
             }

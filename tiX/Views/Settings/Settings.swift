@@ -22,6 +22,8 @@ struct Settings: View {
     @State var deletedTodos = 0
     @State var inlineEdit = false
     @State var showAbout = false
+    @State var showSheet = false
+    @State var showGDPR = false
     @FocusState private var isFocused: Bool
     
     @State var colorz1 = ["tix", "tixDark", "Brown", "Blue", "Cyan"]
@@ -36,7 +38,7 @@ struct Settings: View {
                         self.tabSelected = 1
                     }
                 }) {
-                    Image(systemName: "house").foregroundColor(.white).font(.title2)
+                    Image(systemName: "house.circle").foregroundColor(.white).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
@@ -45,7 +47,7 @@ struct Settings: View {
                         self.tabSelected = 2
                     }
                 }) {
-                    Image(systemName: "list.bullet").foregroundColor(.white).font(.title2)
+                    Image(systemName: "list.bullet.circle").foregroundColor(.white).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -239,8 +241,23 @@ struct Settings: View {
                         Text(loc_about).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
                     }.onTapGesture(perform: {
+                        showSheet.toggle()
                         showAbout.toggle()
                     })
+                    Divider()
+                    HStack {
+                        Text(loc_gdpr).frame(alignment: .leading).foregroundColor(.tix)
+                        Spacer()
+                    }.onTapGesture(perform: {
+                        showSheet.toggle()
+                        showGDPR.toggle()
+                    })
+                    Divider()
+                    HStack {
+                        Text(loc_app_version).frame(alignment: .leading).foregroundColor(.tix)
+                        Spacer()
+                        Text("\(getCurrentAppBuildVersionString())").frame(alignment: .trailing).foregroundColor(.tixDark)
+                    }
                      
                 }
                 .padding(10)
@@ -260,8 +277,17 @@ struct Settings: View {
         .accentColor(.tixDark)
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
-        .sheet(isPresented: self.$showAbout) {
-            About(settings: settings)
+        .sheet(isPresented: self.$showSheet) {
+            if showAbout { About(settings: settings).onDisappear(perform: {
+                self.showSheet = false
+                self.showAbout = false
+                self.showGDPR = false
+            }) }
+            else if showGDPR { GDPRView(settings: settings).onDisappear(perform: {
+                self.showSheet = false
+                self.showAbout = false
+                self.showGDPR = false
+            }) }
          }
     }
     
@@ -295,6 +321,13 @@ struct Settings: View {
         } catch let error {
             NSLog("error in FetchRequest trying to get default category: \(error.localizedDescription)")
         }
+    }
+    
+    func getCurrentAppBuildVersionString() -> String {
+        let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+        let buildString = "\(versionNumber) (\(buildNumber))"
+        return String(buildString)
     }
 }
 

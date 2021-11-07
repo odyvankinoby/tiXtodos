@@ -67,12 +67,12 @@ struct Todos: View {
                         selectCategory = false
                     }
                 }) {
-                    Image(systemName: "list.bullet")
-                        .foregroundColor(showAll ? .white : .tixDark)
+                    Image(systemName: showAll ? "list.bullet.circle.fill" : "list.bullet.circle")
+                        .foregroundColor(.white)
                         .font(.title2)
                 }
                 .toggleStyle(.button)
-  
+                
                 Button(action: {
                     withAnimation {
                         showAll = false
@@ -80,8 +80,8 @@ struct Todos: View {
                         showToday = true
                     }
                 }) {
-                    Image(systemName: "calendar")
-                        .foregroundColor(showToday ? .white : .tixDark)
+                    Image(systemName: showToday ? "calendar.circle.fill" : "calendar.circle")
+                        .foregroundColor(.white)
                         .font(.title2)
                 }
                 .toggleStyle(.button)
@@ -93,8 +93,8 @@ struct Todos: View {
                         showToday = false
                     }
                 }) {
-                    Image(systemName: showOverdue ? "calendar.badge.exclamationmark" : "calendar.badge.exclamationmark")
-                        .foregroundColor(showOverdue ? .white : .tixDark)
+                    Image(systemName: showOverdue ? "clock.badge.exclamationmark.fill" : "clock.badge.exclamationmark")
+                        .foregroundColor(.white)
                         .font(.title2)
                 }
                 .toggleStyle(.button)
@@ -105,24 +105,10 @@ struct Todos: View {
                     }
                 }) {
                     Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
-                        .foregroundColor(showImportant ? .red : .tixDark)
+                        .foregroundColor(showImportant ? .red : .white)
                         .font(.title2)
                 }
                 .toggleStyle(.button)
-                
-                if categorySelected {
-                    Button(action: {
-                        withAnimation {
-                            categorySelected.toggle()
-                        }
-                    }) {
-                        Image(systemName: "folder")
-                            .foregroundColor(.white)
-                            .font(.title2)
-                    }
-                    .toggleStyle(.button)
-                }
-                
                 
                 Spacer()
                 
@@ -139,12 +125,14 @@ struct Todos: View {
             }
             
             HStack {
-                Text(loc_all_todos)
+                Text(showToday ? loc_today : showOverdue ? loc_overdue : loc_all_todos)
                     .font(.title).bold()
                     .foregroundColor(Color.white)
                     .frame(alignment: .leading)
                 Spacer()
                 if categorySelected {
+                    
+                    
                     Picker(loc_choose_category, selection: $cat) {
                         ForEach(categories, id: \.self) { catt in
                             HStack {
@@ -161,9 +149,22 @@ struct Todos: View {
                         categorySelected = true
                     })
                     .frame(alignment: .trailing)
+                    
+                    Button(action: {
+                        withAnimation {
+                            categorySelected.toggle()
+                        }
+                    }) {
+                        Image(systemName: "xmark.circle")
+                            .foregroundColor(.white)
+                            .font(.title3)
+                    }
+                    .toggleStyle(.button)
+                    
+                    
                 } else {
                     HStack {
-                        Text(loc_category)
+                        Text(loc_categories)
                             .foregroundColor(Color.white)
                             .font(.body)
                             .onTapGesture {
@@ -177,8 +178,8 @@ struct Todos: View {
             }.padding(.top)
             
             ScrollView {
-
-                ForEach(todosFiltered, id: \.self) { todo in
+                
+                ForEach(showToday ? todayResults : showOverdue ? overdueResults : todosFiltered, id: \.self) { todo in
                     
                     // Inline Edit
                     if inlineEdit && todo.id == inlineItem {
@@ -235,7 +236,7 @@ struct Todos: View {
                         .background(Color.white)
                         .cornerRadius(10)
                         .frame(maxWidth: .infinity)
-                                            }
+                    }
                 }
                 
             }
@@ -272,12 +273,12 @@ struct Todos: View {
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
     }
-
+    
     private func onDisappear() {
         inlineEdit = false
         inlineItem = UUID()
     }
-
+    
     private func onAppear() {
         
         getInbox()
@@ -326,28 +327,51 @@ struct Todos: View {
     var todosFiltered: [Todo] {
         
         if categorySelected {
-            
-            switch settings.hideTicked { //we will need this for our toggle later
-            case true:
-                return todos.filter {
-                    !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat
+            if showImportant {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat && $0.important == true
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.todoCategory == cat && $0.important == true
+                    }
                 }
-            default:
-                return todos.filter {
-                    !$0.todo!.isEmpty && $0.todoCategory == cat
+            } else {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false && $0.todoCategory == cat
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.todoCategory == cat
+                    }
                 }
             }
-            
         } else {
-            
-            switch settings.hideTicked { //we will need this for our toggle later
-            case true:
-                return todos.filter {
-                    !$0.todo!.isEmpty && $0.isDone == false
+            if showImportant {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false && $0.important == true
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.important == true
+                    }
                 }
-            default:
-                return todos.filter {
-                    !$0.todo!.isEmpty
+            } else {
+                switch settings.hideTicked { //we will need this for our toggle later
+                case true:
+                    return todos.filter {
+                        !$0.todo!.isEmpty && $0.isDone == false
+                    }
+                default:
+                    return todos.filter {
+                        !$0.todo!.isEmpty
+                    }
                 }
             }
         }
