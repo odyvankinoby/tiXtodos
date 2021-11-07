@@ -110,17 +110,18 @@ struct Todos: View {
                 }
                 .toggleStyle(.button)
                 
-                Button(action: {
-                    withAnimation {
-                        categorySelected.toggle()
+                if categorySelected {
+                    Button(action: {
+                        withAnimation {
+                            categorySelected.toggle()
+                        }
+                    }) {
+                        Image(systemName: "folder")
+                            .foregroundColor(.white)
+                            .font(.title2)
                     }
-                }) {
-                    Image(systemName: "folder")
-                        .foregroundColor(categorySelected ? .white : .tixDark)
-                        .font(.title2)
+                    .toggleStyle(.button)
                 }
-                .toggleStyle(.button)
-                .disabled(!categorySelected)
                 
                 
                 Spacer()
@@ -223,7 +224,7 @@ struct Todos: View {
                                         .font(.subheadline)
                                         .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                     Spacer()
-                                    Text(todo.todoCategory!.name ?? "").font(.subheadline)
+                                    Text(todo.todoCategory?.name ?? "").font(.subheadline)
                                         .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                 }
                             }
@@ -266,12 +267,17 @@ struct Todos: View {
         }
         .accentColor(self.accentColor)
         .padding(.leading).padding(.trailing)
-        .background(Color.tix)
-        .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
+        .background(Color(settings.globalBackground))
+        .sheet(isPresented: $newItem) { NewItem(settings: settings, cat: self.cat ?? Category()) }
         .onAppear(perform: onAppear)
+        .onDisappear(perform: onDisappear)
     }
-    
-    
+
+    private func onDisappear() {
+        inlineEdit = false
+        inlineItem = UUID()
+    }
+
     private func onAppear() {
         
         getInbox()
@@ -524,6 +530,9 @@ struct Todos: View {
         } catch let error {
             NSLog("error in FetchRequest trying to get default category: \(error.localizedDescription)")
         }
+        
+        print("getInbox")
+        print("self.cat = \(String(describing: self.cat.name))")
         
     }
 }

@@ -443,7 +443,7 @@ struct ListTodos: View {
                         
                     }
                 }
-                .sheet(isPresented: $newItem) { NewItem(cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
+                .sheet(isPresented: $newItem) { NewItem(settings: settings, cat: self.cat, col: self.cat.color?.color ?? Color.tix) }
                 .onAppear(perform: onAppear)
                 .navigationViewStyle(StackNavigationViewStyle())
                 .accentColor(accentColor) // NAV

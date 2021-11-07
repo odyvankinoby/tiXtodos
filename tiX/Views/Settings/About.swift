@@ -9,10 +9,10 @@ import SwiftUI
 
 struct About: View {
     
-    //@ObservedObject var settings: UserSettings
+    @ObservedObject var settings: UserSettings
+    
     var body: some View {
-        VStack {
-            
+        ScrollView {
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .center) {
                     Image("AppIcons")
@@ -22,12 +22,11 @@ struct About: View {
                         .padding(.all, 10)
                         .frame(alignment: .leading)
                     VStack(alignment: .leading) {
-                        Text("tiX").font(.headline)
-                        Text("track your tasks").font(.subheadline)
-                        Text("Version \(getCurrentAppBuildVersionString())").font(.subheadline)
+                        Text("tiX").font(.headline).foregroundColor(.white)
+                        Text("track your tasks").font(.subheadline).foregroundColor(.white)
+                        Text("Version \(getCurrentAppBuildVersionString())").font(.subheadline).foregroundColor(.white)
                     }.padding()
                     Spacer()
-                    
                 }
             }
             .padding(.horizontal, 10)
@@ -36,44 +35,42 @@ struct About: View {
             
             
             VStack(alignment: .leading, spacing: 10) {
-                
                 HStack(alignment: .center) {
                     Image(systemName: "c.circle")
-                        .font(.largeTitle)
+                        .font(.largeTitle).foregroundColor(.white)
                         .frame(width: 64, height: 64)
                         .padding(.all, 10)
                         .frame(alignment: .leading)
                     VStack(alignment: .leading) {
                         Text("Copyright")
-                            .font(.caption)
-                        Text("2021 Nicolas Ott").fontWeight(.semibold)
+                            .font(.caption).foregroundColor(.white)
+                        Text("2021 Nicolas Ott").fontWeight(.semibold).foregroundColor(.white)
                     }.padding()
                     Spacer()
                 }
                 HStack(alignment: .center) {
                     Image(systemName: "globe")
-                        .font(.largeTitle)
+                        .font(.largeTitle).foregroundColor(.white)
                         .frame(width: 64, height: 64)
                         .padding(.all, 10)
                         .frame(alignment: .leading)
                     VStack(alignment: .leading) {
                         Text("Website")
-                            .font(.caption)
-                        Text("NicolasOtt.de").fontWeight(.semibold)
+                            .font(.caption).foregroundColor(.white)
+                        Text("NicolasOtt.de").fontWeight(.semibold).foregroundColor(.white)
                     }.padding()
                     Spacer()
                 }
                
                 HStack(alignment: .center) {
                     Image(systemName: "at")
-                        .font(.largeTitle)
+                        .font(.largeTitle).foregroundColor(.white)
                         .frame(width: 64, height: 64)
                         .padding(.all, 10)
                         .frame(alignment: .leading)
                     VStack(alignment: .leading) {
-                        Text("EMail")
-                            .font(.caption)
-                        Text("tix(at)nicolasott.de").fontWeight(.semibold)
+                        Text("EMail").font(.caption).foregroundColor(.white)
+                        Text("tix(at)nicolasott.de").fontWeight(.semibold).foregroundColor(.white)
                     }.padding()
                     Spacer()
                 }
@@ -83,17 +80,17 @@ struct About: View {
             .frame(maxWidth: .infinity)
             
             Spacer()
+            Spacer()
+            Spacer()
             VStack(alignment: .leading, spacing: 10) {
-                
-                Text(loc_madewithlove).font(.footnote)
+                Text(loc_madewithlove).font(.footnote).foregroundColor(.white)
             }
             .padding()
             .padding(.bottom, 25)
             .frame(maxWidth: .infinity)
-            
         }
-        .accentColor(Color.tix)
-        .navigationBarTitle(loc_about, displayMode: .automatic).allowsTightening(true)
+        .accentColor(Color.white)
+        .background(Color(settings.globalBackground))
     }
     
     

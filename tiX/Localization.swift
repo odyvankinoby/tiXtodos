@@ -43,4 +43,5 @@ let loc_dashboard: LocalizedStringKey = "loc_dashboard"
 let loc_your_todos: LocalizedStringKey = "loc_your_todos"
 let loc_delete: LocalizedStringKey = "loc_delete"
 let loc_go: LocalizedStringKey = "loc_go"
-
+let loc_default_cat: LocalizedStringKey = "loc_default_cat"
+let loc_no_todos: LocalizedStringKey = "loc_no_todos"

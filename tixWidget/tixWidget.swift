@@ -68,30 +68,48 @@ struct tixWidgetEntryView : View {
                 .font(.callout).bold()
                 .foregroundColor(Color.white)
                 .padding(5).padding(.leading, 10).padding(.top, 10)
-            HStack(alignment: .center){
-                Image(systemName: entry.oneTicked ? "circle.fill" : "circle")
-                    .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
-                Text(entry.one)
-                    .font(.callout)
-                    .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+            Divider()
+            
+            if entry.one == "" && entry.two == "" && entry.three == "" {
                 Spacer()
-            }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
-            HStack(alignment: .center){
-                Image(systemName: entry.twoTicked ? "circle.fill" : "circle")
-                    .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
-                Text(entry.two)
-                    .font(.callout)
-                    .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                HStack(alignment: .center){
+                    Text(loc_no_todos)
+                        .font(.callout)
+                        .foregroundColor(Color.white)
+                    Spacer()
+                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
                 Spacer()
-            }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
-            HStack(alignment: .center){
-                Image(systemName: entry.threeTicked ? "circle.fill" : "circle")
-                    .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
-                Text(entry.three)
-                    .font(.callout)
-                    .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
-                Spacer()
-            }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+            }
+            if entry.one != "" {
+                HStack(alignment: .center){
+                    Image(systemName: entry.oneTicked ? "circle.fill" : "circle")
+                        .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                    Text(entry.one)
+                        .font(.callout)
+                        .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                    Spacer()
+                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+            }
+            if entry.two != "" {
+                HStack(alignment: .center){
+                    Image(systemName: entry.twoTicked ? "circle.fill" : "circle")
+                        .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                    Text(entry.two)
+                        .font(.callout)
+                        .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                    Spacer()
+                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+            }
+            if entry.three != "" {
+                HStack(alignment: .center){
+                    Image(systemName: entry.threeTicked ? "circle.fill" : "circle")
+                        .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                    Text(entry.three)
+                        .font(.callout)
+                        .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                    Spacer()
+                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+            }
             Spacer()
             Spacer()
         }.background(Color("tix"))

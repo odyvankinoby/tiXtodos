@@ -52,6 +52,14 @@ struct TodoEdit: View {
                 }
                 Button(action: {
                     withAnimation {
+                        ViewContextMethods.saveItem(
+                            todo: todo,
+                            toDoText: inlineTodo,
+                            hasDD: hasDD,
+                            dueDate: dd,
+                            prio: prio,
+                            cat: cat,
+                            context: viewContext)
                         inlineEdit = false
                         inlineItem = UUID()
                     }
@@ -81,20 +89,13 @@ struct TodoEdit: View {
                         .focused($isFocused)
                         .font(.headline)
                         .foregroundColor(fgColor)
+                        .background(Color.clear)
                         .onDisappear(perform: {
                             isFocused = false
                             accentColor = Color.white
-                            ViewContextMethods.saveItem(
-                                todo: todo,
-                                toDoText: inlineTodo,
-                                hasDD: hasDD,
-                                dueDate: dd,
-                                prio: prio,
-                                cat: cat,
-                                context: viewContext)
                         })
                         .multilineTextAlignment(.leading)
-                        .lineLimit(3)
+                        .lineLimit(5)
                         
                     Spacer()
                 }

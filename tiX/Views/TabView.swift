@@ -11,29 +11,23 @@ import CoreData
 struct TabViewView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    @ObservedObject var settings = UserSettings()
     let coloredNavAppearance = UINavigationBarAppearance()
     
     init() {
-        coloredNavAppearance.titleTextAttributes = [.foregroundColor: UIColor(.tix)]
-        coloredNavAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(.tix)]
-        coloredNavAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(.tix)]
-        UINavigationBar.appearance().standardAppearance = coloredNavAppearance
-        UINavigationBar.appearance().barTintColor = UIColor(.tix)
-        
         // Segmented Picker
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "tixDark")
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tixDark") ?? Color.black], for: .normal)
-        
+        // TextEditor
+        UITextView.appearance().backgroundColor = .clear
     }
-    // Observable Objects
-    @ObservedObject var settings = UserSettings()
+    
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)], predicate: NSPredicate(format: "isDefault == true")) var categories: FetchedResults<Category>
     
     // Navigation
     @State var tabSelected: Int = 1
-    
     @State var showSetup = false
     
     var body: some View {
@@ -47,7 +41,7 @@ struct TabViewView: View {
                 .tabItem {
                     //Image(systemName: "list.bullet")
                 }.tag(2)
-            Cats(settings: settings, tabSelected: $tabSelected)
+            Categories(settings: settings, tabSelected: $tabSelected)
                 .tabItem {
                     //Image(systemName: "folder")
                 }.tag(3)

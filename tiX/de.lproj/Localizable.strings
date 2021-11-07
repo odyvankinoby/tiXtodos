@@ -42,3 +42,5 @@
 "loc_your_todos" = "Deine ToDos";
 "loc_delete" = "Löschen";
 "loc_go" = "Los geht's!";
+"loc_default_cat" = "Standard Kategorie";
+"loc_no_todos" = "Keine ToDos";

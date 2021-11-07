@@ -21,9 +21,11 @@ struct Settings: View {
     @State var noMail = false
     @State var deletedTodos = 0
     @State var inlineEdit = false
+    @State var showAbout = false
     @FocusState private var isFocused: Bool
     
-    @State var colorz = [Color.tix, Color.tixDark, Color.yellow, Color.red, Color.purple, Color.cyan, Color.blue, Color.green, Color.gray]
+    @State var colorz1 = ["tix", "tixDark", "Brown", "Blue", "Cyan"]
+    @State var colorz2 = ["Green", "Orange", "Red", "Purple", "Magenta"]
     
     var body: some View {
         
@@ -38,6 +40,14 @@ struct Settings: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 2
+                    }
+                }) {
+                    Image(systemName: "list.bullet").foregroundColor(.white).font(.title2)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
             
             HStack {
@@ -51,8 +61,9 @@ struct Settings: View {
             }
             
             ScrollView {
+                
                 VStack(alignment: .leading) {
-  
+                    
                     HStack {
                         Text(loc_name)
                             .frame(alignment: .leading)
@@ -126,23 +137,54 @@ struct Settings: View {
                 .cornerRadius(10)
                 .frame(maxWidth: .infinity)
                 
+                
                 VStack(alignment: .leading) {
-                    LazyHStack {
-                        ForEach(colorz, id: \.self) { col in
-                            Image(systemName: "square.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(col)
+                    HStack {
+                        Spacer()
+                        ForEach(colorz1, id: \.self) { col in
+                            Button(action: {
+                                withAnimation {
+                                    settings.globalBackground = col
+                                }
+                            }) {
+                                
+                                Image(systemName: col == settings.globalBackground ? "dot.square.fill" : "square.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(Color(col))
+                                   
+                            }
+                            Spacer()
                         }
+                        
+                    }
+                    HStack {
+                        Spacer()
+                        ForEach(colorz2, id: \.self) { col in
+                            Button(action: {
+                                withAnimation {
+                                    settings.globalBackground = col
+                                }
+                            }) {
+                                
+                                Image(systemName: col == settings.globalBackground ? "dot.square.fill" : "square.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(Color(col))
+                                  
+                            }
+                            Spacer()
+                        }
+                        
                     }
                 }
-                .padding(10)
+                .padding()
                 .background(Color.white)
                 .cornerRadius(10)
                 .frame(maxWidth: .infinity)
                 
                 VStack(alignment: .leading) {
-            
+                    
                     HStack {
                         Text(loc_help).frame(alignment: .leading).foregroundColor(.tix)
                         Spacer()
@@ -191,15 +233,15 @@ struct Settings: View {
                 .frame(maxWidth: .infinity)
                 
                 VStack(alignment: .leading) {
+                   
+                        
                     HStack {
-                        NavigationLink(destination: About().accentColor(Color.tix)
-                                        .edgesIgnoringSafeArea(.bottom)) {
-                            HStack {
-                                Text(loc_about).frame(alignment: .leading).foregroundColor(.tix)
-                                Spacer()
-                            }
-                        }
-                    }
+                        Text(loc_about).frame(alignment: .leading).foregroundColor(.tix)
+                        Spacer()
+                    }.onTapGesture(perform: {
+                        showAbout.toggle()
+                    })
+                     
                 }
                 .padding(10)
                 .background(Color.white)
@@ -217,7 +259,10 @@ struct Settings: View {
         }
         .accentColor(.tixDark)
         .padding(.leading).padding(.trailing)
-        .background(Color.tix)
+        .background(Color(settings.globalBackground))
+        .sheet(isPresented: self.$showAbout) {
+            About(settings: settings)
+         }
     }
     
     

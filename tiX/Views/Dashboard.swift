@@ -33,7 +33,6 @@ struct Dashboard: View {
     var body: some View {
         VStack {
             HStack {
-                
                 Button(action: {
                     withAnimation {
                         self.tabSelected = 4
@@ -52,7 +51,6 @@ struct Dashboard: View {
                     Image(systemName: "list.bullet").foregroundColor(.white).font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
-                
             }
             
             HStack {
@@ -110,18 +108,34 @@ struct Dashboard: View {
                 
                 LazyVStack {
                     VStack(alignment: .leading) {
+                        /*
+                        HStack {
+                            Spacer()
+                            ForEach(categorySort, id: \.self) { day in
+                                Text(day)
+                                    .foregroundColor(Color(settings.globalBackground))
+                                    .background(daySelection == day ? Color.tix : Color.white)
+                                    .padding(daySelection == day ? 10 : 0)
+                                Spacer()
+                            }
+                            
+                        }
+                        .padding(.top).padding(.bottom)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .frame(maxWidth: .infinity)
+                        */
+                        
                         Picker(selection: $daySelection, label: Text("")) {
                             ForEach(categorySort, id: \.self) { day in
                                 Text(day).foregroundColor(.tix)
                             }
-                        }.onChange(of: daySelection, perform: { (value) in
-                            //self.updateFilter()
-                        })
-                            .foregroundColor(.white)
-                            .padding(.top)
-                            .pickerStyle(SegmentedPickerStyle())
-                            .labelsHidden()
-                            .disabled(true)
+                        }
+                        .foregroundColor(.white)
+                        .padding(.top)
+                        .pickerStyle(SegmentedPickerStyle())
+                        .labelsHidden()
+                        .disabled(true)
                         
                         HStack {
                             Text(loc_your_todos)
@@ -199,7 +213,7 @@ struct Dashboard: View {
         }
         .accentColor(.white)
         .padding(.leading).padding(.trailing)
-        .background(Color.tix)
+        .background(Color(settings.globalBackground))
         .onAppear(perform: onAppear)
     }
     

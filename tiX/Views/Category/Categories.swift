@@ -8,20 +8,27 @@
 import SwiftUI
 import CoreData
 
-struct Cats: View {
+struct Categories: View {
     
     @Environment(\.managedObjectContext) private var viewContext
 
     @ObservedObject var settings: UserSettings
     @Binding var tabSelected: Int
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
+    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.timestamp, ascending: false)]) var todos: FetchedResults<Todo>
 
     @State var newCategory = false
-   
+    
+    // Inline Edit
+    @State private var inlineEdit = false
+    @State private var inlineItem = UUID()
+    @State private var inlineCat = ""
+       
+    @State private var accentColor = Color.white
+    
     var body: some View {
         VStack {
             HStack {
-                
                 Button(action: {
                     withAnimation {
                         self.tabSelected = 4
@@ -53,17 +60,19 @@ struct Cats: View {
                 
             }
             
-            //ScrollView {
-            
-           
-            List {
+            ScrollView {
+                
                 ForEach(categories, id: \.self) { cat in
                     
-                   
-                    NavigationLink(destination: EditCategory(cat: cat).environment(\.managedObjectContext, self.viewContext))
-                    {
-                        VStack(alignment: .leading){
-                            HStack(alignment: .center){
+                    // Inline Edit
+                    if inlineEdit && cat.id == inlineItem {
+                        
+                        CategoryEdit(settings: settings, cat: cat, inlineEdit: $inlineEdit, inlineItem: $inlineItem, inlineCat: cat.name ?? "", inlineColor: cat.color?.color ?? Color.tix, accentColor: $accentColor)
+                        
+                    } else {
+
+                        VStack(alignment: .leading) {
+                            HStack(alignment: .center) {
                                 Image(systemName: "square.fill")
                                     .resizable()
                                     .frame(width: 30, height: 30)
@@ -77,42 +86,40 @@ struct Cats: View {
                                     .foregroundColor(cat.color?.color ?? Color.tix)
                                 Spacer()
                             }
+                            .onTapGesture {
+                                withAnimation {
+                                    if !inlineEdit {
+                                        inlineEdit = true
+                                        inlineItem = cat.id ?? UUID()
+                                        inlineCat = cat.name ?? ""
+                                        accentColor = cat.color?.color ?? Color.tix
+                                    }
+                                }
+                            }
+                            .padding(.leading)
+                            .padding(.trailing)
+                            .padding(.top, 5).padding(.bottom, 5)
+                            .background(Color.white)
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxWidth: .infinity)
-                        
-                    
                     }
-                }.onDelete(perform: deleteItems(offsets:))
-                    .listStyle(PlainListStyle())
-                    .listRowBackground(Color.clear)
+                }
             }
 
         }
-        .sheet(isPresented: $newCategory) { NewCategory() }
-        .accentColor(.white)
+        .sheet(isPresented: $newCategory) { CategoryNew(settings: settings) }
+        .accentColor(self.accentColor)
         .padding(.leading).padding(.trailing)
-        .background(Color.tix)
+        .background(Color(settings.globalBackground))
+        .onDisappear(perform: onDisappear)
+    }
+
+    private func onDisappear() {
+        inlineEdit = false
+        inlineItem = UUID()
     }
     
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { categories[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-               
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    func textChanged(upper: Int, text: inout String) {
-        if text.count > upper {
-            text = String(text.prefix(upper))
-        }
-    }
 }
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
