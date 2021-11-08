@@ -13,12 +13,13 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="important" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="todo" optional="YES" attributeType="String"/>
         <relationship name="todoCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="todo" inverseEntity="Category"/>
     </entity>
     <elements>
         <element name="Category" positionX="-63" positionY="9" width="128" height="104"/>
-        <element name="Todo" positionX="-63" positionY="-18" width="128" height="149"/>
+        <element name="Todo" positionX="-63" positionY="-18" width="128" height="164"/>
     </elements>
 </model>

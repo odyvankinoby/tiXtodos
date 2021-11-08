@@ -19,6 +19,7 @@ struct NewItem: View {
     
     @State private var dueDate = Date()
     @State private var todo = "Todo"
+    @State private var text = "Description"
     @State private var important = false
     @State private var hasDueDate = false
     @FocusState private var isFocused: Bool
@@ -73,14 +74,36 @@ struct NewItem: View {
                     
                     TextEditor(text: $todo)
                         .keyboardType(.default)
-                        .focused($isFocused)
+                        .font(.title3)
+                        .opacity(todo == "Todo" ? 0.5 : 1)
+                        .foregroundColor(Color.tix)
+                        .background(Color.clear)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(5)
+                    
+                    /*
+                    TextField(loc_new_todo, text: self.$todo)
+                        .keyboardType(.default)
                         .font(.title2)
+                        .opacity(todo.isEmpty ? 0.5 : 1)
                         .foregroundColor(Color.tix)
                         .opacity(todo == "Todo" ? 0.5 : 1)
+                        .focused($isFocused)
+                        .background(Color.clear)
+                    */
+                    Divider()
+                    
+                    /*
+                    TextEditor(text: $text)
+                        .keyboardType(.default)
+                        .font(.title3)
+                        .opacity(text == "Description" ? 0.5 : 1)
+                        .foregroundColor(Color.tix)
                         .background(Color.clear)
                         .multilineTextAlignment(.leading)
                         .lineLimit(5)
                     Divider()
+                    */
                     HStack {
                         Text(loc_category)
                             .foregroundColor(Color.tix)
@@ -136,7 +159,7 @@ struct NewItem: View {
                     }
                     //.padding()
                     .accentColor(Color.tix)
-                    Spacer()
+                    //Spacer()
                     
                 }.padding(.leading)
                     .padding(.trailing)
@@ -150,7 +173,7 @@ struct NewItem: View {
             }
             
         }
-        .accentColor(Color(settings.globalForeground))
+        .accentColor(Color.tix)
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
         .onAppear(perform: onAppear)

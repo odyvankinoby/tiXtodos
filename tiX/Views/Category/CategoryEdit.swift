@@ -35,7 +35,7 @@ struct CategoryEdit: View {
                             endInlineEdit()
                         }
                     }) {
-                        Text(loc_delete).foregroundColor(.red)
+                        Text(loc_delete).foregroundColor(Color(settings.globalForeground))
                     }
                 }
                 Spacer()
@@ -45,7 +45,7 @@ struct CategoryEdit: View {
                     }
                 }) {
                     Image(systemName: "arrow.uturn.backward.circle").resizable()
-                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(.white)
+                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(Color(settings.globalForeground))
                 }
                 Button(action: {
                     withAnimation {
@@ -59,7 +59,7 @@ struct CategoryEdit: View {
                     }
                 }) {
                     Image(systemName: "checkmark.circle").resizable()
-                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(.white)
+                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(Color(settings.globalForeground))
                 }
             }
             

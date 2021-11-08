@@ -38,8 +38,7 @@ struct TodoEdit: View {
                         endInlineEdit()
                     }
                 }) {
-                    Text(loc_delete).foregroundColor(.red)
-                    //Image(systemName: "xmark.circle").resizable().frame(width: 24, height: 24, alignment: .top).foregroundColor(.red)
+                    Text(loc_delete).foregroundColor(Color(settings.globalForeground))
                 }
                 Spacer()
                 Button(action: {
@@ -48,7 +47,7 @@ struct TodoEdit: View {
                     }
                 }) {
                     Image(systemName: "arrow.uturn.backward.circle").resizable()
-                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(.white)
+                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(Color(settings.globalForeground))
                 }
                 Button(action: {
                     withAnimation {
@@ -65,7 +64,7 @@ struct TodoEdit: View {
                     }
                 }) {
                     Image(systemName: "checkmark.circle").resizable()
-                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(.white)
+                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(Color(settings.globalForeground))
                 }
             }
             

@@ -19,16 +19,6 @@
 		36644F6F272B0DB300DA328F /* tixWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 36644F61272B0DB100DA328F /* tixWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		367527782710AA6F0087FC4B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367527772710AA6F0087FC4B /* Colors.swift */; };
 		3681FB562728755E00248951 /* SerializableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3681FB552728755D00248951 /* SerializableColor.swift */; };
-		368FF60327383EED00918714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 368FF60227383EED00918714 /* Assets.xcassets */; };
-		368FF60927383EEE00918714 /* tixWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 368FF60827383EEE00918714 /* tixWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		368FF60E27383EEE00918714 /* tiXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF60D27383EEE00918714 /* tiXApp.swift */; };
-		368FF61027383EEE00918714 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF60F27383EEE00918714 /* ContentView.swift */; };
-		368FF61227383EEE00918714 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF61127383EEE00918714 /* NotificationController.swift */; };
-		368FF61427383EEE00918714 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF61327383EEE00918714 /* NotificationView.swift */; };
-		368FF61627383EEE00918714 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF61527383EEE00918714 /* ComplicationController.swift */; };
-		368FF61827383EEE00918714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 368FF61727383EEE00918714 /* Assets.xcassets */; };
-		368FF61B27383EEE00918714 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 368FF61A27383EEE00918714 /* Preview Assets.xcassets */; };
-		368FF62027383EEE00918714 /* tixWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 368FF60027383EED00918714 /* tixWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		368FF62A273849CA00918714 /* GDPRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF629273849CA00918714 /* GDPRView.swift */; };
 		36A250B227282577003BC001 /* CategoryNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B127282577003BC001 /* CategoryNew.swift */; };
 		36A250B4272836C9003BC001 /* CategoryEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B3272836C9003BC001 /* CategoryEdit.swift */; };
@@ -49,6 +39,7 @@
 		36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B0272FF09D00694E0F /* MailView.swift */; };
 		36D3F2B3272FF47300694E0F /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B2272FF47300694E0F /* About.swift */; };
 		36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B427307A7000694E0F /* Dashboard.swift */; };
+		36DB7EBE27393A270098AA18 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DB7EBD27393A270098AA18 /* CloudKit.framework */; };
 		36E9E4672737163700A54BE1 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9E4662737163700A54BE1 /* TabView.swift */; };
 		36E9E4692737166C00A54BE1 /* TodoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9E4682737166C00A54BE1 /* TodoEdit.swift */; };
 		36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */; };
@@ -61,20 +52,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 36644F60272B0DB100DA328F;
 			remoteInfo = tixWidgetExtension;
-		};
-		368FF60A27383EEE00918714 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 36C1B5AA270CC1BF00249259 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 368FF60727383EEE00918714;
-			remoteInfo = "tixWatch WatchKit Extension";
-		};
-		368FF61E27383EEE00918714 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 36C1B5AA270CC1BF00249259 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 368FF5FF27383EED00918714;
-			remoteInfo = tixWatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -90,24 +67,12 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		368FF62427383EEE00918714 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				368FF60927383EEE00918714 /* tixWatch WatchKit Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		368FF62827383EEE00918714 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				368FF62027383EEE00918714 /* tixWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,21 +91,8 @@
 		36644F6A272B0DB300DA328F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36644F6C272B0DB300DA328F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tixWidgetExtension.entitlements; sourceTree = "<group>"; };
-		36644F75272B0DE700DA328F /* tiX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tiX.entitlements; sourceTree = "<group>"; };
 		367527772710AA6F0087FC4B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3681FB552728755D00248951 /* SerializableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializableColor.swift; sourceTree = "<group>"; };
-		368FF60027383EED00918714 /* tixWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tixWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		368FF60227383EED00918714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		368FF60827383EEE00918714 /* tixWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "tixWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		368FF60D27383EEE00918714 /* tiXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiXApp.swift; sourceTree = "<group>"; };
-		368FF60F27383EEE00918714 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		368FF61127383EEE00918714 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		368FF61327383EEE00918714 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
-		368FF61527383EEE00918714 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
-		368FF61727383EEE00918714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		368FF61A27383EEE00918714 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		368FF61C27383EEE00918714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		368FF61D27383EEE00918714 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		368FF629273849CA00918714 /* GDPRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDPRView.swift; sourceTree = "<group>"; };
 		36A250B127282577003BC001 /* CategoryNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNew.swift; sourceTree = "<group>"; };
 		36A250B3272836C9003BC001 /* CategoryEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEdit.swift; sourceTree = "<group>"; };
@@ -162,6 +114,9 @@
 		36D3F2B0272FF09D00694E0F /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		36D3F2B2272FF47300694E0F /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		36D3F2B427307A7000694E0F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		36DB7EBD27393A270098AA18 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		36DB7EBF27393B2B0098AA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		36E4B3C52739302800F7DE9E /* tiX.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = tiX.entitlements; sourceTree = "<group>"; };
 		36E9E4662737163700A54BE1 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		36E9E4682737166C00A54BE1 /* TodoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoEdit.swift; sourceTree = "<group>"; };
 		36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUpdater.swift; sourceTree = "<group>"; };
@@ -177,17 +132,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		368FF60527383EEE00918714 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		36C1B5AF270CC1BF00249259 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36DB7EBE27393A270098AA18 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +146,7 @@
 		36644F62272B0DB100DA328F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36DB7EBD27393A270098AA18 /* CloudKit.framework */,
 				36644F63272B0DB100DA328F /* WidgetKit.framework */,
 				36644F65272B0DB100DA328F /* SwiftUI.framework */,
 			);
@@ -213,38 +163,6 @@
 			path = tixWidget;
 			sourceTree = "<group>";
 		};
-		368FF60127383EED00918714 /* tixWatch */ = {
-			isa = PBXGroup;
-			children = (
-				368FF60227383EED00918714 /* Assets.xcassets */,
-			);
-			path = tixWatch;
-			sourceTree = "<group>";
-		};
-		368FF60C27383EEE00918714 /* tixWatch WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				368FF60D27383EEE00918714 /* tiXApp.swift */,
-				368FF60F27383EEE00918714 /* ContentView.swift */,
-				368FF61127383EEE00918714 /* NotificationController.swift */,
-				368FF61327383EEE00918714 /* NotificationView.swift */,
-				368FF61527383EEE00918714 /* ComplicationController.swift */,
-				368FF61727383EEE00918714 /* Assets.xcassets */,
-				368FF61C27383EEE00918714 /* Info.plist */,
-				368FF61D27383EEE00918714 /* PushNotificationPayload.apns */,
-				368FF61927383EEE00918714 /* Preview Content */,
-			);
-			path = "tixWatch WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		368FF61927383EEE00918714 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				368FF61A27383EEE00918714 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		36924ED12725721A001D1258 /* Coredata */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,8 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				36A250B527283738003BC001 /* Categories.swift */,
-				36A250B127282577003BC001 /* CategoryNew.swift */,
 				36A250B3272836C9003BC001 /* CategoryEdit.swift */,
+				36A250B127282577003BC001 /* CategoryNew.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -280,10 +198,7 @@
 				36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */,
 				36C1B5B4270CC1BF00249259 /* tiX */,
 				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
-				36644F75272B0DE700DA328F /* tiX.entitlements */,
 				36644F67272B0DB100DA328F /* tixWidget */,
-				368FF60127383EED00918714 /* tixWatch */,
-				368FF60C27383EEE00918714 /* tixWatch WatchKit Extension */,
 				36644F62272B0DB100DA328F /* Frameworks */,
 				36C1B5B3270CC1BF00249259 /* Products */,
 			);
@@ -294,8 +209,6 @@
 			children = (
 				36C1B5B2270CC1BF00249259 /* tiX todos.app */,
 				36644F61272B0DB100DA328F /* tixWidgetExtension.appex */,
-				368FF60027383EED00918714 /* tixWatch.app */,
-				368FF60827383EEE00918714 /* tixWatch WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,6 +216,8 @@
 		36C1B5B4270CC1BF00249259 /* tiX */ = {
 			isa = PBXGroup;
 			children = (
+				36DB7EBF27393B2B0098AA18 /* Info.plist */,
+				36E4B3C52739302800F7DE9E /* tiX.entitlements */,
 				36C1B5B5270CC1BF00249259 /* tiXApp.swift */,
 				36C1B5D6270DCDA200249259 /* Views */,
 				36C1B5D7270DCDB700249259 /* Helpers */,
@@ -381,40 +296,6 @@
 			productReference = 36644F61272B0DB100DA328F /* tixWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		368FF5FF27383EED00918714 /* tixWatch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 368FF62527383EEE00918714 /* Build configuration list for PBXNativeTarget "tixWatch" */;
-			buildPhases = (
-				368FF5FE27383EED00918714 /* Resources */,
-				368FF62427383EEE00918714 /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				368FF60B27383EEE00918714 /* PBXTargetDependency */,
-			);
-			name = tixWatch;
-			productName = tixWatch;
-			productReference = 368FF60027383EED00918714 /* tixWatch.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		368FF60727383EEE00918714 /* tixWatch WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 368FF62127383EEE00918714 /* Build configuration list for PBXNativeTarget "tixWatch WatchKit Extension" */;
-			buildPhases = (
-				368FF60427383EEE00918714 /* Sources */,
-				368FF60527383EEE00918714 /* Frameworks */,
-				368FF60627383EEE00918714 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "tixWatch WatchKit Extension";
-			productName = "tixWatch WatchKit Extension";
-			productReference = 368FF60827383EEE00918714 /* tixWatch WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
 		36C1B5B1270CC1BF00249259 /* tiX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 36C1B5C5270CC1C000249259 /* Build configuration list for PBXNativeTarget "tiX" */;
@@ -429,7 +310,6 @@
 			);
 			dependencies = (
 				36644F6E272B0DB300DA328F /* PBXTargetDependency */,
-				368FF61F27383EEE00918714 /* PBXTargetDependency */,
 			);
 			name = tiX;
 			productName = tiX;
@@ -447,12 +327,6 @@
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					36644F60272B0DB100DA328F = {
-						CreatedOnToolsVersion = 13.1;
-					};
-					368FF5FF27383EED00918714 = {
-						CreatedOnToolsVersion = 13.1;
-					};
-					368FF60727383EEE00918714 = {
 						CreatedOnToolsVersion = 13.1;
 					};
 					36C1B5B1270CC1BF00249259 = {
@@ -476,8 +350,6 @@
 			targets = (
 				36C1B5B1270CC1BF00249259 /* tiX */,
 				36644F60272B0DB100DA328F /* tixWidgetExtension */,
-				368FF5FF27383EED00918714 /* tixWatch */,
-				368FF60727383EEE00918714 /* tixWatch WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -489,23 +361,6 @@
 			files = (
 				36644F6B272B0DB300DA328F /* Assets.xcassets in Resources */,
 				3661F569272C3C8300546006 /* Localizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		368FF5FE27383EED00918714 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				368FF60327383EED00918714 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		368FF60627383EEE00918714 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				368FF61B27383EEE00918714 /* Preview Assets.xcassets in Resources */,
-				368FF61827383EEE00918714 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,18 +383,6 @@
 			files = (
 				3661F564272C28D300546006 /* Localization.swift in Sources */,
 				36644F69272B0DB100DA328F /* tixWidget.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		368FF60427383EEE00918714 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				368FF61227383EEE00918714 /* NotificationController.swift in Sources */,
-				368FF61027383EEE00918714 /* ContentView.swift in Sources */,
-				368FF61627383EEE00918714 /* ComplicationController.swift in Sources */,
-				368FF60E27383EEE00918714 /* tiXApp.swift in Sources */,
-				368FF61427383EEE00918714 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,16 +427,6 @@
 			target = 36644F60272B0DB100DA328F /* tixWidgetExtension */;
 			targetProxy = 36644F6D272B0DB300DA328F /* PBXContainerItemProxy */;
 		};
-		368FF60B27383EEE00918714 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 368FF60727383EEE00918714 /* tixWatch WatchKit Extension */;
-			targetProxy = 368FF60A27383EEE00918714 /* PBXContainerItemProxy */;
-		};
-		368FF61F27383EEE00918714 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 368FF5FF27383EED00918714 /* tixWatch */;
-			targetProxy = 368FF61E27383EEE00918714 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -616,7 +449,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -627,7 +460,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -645,7 +478,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -656,7 +489,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -664,120 +497,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
-			};
-			name = Release;
-		};
-		368FF62227383EEE00918714 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_ASSET_PATHS = "\"tixWatch WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = APRDSH5Y65;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "tixWatch WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "tixWatch WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = tixWatch_WatchKit_Extension.ComplicationController;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		368FF62327383EEE00918714 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_ASSET_PATHS = "\"tixWatch WatchKit Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = APRDSH5Y65;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "tixWatch WatchKit Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "tixWatch WatchKit Extension";
-				INFOPLIST_KEY_CLKComplicationPrincipalClass = tixWatch_WatchKit_Extension.ComplicationController;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Release;
-		};
-		368FF62627383EEE00918714 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = APRDSH5Y65;
-				GENERATE_INFOPLIST_FILE = YES;
-				IBSC_MODULE = tixWatch_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = tixWatch;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.nicolasott.tiX;
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
-			};
-			name = Debug;
-		};
-		368FF62727383EEE00918714 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = APRDSH5Y65;
-				GENERATE_INFOPLIST_FILE = YES;
-				IBSC_MODULE = tixWatch_WatchKit_Extension;
-				INFOPLIST_KEY_CFBundleDisplayName = tixWatch;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.nicolasott.tiX;
-				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
 			};
 			name = Release;
 		};
@@ -905,15 +624,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = tiX/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -921,14 +641,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -940,15 +660,16 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = tiX/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -956,14 +677,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -975,24 +696,6 @@
 			buildConfigurations = (
 				36644F71272B0DB300DA328F /* Debug */,
 				36644F72272B0DB300DA328F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		368FF62127383EEE00918714 /* Build configuration list for PBXNativeTarget "tixWatch WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				368FF62227383EEE00918714 /* Debug */,
-				368FF62327383EEE00918714 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		368FF62527383EEE00918714 /* Build configuration list for PBXNativeTarget "tixWatch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				368FF62627383EEE00918714 /* Debug */,
-				368FF62727383EEE00918714 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

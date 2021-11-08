@@ -61,6 +61,7 @@ struct CategoryNew: View {
                         .font(.title2)
                         .opacity(cat.isEmpty ? 0.5 : 1)
                         .foregroundColor(Color.tix)
+                        .opacity(cat == "Name" ? 0.5 : 1)
                         .focused($isFocused)
                         .background(Color.clear)
                     Divider()
@@ -88,7 +89,7 @@ struct CategoryNew: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .accentColor(Color(settings.globalForeground))
+        .accentColor(Color.tix)
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
         .onAppear(perform: onAppear)

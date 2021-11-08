@@ -28,30 +28,33 @@ struct TabViewView: View {
     
     // Navigation
     @State var tabSelected: Int = 1
+    @State var showSheet = false
     @State var showSetup = false
+    @State var showUpdate = false
     
     var body: some View {
        
         TabView(selection: $tabSelected) {
             Dashboard(settings: settings, tabSelected: $tabSelected)
-                .tabItem {
-                    //Image(systemName: "house")
-                }.tag(1)
+                .tabItem {}.tag(1)
             Todos(settings: settings)
-                .tabItem {
-                    //Image(systemName: "list.bullet")
-                }.tag(2)
+                .tabItem {}.tag(2)
             Categories(settings: settings, tabSelected: $tabSelected)
-                .tabItem {
-                    //Image(systemName: "folder")
-                }.tag(3)
+                .tabItem {}.tag(3)
             Settings(settings: settings, tabSelected: $tabSelected)
-                .tabItem {
-                    //Image(systemName: "gear")
-                }.tag(4)
+                .tabItem {}.tag(4)
         }
         .edgesIgnoringSafeArea(.all)
         .tabViewStyle(PageTabViewStyle())
+        
+        .sheet(isPresented: self.$showSheet) {
+            if self.showSetup {
+                SetupView(settings: settings)
+            } else if self.showUpdate {
+                UpdateView(settings: settings)
+            }
+        }
+        
         .sheet(isPresented: self.$showSetup) {
             SetupView(settings: settings)
          }
@@ -61,14 +64,32 @@ struct TabViewView: View {
     
     func onAppear() {
        
+        // Launched Before
         print("settings.launchedbefore = \(settings.launchedBefore)")
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+       
+        // Show Update Screen
+        let newVersion = getCurrentAppVersion()
+        let newBuild = getCurrentAppBuildVersion()
+        let newAppBuildString = getCurrentAppBuildVersionString()
         
-        if settings.launchedBefore {
-            self.showSetup = false
+        let savedVersion = settings.appVersion
+        let savedBuild = settings.appBuild
+       
+        settings.appVersion = newVersion
+        settings.appBuild = newBuild
+        settings.appVersionString = newAppBuildString
+      
+        if launchedBefore {
+            if savedVersion != newVersion || savedBuild != newBuild {
+                self.showUpdate = true
+                self.showSheet = true
+            }
         } else {
             self.showSetup = true
+            self.showSheet = true
         }
-
+                
         if categories.count == 0 {
             let newC = Category(context: self.viewContext)
             newC.name = "Inbox"
@@ -81,6 +102,24 @@ struct TabViewView: View {
                 NSLog(error.localizedDescription)
             }
         }
+    }
+    
+    // Get current Version of the App
+    func getCurrentAppVersion() -> String {
+        let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        return String(versionNumber)
+    }
+    
+    func getCurrentAppBuildVersion() -> String {
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+        return String(buildNumber)
+    }
+    
+    func getCurrentAppBuildVersionString() -> String {
+        let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
+        let buildString = "\(versionNumber) (\(buildNumber))"
+        return String(buildString)
     }
 }
 

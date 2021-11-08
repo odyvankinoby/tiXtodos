@@ -6,6 +6,10 @@
   
 */
 
+"loc_rn" = "
+- Minor Bugfixes";
+
+"loc_whatsnew" = "What's new?";
 "loc_all" = "All";
 "loc_welcome" = "Welcome";
 "loc_tix" = "to tiX - track your tasks!";
@@ -45,6 +49,10 @@
 "loc_default_cat" = "Default Category";
 "loc_no_todos" = "No Todos";
 "loc_app_version" = "App Version";
+"loc_deleted" = "Todo(s) deleted";
+
+
+
 
 
 "loc_gdpr" = "Data Privacy";

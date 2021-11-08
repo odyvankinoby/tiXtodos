@@ -131,49 +131,63 @@ struct Todos: View {
                     .frame(alignment: .leading)
                 Spacer()
                 if categorySelected {
-                    Picker(loc_choose_category, selection: $cat) {
-                        ForEach(categories, id: \.self) { catt in
-                            HStack {
+                    HStack {
+                        Picker(loc_choose_category, selection: $cat) {
+                            ForEach(categories, id: \.self) { catt in
                                 Text(catt.name ?? "")
-                                    .frame(alignment: .leading)
-                                    .frame(maxWidth: .infinity)
-                                    .foregroundColor(Color(settings.globalForeground))
-                                    .font(.body)
                             }
                         }
-                    }
-                    .onChange(of: cat, perform: { (value) in
-                        cat = value
-                        categorySelected = true
-                    })
-                    .frame(alignment: .trailing)
-                    
-                    Button(action: {
-                        withAnimation {
-                            categorySelected.toggle()
+                        .onAppear(perform: {
+                            self.accentColor = cat.color?.color ?? Color.tix
+                        })
+                        .onChange(of: cat, perform: { (value) in
+                            cat = value
+                            categorySelected = true
+                            self.accentColor = cat.color?.color ?? Color.tix
+                        })
+                        .frame(alignment: .trailing)
+                        Button(action: {
+                            withAnimation {
+                                categorySelected.toggle()
+                            }
+                        }) {
+                            Image(systemName: "xmark.circle")
+                                .foregroundColor(cat.color?.color ?? Color.tix)
+                                .font(.body)
                         }
-                    }) {
-                        Image(systemName: "xmark.circle")
-                            .foregroundColor(Color(settings.globalForeground))
-                            .font(.title3)
-                    }
-                    .toggleStyle(.button)
+                        .toggleStyle(.button)
+                    }.padding(.leading)
+                    .padding(.trailing)
                     
+                    .background(Color.white)
+                    .cornerRadius(8)
                     
                 } else {
+                    
                     HStack {
                         Text(loc_categories)
                             .foregroundColor(Color(settings.globalForeground))
                             .font(.body)
-                            .onTapGesture {
-                                withAnimation {
-                                    categorySelected = true
-                                    
-                                }
-                            }
+                        Image(systemName: "chevron.down.circle")
+                            .foregroundColor(Color(settings.globalForeground))
+                            .font(.body)
+                    }.onTapGesture {
+                        withAnimation {
+                            categorySelected = true
+                        }
                     }
+                    .padding(.leading)
+                    .padding(.trailing)
+                    .padding(.top, 5).padding(.bottom, 5)
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color(settings.globalForeground), lineWidth: 1)
+                        )
+                     
                 }
             }.padding(.top)
+            
+            ZStack {
             
             ScrollView {
                 
@@ -215,8 +229,10 @@ struct Todos: View {
                                         .font(.headline)
                                         .foregroundColor(todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                     Spacer()
-                                    Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                        .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                    if todo.important {
+                                        Image(systemName: "exclamationmark.circle")
+                                            .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                    }
                                 }
                                 HStack(alignment: .bottom) {
                                     Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
@@ -240,8 +256,11 @@ struct Todos: View {
             }
             
             
-            Spacer()
+            
             VStack(alignment: .trailing) {
+                Spacer()
+                Spacer()
+                Spacer()
                 HStack {
                     Spacer()
                     Spacer()
@@ -253,8 +272,8 @@ struct Todos: View {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
                             .frame(width: 50, height: 50)
-                            .foregroundColor(.white.opacity(0.7))
-                            .padding(.trailing, 10)
+                            .foregroundColor(.tixDark.opacity(0.6))
+                            .shadow(color: Color(settings.globalForeground), radius: 10, x: 0, y: 0)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
@@ -262,7 +281,7 @@ struct Todos: View {
             .padding(.bottom)
             .frame(maxWidth: .infinity)
             
-            
+            }
         }
         .accentColor(self.accentColor)
         .padding(.leading).padding(.trailing)
@@ -280,6 +299,7 @@ struct Todos: View {
     private func onAppear() {
         
         getInbox()
+        self.accentColor = Color(settings.globalForeground)
         
         let setRequest = NSFetchRequest<Todo>(entityName: "Todo")
         //let setPredicate = NSPredicate(format: "isDone == true")

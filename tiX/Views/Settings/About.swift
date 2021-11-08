@@ -10,7 +10,7 @@ import SwiftUI
 struct About: View {
     
     @ObservedObject var settings: UserSettings
-    @Environment(\.presentationMode) var presentationMode
+    @Binding var show: Bool
     
     var body: some View {
         VStack {
@@ -18,7 +18,7 @@ struct About: View {
                 Spacer()
                 Button(action: {
                     withAnimation {
-                        self.presentationMode.wrappedValue.dismiss()
+                        show = false
                     }
                 }) {
                     Text(loc_discard)
@@ -84,7 +84,7 @@ struct About: View {
                             .frame(alignment: .leading)
                         VStack(alignment: .leading) {
                             Text("EMail").font(.caption).foregroundColor(Color(settings.globalForeground))
-                            Text("tix(at)nicolasott.de").fontWeight(.semibold).foregroundColor(Color(settings.globalForeground))
+                            Text("support(at)nicolasott.de").fontWeight(.semibold).foregroundColor(Color(settings.globalForeground))
                         }.padding()
                         Spacer()
                     }

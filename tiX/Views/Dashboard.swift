@@ -18,7 +18,7 @@ struct Dashboard: View {
     
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.todo, ascending: false)], predicate: NSPredicate(format: "dueDate >= %@", Date().midnight as CVarArg)) var today: FetchedResults<Todo>
     
-    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.todo, ascending: false)], predicate: NSPredicate(format: "isDone == false")) var open: FetchedResults<Todo>
+    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.todo, ascending: false)], predicate: NSPredicate(format: "isDone == %@", false as CVarArg)) var unticked: FetchedResults<Todo>
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: false)]) var categories: FetchedResults<Category>
     
@@ -97,7 +97,7 @@ struct Dashboard: View {
                         HStack(alignment: .top) {
                             Text(loc_open_tasks).font(.headline).foregroundColor(.tix)
                             Spacer()
-                            Text("\(open.count)").font(.subheadline).foregroundColor(.tix)
+                            Text("\(items.count)").font(.subheadline).foregroundColor(.tix)
                         }.padding(.leading).padding(.trailing)
                         
                     }
@@ -108,25 +108,8 @@ struct Dashboard: View {
                 
                 LazyVStack {
                     VStack(alignment: .leading) {
-                        /*
-                        HStack {
-                            Spacer()
-                            ForEach(categorySort, id: \.self) { day in
-                                Text(day)
-                                    .foregroundColor(Color(settings.globalBackground))
-                                    .background(daySelection == day ? Color.tix : Color.white)
-                                    .padding(daySelection == day ? 10 : 0)
-                                Spacer()
-                            }
-                            
-                        }
-                        .padding(.top).padding(.bottom)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .frame(maxWidth: .infinity)
-                        */
-                        
-                        Picker(selection: $daySelection, label: Text("")) {
+
+                        Picker(selection: $daySelection, label: Text(loc_today)) {
                             ForEach(categorySort, id: \.self) { day in
                                 Text(day).foregroundColor(.tix)
                             }
@@ -159,8 +142,14 @@ struct Dashboard: View {
                                 categorySelected = true
                             })
                             .frame(alignment: .trailing)
-                            .padding()
-                        }
+                            .padding(.leading)
+                            .padding(.trailing)
+                            .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color(settings.globalForeground), lineWidth: 1)
+                                )
+                          
+                        }.padding(.trailing, 1)
                         ForEach(todosFiltered, id: \.self) { todo in
                             HStack(alignment: .center) {
                                 Image(systemName: todo.isDone ? "circle.fill" : "circle")
@@ -182,9 +171,11 @@ struct Dashboard: View {
                                             .foregroundColor(Color.tix.opacity(todo.isDone ? 0.5 : 1))
                                         
                                         Spacer()
-                                        Image(systemName: todo.important ? "exclamationmark.circle" : "")
-                                            .font(.headline)
-                                            .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                        if todo.important {
+                                            Image(systemName: "exclamationmark.circle")
+                                                .font(.headline)
+                                                .foregroundColor(Color.red.opacity(todo.isDone ? 0.5 : 1))
+                                        }
                                     }
                                     HStack {
                                         Text(todo.hasDueDate ? "\(todo.dueDate!, formatter: itemFormatter)" : "")
@@ -209,13 +200,16 @@ struct Dashboard: View {
                 }
             }
         }
-        .accentColor(.white)
+        .accentColor(Color(settings.globalForeground))
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
         .onAppear(perform: onAppear)
     }
     
     func onAppear() {
+        
+        //print(unticked.count)
+        //print(items.count)
         
         let setRequest = NSFetchRequest<Category>(entityName: "Category")
         let setPredicate = NSPredicate(format: "isDefault == true")
@@ -266,8 +260,7 @@ struct Dashboard: View {
         var twoTicked = false
         var three = ""
         var threeTicked = false
-        var count = 0
-        
+
         let tdReq = NSFetchRequest<Todo>(entityName: "Todo")
         let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
         tdReq.fetchLimit = 3
@@ -290,11 +283,10 @@ struct Dashboard: View {
                 }
                 i+=1
             }
-            count = items.count
         } catch let error {
             NSLog("error in FetchRequest trying to get the first three todos for Widget: \(error.localizedDescription)")
         }
-        WidgetUpdater(one: one, two: two, three: three, oneTicked: oneTicked, twoTicked: twoTicked, threeTicked: threeTicked, open: count).updateValues()
+        WidgetUpdater(one: one, two: two, three: three, oneTicked: oneTicked, twoTicked: twoTicked, threeTicked: threeTicked, open: items.count).updateValues()
     }
     
     

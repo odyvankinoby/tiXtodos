@@ -5,7 +5,10 @@
   Created by Nicolas Ott on 03.06.21.
   
 */
+"loc_rn" = "
+- Kleinere Fehlerbehebungen";
 
+"loc_whatsnew" = "Was ist neu?";
 "loc_all" = "Alle";
 "loc_welcome" = "Willkommen";
 "loc_tix" = "bei tiX - Deinem Task Tracker!";
@@ -45,7 +48,7 @@
 "loc_default_cat" = "Standard Kategorie";
 "loc_no_todos" = "Keine ToDos";
 "loc_app_version" = "App Version";
-
+"loc_deleted" = "ToDo(s) gelöscht";
 
 
 

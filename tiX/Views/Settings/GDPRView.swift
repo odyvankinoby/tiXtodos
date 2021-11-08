@@ -8,7 +8,7 @@ import SwiftUI
 
 struct GDPRView: View {
     @ObservedObject var settings: UserSettings
-    @Environment(\.presentationMode) var presentationMode
+    @Binding var show: Bool
     
     var body: some View {
         VStack {
@@ -16,7 +16,7 @@ struct GDPRView: View {
                 Spacer()
                 Button(action: {
                     withAnimation {
-                        self.presentationMode.wrappedValue.dismiss()
+                        show = false
                     }
                 }) {
                     Text(loc_discard)
@@ -27,9 +27,15 @@ struct GDPRView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(loc_gdpr_header)
-                        .font(.title2).bold().foregroundColor(Color(settings.globalForeground))
-                    Text(loc_gdpr_subheader).bold().font(.headline).foregroundColor(Color(settings.globalForeground))
+                        .font(.title2)
+                        .foregroundColor(Color(settings.globalForeground))
+                        .padding(.bottom, 5)
+                    Text(loc_gdpr_subheader)
+                        .font(.headline)
+                        .foregroundColor(Color(settings.globalForeground))
+                        .padding(.bottom, 5)
                     Text(loc_gdpr_lastupdated).font(.subheadline).foregroundColor(Color(settings.globalForeground))
+                        .padding(.bottom, 15)
                     Text(loc_gdpr_text).foregroundColor(Color(settings.globalForeground))
                 }
             }
