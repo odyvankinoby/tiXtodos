@@ -61,14 +61,40 @@ struct tixWidget: Widget {
 }
 
 struct tixWidgetEntryView : View {
+    
     var entry: Provider.Entry
+    @Environment(\.widgetFamily) var widgetFamily
+    
     var body: some View {
         VStack(alignment: .leading){
-            Text("Todos (\(entry.open))")
-                .font(.callout).bold()
-                .foregroundColor(Color.white)
-                .padding(5).padding(.leading, 10).padding(.top, 10)
-            Divider()
+            
+            if widgetFamily == .systemSmall {
+                HStack {
+                    Text("Todos (\(entry.open))")
+                        .font(.callout).bold()
+                        .foregroundColor(Color.white)
+                        .padding(10)
+                    Spacer()
+                }.background(Color("tixDark"))
+            
+            } else if widgetFamily == .systemMedium {
+                HStack {
+                    Image("AppIcons")
+                        .resizable()
+                        .cornerRadius(6)
+                        .frame(width: 24, height: 24, alignment: .center)
+                        .padding(10)
+                    Text("Todos (\(entry.open))")
+                    .font(.callout).bold()
+                    .foregroundColor(Color.white)
+                    //.padding(10)
+                    Spacer()
+                }.background(Color("tixDark"))
+            }
+           
+            Text(entry.one)
+            Text(entry.two)
+            Text(entry.three)
             
             if entry.one == "" && entry.two == "" && entry.three == "" {
                 Spacer()
@@ -77,7 +103,7 @@ struct tixWidgetEntryView : View {
                         .font(.callout)
                         .foregroundColor(Color.white)
                     Spacer()
-                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+                }.frame(maxWidth: .infinity).padding(10)
                 Spacer()
             }
             if entry.one != "" {
@@ -88,7 +114,7 @@ struct tixWidgetEntryView : View {
                         .font(.callout)
                         .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
                     Spacer()
-                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+                }.frame(maxWidth: .infinity).padding(.leading, 10)
             }
             if entry.two != "" {
                 HStack(alignment: .center){
@@ -108,7 +134,7 @@ struct tixWidgetEntryView : View {
                         .font(.callout)
                         .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
                     Spacer()
-                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
+                }.frame(maxWidth: .infinity).padding(.leading, 10)
             }
             Spacer()
             Spacer()

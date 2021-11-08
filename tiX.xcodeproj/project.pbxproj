@@ -159,6 +159,7 @@
 				36644F68272B0DB100DA328F /* tixWidget.swift */,
 				36644F6A272B0DB300DA328F /* Assets.xcassets */,
 				36644F6C272B0DB300DA328F /* Info.plist */,
+				36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */,
 			);
 			path = tixWidget;
 			sourceTree = "<group>";
@@ -195,9 +196,7 @@
 		36C1B5A9270CC1BF00249259 = {
 			isa = PBXGroup;
 			children = (
-				36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */,
 				36C1B5B4270CC1BF00249259 /* tiX */,
-				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
 				36644F67272B0DB100DA328F /* tixWidget */,
 				36644F62272B0DB100DA328F /* Frameworks */,
 				36C1B5B3270CC1BF00249259 /* Products */,
@@ -216,13 +215,14 @@
 		36C1B5B4270CC1BF00249259 /* tiX */ = {
 			isa = PBXGroup;
 			children = (
-				36DB7EBF27393B2B0098AA18 /* Info.plist */,
-				36E4B3C52739302800F7DE9E /* tiX.entitlements */,
 				36C1B5B5270CC1BF00249259 /* tiXApp.swift */,
 				36C1B5D6270DCDA200249259 /* Views */,
 				36C1B5D7270DCDB700249259 /* Helpers */,
 				36924ED12725721A001D1258 /* Coredata */,
 				36C1B5BB270CC1C000249259 /* Preview Content */,
+				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
+				36DB7EBF27393B2B0098AA18 /* Info.plist */,
+				36E4B3C52739302800F7DE9E /* tiX.entitlements */,
 				36C1B5D8270DD4B100249259 /* UserSettings.swift */,
 				3661F562272C28D300546006 /* Localization.swift */,
 				3661F56B272C3C8300546006 /* Localizable.strings */,
@@ -467,7 +467,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,6";
 			};
 			name = Debug;
 		};
@@ -496,7 +496,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,6";
+				TARGETED_DEVICE_FAMILY = "1,6";
 			};
 			name = Release;
 		};

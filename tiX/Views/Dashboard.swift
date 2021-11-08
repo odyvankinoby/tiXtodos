@@ -261,6 +261,24 @@ struct Dashboard: View {
         var three = ""
         var threeTicked = false
 
+        var c = 0
+        for t in items {
+            if c == 0 {
+                one = t.todo ?? "todo"
+                oneTicked = t.isDone
+            }
+            if c == 1 {
+                two = t.todo ?? "todo"
+                twoTicked = t.isDone
+            }
+            if c == 2 {
+                three = t.todo ?? "todo"
+                threeTicked = t.isDone
+            }
+            c+=1
+        }
+        
+        /*
         let tdReq = NSFetchRequest<Todo>(entityName: "Todo")
         let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
         tdReq.fetchLimit = 3
@@ -285,7 +303,16 @@ struct Dashboard: View {
             }
         } catch let error {
             NSLog("error in FetchRequest trying to get the first three todos for Widget: \(error.localizedDescription)")
-        }
+        } */
+        print("-W-I-D-G-E-T-")
+        print(one)
+        print(oneTicked)
+        print(two)
+        print(twoTicked)
+        print(three)
+        print(threeTicked)
+        print(items.count)
+        print("-T-E-G-D-I-W-")
         WidgetUpdater(one: one, two: two, three: three, oneTicked: oneTicked, twoTicked: twoTicked, threeTicked: threeTicked, open: items.count).updateValues()
     }
     
