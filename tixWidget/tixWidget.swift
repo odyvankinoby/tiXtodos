@@ -66,7 +66,7 @@ struct tixWidgetEntryView : View {
     @Environment(\.widgetFamily) var widgetFamily
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             
             if widgetFamily == .systemSmall {
                 HStack {
@@ -76,7 +76,7 @@ struct tixWidgetEntryView : View {
                         .padding(10)
                     Spacer()
                 }.background(Color("tixDark"))
-            
+                
             } else if widgetFamily == .systemMedium {
                 HStack {
                     Image("AppIcons")
@@ -85,59 +85,162 @@ struct tixWidgetEntryView : View {
                         .frame(width: 24, height: 24, alignment: .center)
                         .padding(10)
                     Text("Todos (\(entry.open))")
-                    .font(.callout).bold()
-                    .foregroundColor(Color.white)
+                        .font(.callout).bold()
+                        .foregroundColor(Color.white)
                     //.padding(10)
                     Spacer()
                 }.background(Color("tixDark"))
             }
-           
-            Text(entry.one)
-            Text(entry.two)
-            Text(entry.three)
             
             if entry.one == "" && entry.two == "" && entry.three == "" {
                 Spacer()
                 HStack(alignment: .center){
                     Text(loc_no_todos)
-                        .font(.callout)
+                        .font(.body)
                         .foregroundColor(Color.white)
+                        .padding(10)
                     Spacer()
-                }.frame(maxWidth: .infinity).padding(10)
-                Spacer()
+                }.background(Color("tix"))
             }
-            if entry.one != "" {
-                HStack(alignment: .center){
-                    Image(systemName: entry.oneTicked ? "circle.fill" : "circle")
-                        .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
-                    Text(entry.one)
-                        .font(.callout)
-                        .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
-                    Spacer()
-                }.frame(maxWidth: .infinity).padding(.leading, 10)
+            
+            if widgetFamily == .systemSmall {
+                
+                if entry.one != "" {
+                    HStack(alignment: .center){
+                        Image(systemName: entry.oneTicked ? "circle.fill" : "circle")
+                            .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                            .font(.footnote)
+                            .padding(.leading, 10).padding(.top, 5)
+                        Text(entry.one)
+                            .font(.footnote)
+                            .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                            .padding(.top, 5)
+                        Spacer()
+                    }.background(Color("tix"))
+                    
+                }
+                if entry.two != "" {
+                    HStack(alignment: .center){
+                        Image(systemName: entry.twoTicked ? "circle.fill" : "circle")
+                            .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                            .font(.footnote)
+                            .padding(.leading, 10).padding(.top, 5)
+                        Text(entry.two)
+                            .font(.footnote)
+                            .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                            .padding(.top, 5)
+                        Spacer()
+                    }.background(Color("tix"))
+                    
+                }
+                if entry.three != "" {
+                    HStack(alignment: .center){
+                        Image(systemName: entry.threeTicked ? "circle.fill" : "circle")
+                            .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                            .font(.footnote)
+                            .padding(.leading, 10).padding(.top, 5)
+                        Text(entry.three)
+                            .font(.footnote)
+                            .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                            .padding(.top, 5)
+                        Spacer()
+                    }.background(Color("tix"))
+                }
+            } else if widgetFamily == .systemMedium {
+                HStack {
+                    
+                    if entry.one != "" {
+                        HStack(alignment: .center){
+                            Image(systemName: entry.oneTicked ? "circle.fill" : "circle")
+                                .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                                .font(.footnote)
+                                .padding(.leading, 10).padding(.top, 5)
+                            Text(entry.one)
+                                .font(.footnote)
+                                .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                                .padding(.top, 5)
+                            Spacer()
+                        }.background(Color("tix"))
+                        
+                    }
+                    if entry.two != "" {
+                        HStack(alignment: .center){
+                            Image(systemName: entry.twoTicked ? "circle.fill" : "circle")
+                                .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                                .font(.footnote)
+                                .padding(.leading, 10).padding(.top, 5)
+                            Text(entry.two)
+                                .font(.footnote)
+                                .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                                .padding(.top, 5)
+                            Spacer()
+                        }.background(Color("tix"))
+                        
+                    }
+                    if entry.three != "" {
+                        HStack(alignment: .center){
+                            Image(systemName: entry.threeTicked ? "circle.fill" : "circle")
+                                .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                                .font(.footnote)
+                                .padding(.leading, 10).padding(.top, 5)
+                            Text(entry.three)
+                                .font(.footnote)
+                                .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                                .padding(.top, 5)
+                            Spacer()
+                        }.background(Color("tix"))
+                    }
+                    
+                }
+                Divider()
+                HStack {
+                    if entry.one != "" {
+                        HStack(alignment: .center){
+                            Image(systemName: entry.oneTicked ? "circle.fill" : "circle")
+                                .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                                .font(.footnote)
+                                .padding(.leading, 10).padding(.top, 5)
+                            Text(entry.one)
+                                .font(.footnote)
+                                .foregroundColor(Color.white.opacity(entry.oneTicked ? 0.5 : 1))
+                                .padding(.top, 5)
+                            Spacer()
+                        }.background(Color("tix"))
+                        
+                    }
+                    if entry.two != "" {
+                        HStack(alignment: .center){
+                            Image(systemName: entry.twoTicked ? "circle.fill" : "circle")
+                                .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                                .font(.footnote)
+                                .padding(.leading, 10).padding(.top, 5)
+                            Text(entry.two)
+                                .font(.footnote)
+                                .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
+                                .padding(.top, 5)
+                            Spacer()
+                        }.background(Color("tix"))
+                        
+                    }
+                    if entry.three != "" {
+                        HStack(alignment: .center){
+                            Image(systemName: entry.threeTicked ? "circle.fill" : "circle")
+                                .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                                .font(.footnote)
+                                .padding(.leading, 10).padding(.top, 5)
+                            Text(entry.three)
+                                .font(.footnote)
+                                .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
+                                .padding(.top, 5)
+                            Spacer()
+                        }.background(Color("tix"))
+                    }
+                
+                }
             }
-            if entry.two != "" {
-                HStack(alignment: .center){
-                    Image(systemName: entry.twoTicked ? "circle.fill" : "circle")
-                        .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
-                    Text(entry.two)
-                        .font(.callout)
-                        .foregroundColor(Color.white.opacity(entry.twoTicked ? 0.5 : 1))
-                    Spacer()
-                }.frame(maxWidth: .infinity).padding(5).padding(.leading, 10)
-            }
-            if entry.three != "" {
-                HStack(alignment: .center){
-                    Image(systemName: entry.threeTicked ? "circle.fill" : "circle")
-                        .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
-                    Text(entry.three)
-                        .font(.callout)
-                        .foregroundColor(Color.white.opacity(entry.threeTicked ? 0.5 : 1))
-                    Spacer()
-                }.frame(maxWidth: .infinity).padding(.leading, 10)
-            }
+            
             Spacer()
-            Spacer()
+        
         }.background(Color("tix"))
     }
 }
