@@ -44,18 +44,18 @@ struct Settings: View {
                             self.tabSelected = 1
                         }
                     }) {
-                        Image(systemName: "house.circle").foregroundColor(Color(settings.globalForeground)).font(.title2)
+                        Image(systemName: "house.circle").foregroundColor(Color(settings.globalForeground)).font(.title).padding(.top)
                     }
-                    .buttonStyle(PlainButtonStyle())
+                    
                     Spacer()
                     Button(action: {
                         withAnimation {
                             self.tabSelected = 2
                         }
                     }) {
-                        Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title2)
+                        Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title).padding(.top)
                     }
-                    .buttonStyle(PlainButtonStyle())
+                    
                 }
                 
                 HStack {
@@ -63,7 +63,7 @@ struct Settings: View {
                         .font(.title).bold()
                         .foregroundColor(Color(settings.globalForeground))
                         .frame(alignment: .leading)
-                        .padding(.top)
+                        .padding(.top, 5)
                     Spacer()
                     
                 }
@@ -274,16 +274,16 @@ struct Settings: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .frame(maxWidth: .infinity)
-                }
-                Spacer()
+                
+                
                 VStack(alignment: .leading) {
                     HStack {
                         Text(loc_madewithlove).font(.footnote).foregroundColor(Color(settings.globalForeground))
                     }
                 }
-                .padding(.leading).padding(.trailing).padding(.bottom)
+                .padding(10).padding(.bottom, 100)
                 .frame(maxWidth: .infinity)
-            
+            }
             }
         
         }

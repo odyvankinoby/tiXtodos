@@ -69,9 +69,9 @@ struct Todos: View {
                 }) {
                     Image(systemName: showAll ? "list.bullet.circle.fill" : "list.bullet.circle")
                         .foregroundColor(Color(settings.globalForeground))
-                        .font(.title2)
+                        .font(.title)
+                        .padding(.top)
                 }
-                .toggleStyle(.button)
                 
                 Button(action: {
                     withAnimation {
@@ -82,9 +82,9 @@ struct Todos: View {
                 }) {
                     Image(systemName: showToday ? "calendar.circle.fill" : "calendar.circle")
                         .foregroundColor(Color(settings.globalForeground))
-                        .font(.title2)
+                        .font(.title)
+                        .padding(.top)
                 }
-                .toggleStyle(.button)
                 
                 Button(action: {
                     withAnimation {
@@ -95,9 +95,9 @@ struct Todos: View {
                 }) {
                     Image(systemName: showOverdue ? "clock.badge.exclamationmark.fill" : "clock.badge.exclamationmark")
                         .foregroundColor(Color(settings.globalForeground))
-                        .font(.title2)
+                        .font(.title)
+                        .padding(.top)
                 }
-                .toggleStyle(.button)
                 
                 Button(action: {
                     withAnimation {
@@ -106,22 +106,12 @@ struct Todos: View {
                 }) {
                     Image(systemName: showImportant ? "exclamationmark.circle.fill" : "exclamationmark.circle")
                         .foregroundColor(Color(settings.globalForeground))
-                        .font(.title2)
+                        .font(.title)
+                        .padding(.top)
                 }
-                .toggleStyle(.button)
-                
                 Spacer()
                 
-                Button(action: {
-                    withAnimation {
-                        newItem.toggle()
-                    }
-                }) {
-                    Image(systemName: "plus")
-                        .foregroundColor(Color(settings.globalForeground))
-                        .font(.title)
-                }
-                .buttonStyle(PlainButtonStyle())
+                
             }
             
             HStack {
@@ -129,6 +119,7 @@ struct Todos: View {
                     .font(.title).bold()
                     .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
+                    .padding(.top, 5)
                 Spacer()
                 if categorySelected {
                     HStack {
@@ -274,8 +265,8 @@ struct Todos: View {
                             .frame(width: 50, height: 50)
                             .foregroundColor(.tixDark.opacity(0.6))
                             .shadow(color: Color(settings.globalForeground), radius: 10, x: 0, y: 0)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                    }.padding(.bottom,30)//.padding(.trailing)
+                    //.buttonStyle(PlainButtonStyle())
                 }
             }
             .padding(.bottom)

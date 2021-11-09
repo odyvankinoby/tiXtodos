@@ -38,19 +38,22 @@ struct Dashboard: View {
                         self.tabSelected = 4
                     }
                 }) {
-                    Image(systemName: "gear").foregroundColor(Color(settings.globalForeground)).font(.title2)
+                    Image(systemName: "gear")
+                        .foregroundColor(Color(settings.globalForeground))
+                        .font(.title)
+                        .padding(.top)
                 }
-                .buttonStyle(PlainButtonStyle())
-                
                 Spacer()
                 Button(action: {
                     withAnimation {
                         self.tabSelected = 2
                     }
                 }) {
-                    Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title2)
+                    Image(systemName: "list.bullet.circle")
+                        .foregroundColor(Color(settings.globalForeground))
+                        .font(.title)
+                        .padding(.top)
                 }
-                .buttonStyle(PlainButtonStyle())
             }
             
             HStack {
@@ -58,7 +61,7 @@ struct Dashboard: View {
                     .font(.title).bold()
                     .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
-                    .padding(.top)
+                    .padding(.top, 5)
                 Spacer()
                 
             }

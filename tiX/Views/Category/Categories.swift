@@ -34,20 +34,12 @@ struct Categories: View {
                         self.tabSelected = 4
                     }
                 }) {
-                    Image(systemName: "gear").foregroundColor(Color(settings.globalForeground)).font(.title2)
+                    Image(systemName: "gear").foregroundColor(Color(settings.globalForeground)).font(.title)
+                        .padding(.top)
                 }
-                .buttonStyle(PlainButtonStyle())
                 Spacer()
                 
-                Button(action: {
-                    withAnimation {
-                        newCategory.toggle()
-                    }
-                }) {
-                    Image(systemName: "plus")
-                        .foregroundColor(Color(settings.globalForeground)).font(.title)
-                }
-                .buttonStyle(PlainButtonStyle())
+              
             }
             
             HStack {
@@ -55,11 +47,11 @@ struct Categories: View {
                     .font(.title).bold()
                     .foregroundColor(Color(settings.globalForeground))
                     .frame(alignment: .leading)
-                    .padding(.top)
+                    .padding(.top, 5)
                 Spacer()
                 
             }
-            
+            ZStack {
             ScrollView {
                 
                 ForEach(categories, id: \.self) { cat in
@@ -106,6 +98,31 @@ struct Categories: View {
                     }
                 }
             }
+                VStack(alignment: .trailing) {
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Spacer()
+                        Button(action: {
+                            withAnimation {
+                                newCategory.toggle()
+                            }
+                        }) {
+                            Image(systemName: "plus.circle.fill")
+                                .resizable()
+                                .frame(width: 50, height: 50)
+                                .foregroundColor(.tixDark.opacity(0.6))
+                                .shadow(color: Color(settings.globalForeground), radius: 10, x: 0, y: 0)
+                        }.padding(.bottom,30)//.padding(.trailing)
+                        //.buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .padding(.bottom)
+                .frame(maxWidth: .infinity)
+                
+                }
 
         }
         .sheet(isPresented: $newCategory) { CategoryNew(settings: settings) }
