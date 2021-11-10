@@ -16,8 +16,8 @@ struct TabViewView: View {
     
     init() {
         // Segmented Picker
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "tixDark")
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.white)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tix") ?? Color.black], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tixDark") ?? Color.black], for: .normal)
         // TextEditor
         UITextView.appearance().backgroundColor = .clear
@@ -54,10 +54,6 @@ struct TabViewView: View {
                 UpdateView(settings: settings)
             }
         }
-        
-        .sheet(isPresented: self.$showSetup) {
-            SetupView(settings: settings)
-         }
         .accentColor(Color.white)
         .onAppear(perform: onAppear)
     }
@@ -89,7 +85,7 @@ struct TabViewView: View {
             self.showSetup = true
             self.showSheet = true
         }
-                
+        
         if categories.count == 0 {
             let newC = Category(context: self.viewContext)
             newC.name = "Inbox"

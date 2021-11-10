@@ -39,7 +39,6 @@
 		36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B0272FF09D00694E0F /* MailView.swift */; };
 		36D3F2B3272FF47300694E0F /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B2272FF47300694E0F /* About.swift */; };
 		36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B427307A7000694E0F /* Dashboard.swift */; };
-		36DB7EBE27393A270098AA18 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DB7EBD27393A270098AA18 /* CloudKit.framework */; };
 		36E9E4672737163700A54BE1 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9E4662737163700A54BE1 /* TabView.swift */; };
 		36E9E4692737166C00A54BE1 /* TodoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9E4682737166C00A54BE1 /* TodoEdit.swift */; };
 		36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */; };
@@ -114,7 +113,6 @@
 		36D3F2B0272FF09D00694E0F /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		36D3F2B2272FF47300694E0F /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		36D3F2B427307A7000694E0F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
-		36DB7EBD27393A270098AA18 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		36DB7EBF27393B2B0098AA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		36E4B3C52739302800F7DE9E /* tiX.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = tiX.entitlements; sourceTree = "<group>"; };
 		36E9E4662737163700A54BE1 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36DB7EBE27393A270098AA18 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +143,6 @@
 		36644F62272B0DB100DA328F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				36DB7EBD27393A270098AA18 /* CloudKit.framework */,
 				36644F63272B0DB100DA328F /* WidgetKit.framework */,
 				36644F65272B0DB100DA328F /* SwiftUI.framework */,
 			);

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 import CoreData
 
 struct Dashboard: View {
@@ -25,7 +26,11 @@ struct Dashboard: View {
     @ObservedObject var settings: UserSettings
     @Binding var tabSelected: Int
     
-    @State private var daySelection = "1"
+    @State private var one = ""
+    @State private var two = ""
+    @State private var three = ""
+    @State private var four = ""
+    @State private var five = ""
     @State private var categorySort = ["1"]
     @State private var categorySelected = true
     @State private var cat = Category()
@@ -63,12 +68,10 @@ struct Dashboard: View {
                     .frame(alignment: .leading)
                     .padding(.top, 5)
                 Spacer()
-                
             }
             
             ScrollView {
                 VStack(alignment: .leading) {
-                 
                     VStack(alignment: .leading, spacing: 10) {
                         HStack(alignment: .center) {
                             Image("AppIcons")
@@ -108,20 +111,48 @@ struct Dashboard: View {
                     .background(Color.white)
                     .cornerRadius(10)
                 }
-                
+                      
                 LazyVStack {
                     VStack(alignment: .leading) {
 
-                        Picker(selection: $daySelection, label: Text(loc_today)) {
-                            ForEach(categorySort, id: \.self) { day in
-                                Text(day).foregroundColor(.tix)
-                            }
+                        HStack(alignment: .center) {
+                            HStack(alignment: .center) {
+                                HStack(alignment: .center) {
+                                    Spacer()
+                                    Text("... \(one)").frame(alignment: .center).font(.footnote)
+                                    Spacer()
+                                }.padding(.top, 5).padding(.bottom, 5).foregroundColor(Color.white).cornerRadius(5)
+                               
+                                HStack(alignment: .center) {
+                                    Spacer()
+                                    Text(two).frame(alignment: .center).font(.footnote)
+                                    Spacer()
+                                }.padding(.top, 5).padding(.bottom, 5).foregroundColor(Color.white).cornerRadius(5)
+                                
+                                    HStack(alignment: .center) {
+                                        Spacer()
+                                        Text(three).frame(alignment: .center).font(.footnote)
+                                        Spacer()
+                                    }.padding(.top, 5).padding(.bottom, 5).background(Color.white).foregroundColor(Color.tix).cornerRadius(5)
+                                
+                                HStack(alignment: .center) {
+                                    Spacer()
+                                    Text(four).frame(alignment: .center).font(.footnote)
+                                    Spacer()
+                                }.padding(.top, 5).padding(.bottom, 5).foregroundColor(Color.white).cornerRadius(5)
+                                
+                                HStack(alignment: .center) {
+                                    Spacer()
+                                    Text("\(five) ...").frame(alignment: .center).font(.footnote)
+                                    Spacer()
+                                }.padding(.top, 5).padding(.bottom, 5).foregroundColor(Color.white).cornerRadius(5)
+                            }.padding(2)
                         }
-                        .foregroundColor(Color(settings.globalForeground))
-                        .padding(.top)
-                        .pickerStyle(SegmentedPickerStyle())
-                        .labelsHidden()
-                        .disabled(true)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(5)
+                   
                         
                         HStack {
                             Text(loc_your_todos)
@@ -200,7 +231,7 @@ struct Dashboard: View {
                             
                         }
                     }
-                }
+                }.padding(.top, 5)
             }
         }
         .accentColor(Color(settings.globalForeground))
@@ -254,8 +285,12 @@ struct Dashboard: View {
         let ttComponents = calendar.dateComponents([.day], from: ttDate)
         let ttomorrow = ttComponents.day
         
-        categorySort = ["\(yyesterday!).\(month!)","\(yesterday!).\(month!)", "\(dayOfMonth!).\(month!)", "\(tomorrow!).\(month!)", "\(ttomorrow!).\(month!)"]
-        daySelection = "\(dayOfMonth!).\(month!)"
+        one = "\(yyesterday!).\(month!)"
+        two = "\(yesterday!).\(month!)"
+        three = "\(dayOfMonth!).\(month!)"
+        four = "\(tomorrow!).\(month!)"
+        five = "\(ttomorrow!).\(month!)"
+    
 
         var one = ""
         var oneTicked = false
@@ -307,15 +342,7 @@ struct Dashboard: View {
         } catch let error {
             NSLog("error in FetchRequest trying to get the first three todos for Widget: \(error.localizedDescription)")
         } */
-        print("-W-I-D-G-E-T-")
-        print(one)
-        print(oneTicked)
-        print(two)
-        print(twoTicked)
-        print(three)
-        print(threeTicked)
-        print(items.count)
-        print("-T-E-G-D-I-W-")
+        
         WidgetUpdater(one: one, two: two, three: three, oneTicked: oneTicked, twoTicked: twoTicked, threeTicked: threeTicked, open: items.count).updateValues()
     }
     
@@ -355,4 +382,3 @@ private let itemFormatter: DateFormatter = {
     formatter.dateStyle = .medium
     return formatter
 }()
-

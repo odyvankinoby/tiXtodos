@@ -8,7 +8,9 @@
 
 "loc_rn" = "
 - New Widget Layout
-- Minor Bugfixes";
+- Minor Bugfixes
+- Larger top Buttons
+- Better Onboarding with Theme selection";
 
 "loc_whatsnew" = "What's new?";
 "loc_all" = "All";
@@ -46,12 +48,13 @@
 "loc_select_color" = "Select Color";
 "loc_your_todos" = "Your Todos";
 "loc_delete" = "Delete";
+"loc_ok" = "OK";
 "loc_go" = "Let's go!";
 "loc_default_cat" = "Default Category";
 "loc_no_todos" = "No Todos";
 "loc_app_version" = "App Version";
 "loc_deleted" = "Todo(s) deleted";
-
+"loc_theme" = "Choose your App background color";
 
 
 

@@ -7,7 +7,9 @@
 */
 "loc_rn" = "
 - Neues Widget Design
-- Kleinere Fehlerbehebungen";
+- Kleinere Fehlerbehebungen
+- Größere Buttons
+- Besseres Onboarding mit Themeauswahl";
 
 "loc_whatsnew" = "Was ist neu?";
 "loc_all" = "Alle";
@@ -45,12 +47,13 @@
 "loc_select_color" = "Farbe auswählen";
 "loc_your_todos" = "Deine ToDos";
 "loc_delete" = "Löschen";
+"loc_ok" = "OK";
 "loc_go" = "Los geht's!";
 "loc_default_cat" = "Standard Kategorie";
 "loc_no_todos" = "Keine ToDos";
 "loc_app_version" = "App Version";
 "loc_deleted" = "ToDo(s) gelöscht";
-
+"loc_theme" = "Wähle Deine App-Hintergrundfarbe";
 
 
 
