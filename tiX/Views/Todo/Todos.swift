@@ -10,8 +10,10 @@ import CoreData
 
 struct Todos: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var settings: UserSettings
+    @State var dc: DefaultCategory
+    @Binding var tabSelected: Int
     
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.timestamp, ascending: false)]) var todos: FetchedResults<Todo>
     
@@ -21,8 +23,8 @@ struct Todos: View {
     
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     
-    @State private var newItem = false
     
+        
     @State private var selectCategory = false
     
     @State private var showImportant = false
@@ -44,7 +46,6 @@ struct Todos: View {
     @State private var inlineItem = UUID()
     @State private var inlineTodo = ""
     @State private var editInProgress = 0
-    
     
     @State private var accentColor = Color.tix
     
@@ -71,7 +72,7 @@ struct Todos: View {
                         .foregroundColor(Color(settings.globalForeground))
                         .font(.title)
                         .padding(.top)
-                }
+                }.disabled(inlineEdit)
                 
                 Button(action: {
                     withAnimation {
@@ -84,7 +85,7 @@ struct Todos: View {
                         .foregroundColor(Color(settings.globalForeground))
                         .font(.title)
                         .padding(.top)
-                }
+                }.disabled(inlineEdit)
                 
                 Button(action: {
                     withAnimation {
@@ -97,7 +98,7 @@ struct Todos: View {
                         .foregroundColor(Color(settings.globalForeground))
                         .font(.title)
                         .padding(.top)
-                }
+                }.disabled(inlineEdit)
                 
                 Button(action: {
                     withAnimation {
@@ -108,10 +109,21 @@ struct Todos: View {
                         .foregroundColor(Color(settings.globalForeground))
                         .font(.title)
                         .padding(.top)
-                }
+                }.disabled(inlineEdit)
+
                 Spacer()
-                
-                
+
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 4
+                    }
+                }) {
+                    Image(systemName: "gear")
+                        .foregroundColor(Color(settings.globalForeground))
+                        .font(.title)
+                        .padding(.top)
+                }
+
             }
             
             HStack {
@@ -125,7 +137,7 @@ struct Todos: View {
                     HStack {
                         Picker(loc_choose_category, selection: $cat) {
                             ForEach(categories, id: \.self) { catt in
-                                Text(catt.name ?? "")
+                                Text("\(catt.name ?? "") (\(catt.todo?.count ?? 0))")
                             }
                         }
                         .onAppear(perform: {
@@ -137,6 +149,7 @@ struct Todos: View {
                             self.accentColor = cat.color?.color ?? Color.tix
                         })
                         .frame(alignment: .trailing)
+                        .disabled(inlineEdit)
                         Button(action: {
                             withAnimation {
                                 categorySelected.toggle()
@@ -147,11 +160,15 @@ struct Todos: View {
                                 .font(.body)
                         }
                         .toggleStyle(.button)
+                        .disabled(inlineEdit)
                     }.padding(.leading)
                     .padding(.trailing)
-                    
                     .background(Color.white)
                     .cornerRadius(8)
+                    .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1)
+                        )
                     
                 } else {
                     
@@ -172,7 +189,7 @@ struct Todos: View {
                     .padding(.top, 5).padding(.bottom, 5)
                     .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color(settings.globalForeground), lineWidth: 1)
+                                .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1)
                         )
                      
                 }
@@ -187,7 +204,20 @@ struct Todos: View {
                     // Inline Edit
                     if inlineEdit && todo.id == inlineItem {
                         
-                        TodoEdit(settings: settings, todo: todo, inlineEdit: $inlineEdit, inlineItem: $inlineItem, inlineTodo: todo.todo ?? "", cat: todo.todoCategory ?? self.cat, hasDD: todo.hasDueDate, dd: todo.dueDate ?? Date(), prio: todo.important, accentColor: $accentColor)
+                        TodoEdit(settings: settings,
+                                 todo: todo,
+                                 inlineEdit: $inlineEdit,
+                                 inlineItem: $inlineItem,
+                                 inlineTodo: todo.todo ?? "",
+                                 inlineText: todo.text ?? "",
+                                 cat: todo.todoCategory ?? self.cat,
+                                 hasDD: todo.hasDueDate,
+                                 dd: todo.dueDate ?? Date(),
+                                 prio: todo.important,
+                                 accentColor: $accentColor).environment(\.managedObjectContext, viewContext)
+                            .onDisappear(perform: {
+                                WidgetUpdater().getSetValues(viewContext: viewContext)
+                            })
                         
                     } else {
                         HStack(alignment: .center){
@@ -241,13 +271,14 @@ struct Todos: View {
                         .background(Color.white)
                         .cornerRadius(10)
                         .frame(maxWidth: .infinity)
+                        .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                            )
+                        
                     }
                 }
-                
             }
-            
-            
-            
             VStack(alignment: .trailing) {
                 Spacer()
                 Spacer()
@@ -257,16 +288,15 @@ struct Todos: View {
                     Spacer()
                     Button(action: {
                         withAnimation {
-                            newItem.toggle()
+                            newTodo(cat: self.cat)
                         }
                     }) {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
                             .frame(width: 50, height: 50)
-                            .foregroundColor(.tixDark.opacity(0.6))
-                            .shadow(color: Color(settings.globalForeground), radius: 10, x: 0, y: 0)
-                    }.padding(.bottom,30)//.padding(.trailing)
-                    //.buttonStyle(PlainButtonStyle())
+                            .foregroundColor(Color(settings.globalForeground))
+                            .shadow(color: Color(settings.globalBackground).opacity(0.5), radius: 10, x: 0, y: 0)
+                    }.padding(.bottom,30)
                 }
             }
             .padding(.bottom)
@@ -277,7 +307,6 @@ struct Todos: View {
         .accentColor(self.accentColor)
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
-        .sheet(isPresented: $newItem) { NewItem(settings: settings, cat: self.cat ?? Category()) }
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
     }
@@ -285,52 +314,21 @@ struct Todos: View {
     private func onDisappear() {
         inlineEdit = false
         inlineItem = UUID()
+        WidgetUpdater().getSetValues(viewContext: viewContext)
     }
     
     private func onAppear() {
         
-        getInbox()
-        self.accentColor = Color(settings.globalForeground)
+        self.cat = dc.defaultCategory
+        WidgetUpdater().getSetValues(viewContext: viewContext)
+        self.accentColor = Color(settings.globalText)
         
-        let setRequest = NSFetchRequest<Todo>(entityName: "Todo")
-        //let setPredicate = NSPredicate(format: "isDone == true")
-        let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
-        setRequest.fetchLimit = 3
-        //setRequest.predicate = setPredicate
-        setRequest.sortDescriptors = [setSortDescriptor1]
-        var cnt = 0
-        var one = ""
-        var two = ""
-        var three = ""
-        
-        do {
-            let sets = try self.viewContext.fetch(setRequest) as [Todo]
-            
-            for td in sets {
-                cnt+=1
-                
-                if cnt == 1 {
-                    one = td.todo ?? ""
-                    
-                }
-                if cnt == 2 {
-                    two = td.todo ?? ""
-                }
-                if cnt == 3 {
-                    three = td.todo ?? ""
-                }
-                
-            }
-        } catch let error {
-            NSLog("error in FetchRequest trying to get top 3 todos: \(error.localizedDescription)")
-        }
-        
-        WidgetUpdater(one: one, two: two, three: three, oneTicked: false, twoTicked: true, threeTicked: false, open: today.count).updateValues()
     }
     
     private func endInlineEdit() {
         inlineEdit = false
         inlineItem = UUID()
+        WidgetUpdater().getSetValues(viewContext: viewContext)
     }
     
     var todosFiltered: [Todo] {
@@ -546,27 +544,24 @@ struct Todos: View {
         }
     }
     
-    func getInbox() {
-        
-        let setRequest = NSFetchRequest<Category>(entityName: "Category")
-        let setPredicate = NSPredicate(format: "isDefault == true")
-        //let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
-        setRequest.predicate = setPredicate
-        setRequest.fetchLimit = 1
-        //setRequest.sortDescriptors = [setSortDescriptor1]
+    func newTodo(cat: Category) {
+        let newTodo = Todo(context: self.viewContext)
+        newTodo.todo = "Todo"
+        newTodo.text = ""
+        newTodo.todoCategory = cat
+        newTodo.hasDueDate = false
+        newTodo.dueDate = nil
+        newTodo.timestamp = Date()
+        newTodo.important = false
+        newTodo.id = UUID()
         do {
-            let cats = try self.viewContext.fetch(setRequest) as [Category]
-            
-            for cat in cats {
-                self.cat = cat
-            }
-        } catch let error {
-            NSLog("error in FetchRequest trying to get default category: \(error.localizedDescription)")
+            try self.viewContext.save()
+            inlineEdit = true
+            inlineItem = newTodo.id ?? UUID()
+            inlineTodo = newTodo.todo ?? ""
+        } catch {
+            NSLog(error.localizedDescription)
         }
-        
-        print("getInbox")
-        print("self.cat = \(String(describing: self.cat.name))")
-        
     }
 }
 

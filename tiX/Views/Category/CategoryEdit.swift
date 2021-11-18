@@ -10,7 +10,7 @@ import Combine
 
 struct CategoryEdit: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) var viewContext
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var settings: UserSettings
     
@@ -58,30 +58,36 @@ struct CategoryEdit: View {
                         inlineItem = UUID()
                     }
                 }) {
-                    Image(systemName: "checkmark.circle").resizable()
-                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(Color(settings.globalForeground))
-                }
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24, alignment: .top)
+                        .foregroundColor(inlineCat.isEmpty ? Color(settings.globalForeground).opacity(0.5) : Color(settings.globalForeground))
+                }.disabled(inlineCat.isEmpty)
             }
             
             
             VStack(alignment: .leading) {
                 
-                HStack(alignment: .center) {
-                    
-                    TextField(loc_category, text: $inlineCat)
+                ZStack(alignment: .topLeading) {
+                    if inlineCat.isEmpty {
+                        Text(loc_category)
+                            .foregroundColor(Color(UIColor.placeholderText))
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 8)
+                            .font(.headline)
+                    }
+                    TextEditor(text: $inlineCat)
                         .keyboardType(.default)
-                        .focused($isFocused)
                         .font(.headline)
-                        .background(Color.clear)
-                        .opacity(inlineCat.isEmpty ? 0.25 : 1)
+                        .background(Color(settings.globalForeground))
                         .foregroundColor(Color.tix)
                         .focused($isFocused)
-                        .onDisappear(perform: {
-                            isFocused = false
-                            accentColor = Color.white
-                        })
-                }
+                }.onDisappear(perform: {
+                    isFocused = false
+                    accentColor = Color.white
+                })
                 
+               
                 Divider()
                 HStack {
                     Text(loc_color)
@@ -114,6 +120,11 @@ struct CategoryEdit: View {
             .frame(maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
             .padding()
             .background(RoundedCorners(color: Color.white, tl: 10, tr: 10, bl: 10, br: 10))
+            .frame(maxWidth: .infinity)
+            .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                )
         }
         .onAppear(perform: onAppear)
         

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		360A63EC27118DFE005E9AAB /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A63EB27118DFE005E9AAB /* Settings.swift */; };
 		3661F563272C28D300546006 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661F562272C28D300546006 /* Localization.swift */; };
 		3661F564272C28D300546006 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661F562272C28D300546006 /* Localization.swift */; };
 		3661F568272C3C8300546006 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3661F56B272C3C8300546006 /* Localizable.strings */; };
@@ -19,28 +18,41 @@
 		36644F6F272B0DB300DA328F /* tixWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 36644F61272B0DB100DA328F /* tixWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		367527782710AA6F0087FC4B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367527772710AA6F0087FC4B /* Colors.swift */; };
 		3681FB562728755E00248951 /* SerializableColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3681FB552728755D00248951 /* SerializableColor.swift */; };
-		368FF62A273849CA00918714 /* GDPRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368FF629273849CA00918714 /* GDPRView.swift */; };
-		36A250B227282577003BC001 /* CategoryNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B127282577003BC001 /* CategoryNew.swift */; };
-		36A250B4272836C9003BC001 /* CategoryEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B3272836C9003BC001 /* CategoryEdit.swift */; };
-		36A250B627283738003BC001 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A250B527283738003BC001 /* Categories.swift */; };
 		36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5B5270CC1BF00249259 /* tiXApp.swift */; };
 		36C1B5BA270CC1C000249259 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36C1B5B9270CC1C000249259 /* Assets.xcassets */; };
 		36C1B5BD270CC1C000249259 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */; };
-		36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5BE270CC1C000249259 /* Persistence.swift */; };
 		36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */; };
 		36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5C8270CC2F900249259 /* ViewContent.swift */; };
-		36C1B5D5270CCAFE00249259 /* TodoNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D4270CCAFE00249259 /* TodoNew.swift */; };
 		36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5D8270DD4B100249259 /* UserSettings.swift */; };
-		36C1B5DF270DD92B00249259 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1B5DE270DD92B00249259 /* Haptics.swift */; };
+		36C4D5772745856000F70BDC /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5632745855F00F70BDC /* Todos.swift */; };
+		36C4D5782745856000F70BDC /* TodoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5642745855F00F70BDC /* TodoEdit.swift */; };
+		36C4D5792745856000F70BDC /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5662745856000F70BDC /* Categories.swift */; };
+		36C4D57A2745856000F70BDC /* CategoryEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5672745856000F70BDC /* CategoryEdit.swift */; };
+		36C4D57B2745856000F70BDC /* SettingsIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5692745856000F70BDC /* SettingsIcons.swift */; };
+		36C4D57C2745856000F70BDC /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D56A2745856000F70BDC /* MailView.swift */; };
+		36C4D57D2745856000F70BDC /* GDPRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D56B2745856000F70BDC /* GDPRView.swift */; };
+		36C4D57E2745856000F70BDC /* SettingsSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D56C2745856000F70BDC /* SettingsSupport.swift */; };
+		36C4D57F2745856000F70BDC /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D56D2745856000F70BDC /* About.swift */; };
+		36C4D5802745856000F70BDC /* SettingsColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D56E2745856000F70BDC /* SettingsColors.swift */; };
+		36C4D5812745856000F70BDC /* SettingsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D56F2745856000F70BDC /* SettingsInfo.swift */; };
+		36C4D5822745856000F70BDC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5702745856000F70BDC /* Settings.swift */; };
+		36C4D5832745856000F70BDC /* SettingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5712745856000F70BDC /* SettingsApp.swift */; };
+		36C4D5842745856000F70BDC /* DashboardWelcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5732745856000F70BDC /* DashboardWelcome.swift */; };
+		36C4D5852745856000F70BDC /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5742745856000F70BDC /* Dashboard.swift */; };
+		36C4D5862745856000F70BDC /* DashboardCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5752745856000F70BDC /* DashboardCalendar.swift */; };
+		36C4D5872745856000F70BDC /* DashboardDatebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5762745856000F70BDC /* DashboardDatebar.swift */; };
+		36C4D58A2745859600F70BDC /* CategoryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5882745859600F70BDC /* CategoryHelper.swift */; };
+		36C4D58B2745859600F70BDC /* CalendarImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D5892745859600F70BDC /* CalendarImporter.swift */; };
+		36C4D591274585F500F70BDC /* Products.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36C4D58D274585F500F70BDC /* Products.plist */; };
+		36C4D592274585F500F70BDC /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 36C4D58E274585F500F70BDC /* Products.storekit */; };
+		36C4D593274585F500F70BDC /* InAppPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D58F274585F500F70BDC /* InAppPurchase.swift */; };
+		36C4D594274585F500F70BDC /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D590274585F500F70BDC /* StoreManager.swift */; };
+		36C4D598274586D600F70BDC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C4D597274586D600F70BDC /* Persistence.swift */; };
 		36D3F2A7272D362B00694E0F /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2A6272D362B00694E0F /* Formatter.swift */; };
-		36D3F2A9272D3E0500694E0F /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2A8272D3E0500694E0F /* Todos.swift */; };
 		36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2AC272FE96C00694E0F /* Onboarding.swift */; };
 		36D3F2AF272FE97F00694E0F /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2AE272FE97F00694E0F /* Update.swift */; };
-		36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B0272FF09D00694E0F /* MailView.swift */; };
-		36D3F2B3272FF47300694E0F /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B2272FF47300694E0F /* About.swift */; };
-		36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D3F2B427307A7000694E0F /* Dashboard.swift */; };
+		36DB7EBE27393A270098AA18 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36DB7EBD27393A270098AA18 /* CloudKit.framework */; };
 		36E9E4672737163700A54BE1 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9E4662737163700A54BE1 /* TabView.swift */; };
-		36E9E4692737166C00A54BE1 /* TodoEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9E4682737166C00A54BE1 /* TodoEdit.swift */; };
 		36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +91,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		360A63EB27118DFE005E9AAB /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		3661F562272C28D300546006 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3661F56A272C3C8300546006 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3661F56C272C3C8600546006 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -92,31 +103,44 @@
 		36644F74272B0DD900DA328F /* tixWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tixWidgetExtension.entitlements; sourceTree = "<group>"; };
 		367527772710AA6F0087FC4B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3681FB552728755D00248951 /* SerializableColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializableColor.swift; sourceTree = "<group>"; };
-		368FF629273849CA00918714 /* GDPRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GDPRView.swift; sourceTree = "<group>"; };
-		36A250B127282577003BC001 /* CategoryNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNew.swift; sourceTree = "<group>"; };
-		36A250B3272836C9003BC001 /* CategoryEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEdit.swift; sourceTree = "<group>"; };
-		36A250B527283738003BC001 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		36C1B5B2270CC1BF00249259 /* tiX todos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tiX todos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36C1B5B5270CC1BF00249259 /* tiXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tiXApp.swift; sourceTree = "<group>"; };
 		36C1B5B9270CC1C000249259 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36C1B5BC270CC1C000249259 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		36C1B5BE270CC1C000249259 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		36C1B5C1270CC1C000249259 /* tiX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tiX.xcdatamodel; sourceTree = "<group>"; };
 		36C1B5C8270CC2F900249259 /* ViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContent.swift; sourceTree = "<group>"; };
-		36C1B5D4270CCAFE00249259 /* TodoNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoNew.swift; sourceTree = "<group>"; };
 		36C1B5D8270DD4B100249259 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
-		36C1B5DE270DD92B00249259 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		36C4D5632745855F00F70BDC /* Todos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
+		36C4D5642745855F00F70BDC /* TodoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoEdit.swift; sourceTree = "<group>"; };
+		36C4D5662745856000F70BDC /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		36C4D5672745856000F70BDC /* CategoryEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryEdit.swift; sourceTree = "<group>"; };
+		36C4D5692745856000F70BDC /* SettingsIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsIcons.swift; sourceTree = "<group>"; };
+		36C4D56A2745856000F70BDC /* MailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		36C4D56B2745856000F70BDC /* GDPRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GDPRView.swift; sourceTree = "<group>"; };
+		36C4D56C2745856000F70BDC /* SettingsSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSupport.swift; sourceTree = "<group>"; };
+		36C4D56D2745856000F70BDC /* About.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		36C4D56E2745856000F70BDC /* SettingsColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsColors.swift; sourceTree = "<group>"; };
+		36C4D56F2745856000F70BDC /* SettingsInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInfo.swift; sourceTree = "<group>"; };
+		36C4D5702745856000F70BDC /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		36C4D5712745856000F70BDC /* SettingsApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsApp.swift; sourceTree = "<group>"; };
+		36C4D5732745856000F70BDC /* DashboardWelcome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardWelcome.swift; sourceTree = "<group>"; };
+		36C4D5742745856000F70BDC /* Dashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		36C4D5752745856000F70BDC /* DashboardCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardCalendar.swift; sourceTree = "<group>"; };
+		36C4D5762745856000F70BDC /* DashboardDatebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardDatebar.swift; sourceTree = "<group>"; };
+		36C4D5882745859600F70BDC /* CategoryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHelper.swift; sourceTree = "<group>"; };
+		36C4D5892745859600F70BDC /* CalendarImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarImporter.swift; sourceTree = "<group>"; };
+		36C4D58D274585F500F70BDC /* Products.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Products.plist; sourceTree = "<group>"; };
+		36C4D58E274585F500F70BDC /* Products.storekit */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
+		36C4D58F274585F500F70BDC /* InAppPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppPurchase.swift; sourceTree = "<group>"; };
+		36C4D590274585F500F70BDC /* StoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		36C4D5952745862D00F70BDC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36C4D597274586D600F70BDC /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		36D3F2A6272D362B00694E0F /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
-		36D3F2A8272D3E0500694E0F /* Todos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
 		36D3F2AC272FE96C00694E0F /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		36D3F2AE272FE97F00694E0F /* Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
-		36D3F2B0272FF09D00694E0F /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
-		36D3F2B2272FF47300694E0F /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
-		36D3F2B427307A7000694E0F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
-		36DB7EBF27393B2B0098AA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		36DB7EBD27393A270098AA18 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		36E4B3C52739302800F7DE9E /* tiX.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = tiX.entitlements; sourceTree = "<group>"; };
 		36E9E4662737163700A54BE1 /* TabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
-		36E9E4682737166C00A54BE1 /* TodoEdit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoEdit.swift; sourceTree = "<group>"; };
 		36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUpdater.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36DB7EBE27393A270098AA18 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +168,7 @@
 		36644F62272B0DB100DA328F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36DB7EBD27393A270098AA18 /* CloudKit.framework */,
 				36644F63272B0DB100DA328F /* WidgetKit.framework */,
 				36644F65272B0DB100DA328F /* SwiftUI.framework */,
 			);
@@ -162,30 +188,11 @@
 		36924ED12725721A001D1258 /* Coredata */ = {
 			isa = PBXGroup;
 			children = (
+				36C4D597274586D600F70BDC /* Persistence.swift */,
 				36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */,
 				3681FB552728755D00248951 /* SerializableColor.swift */,
 			);
 			path = Coredata;
-			sourceTree = "<group>";
-		};
-		36A250B727283958003BC001 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				36A250B527283738003BC001 /* Categories.swift */,
-				36A250B3272836C9003BC001 /* CategoryEdit.swift */,
-				36A250B127282577003BC001 /* CategoryNew.swift */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		36A250B827283965003BC001 /* Todo */ = {
-			isa = PBXGroup;
-			children = (
-				36D3F2A8272D3E0500694E0F /* Todos.swift */,
-				36E9E4682737166C00A54BE1 /* TodoEdit.swift */,
-				36C1B5D4270CCAFE00249259 /* TodoNew.swift */,
-			);
-			path = Todo;
 			sourceTree = "<group>";
 		};
 		36C1B5A9270CC1BF00249259 = {
@@ -214,11 +221,12 @@
 				36C1B5B5270CC1BF00249259 /* tiXApp.swift */,
 				36C1B5D6270DCDA200249259 /* Views */,
 				36C1B5D7270DCDB700249259 /* Helpers */,
+				36C4D58C274585F500F70BDC /* IAP */,
 				36924ED12725721A001D1258 /* Coredata */,
 				36C1B5BB270CC1C000249259 /* Preview Content */,
 				36C1B5B9270CC1C000249259 /* Assets.xcassets */,
-				36DB7EBF27393B2B0098AA18 /* Info.plist */,
 				36E4B3C52739302800F7DE9E /* tiX.entitlements */,
+				36C4D5952745862D00F70BDC /* Info.plist */,
 				36C1B5D8270DD4B100249259 /* UserSettings.swift */,
 				3661F562272C28D300546006 /* Localization.swift */,
 				3661F56B272C3C8300546006 /* Localizable.strings */,
@@ -237,11 +245,11 @@
 		36C1B5D6270DCDA200249259 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				36C4D5722745856000F70BDC /* Dashboard */,
+				36C4D5622745855F00F70BDC /* Todo */,
+				36C4D5652745855F00F70BDC /* Category */,
+				36C4D5682745856000F70BDC /* Settings */,
 				36E9E4662737163700A54BE1 /* TabView.swift */,
-				36D3F2B427307A7000694E0F /* Dashboard.swift */,
-				36A250B827283965003BC001 /* Todo */,
-				36A250B727283958003BC001 /* Category */,
-				36D3F2AB272FE93900694E0F /* Settings */,
 				36D3F2AC272FE96C00694E0F /* Onboarding.swift */,
 				36D3F2AE272FE97F00694E0F /* Update.swift */,
 			);
@@ -251,9 +259,9 @@
 		36C1B5D7270DCDB700249259 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				36C1B5BE270CC1C000249259 /* Persistence.swift */,
+				36C4D5892745859600F70BDC /* CalendarImporter.swift */,
+				36C4D5882745859600F70BDC /* CategoryHelper.swift */,
 				36C1B5C8270CC2F900249259 /* ViewContent.swift */,
-				36C1B5DE270DD92B00249259 /* Haptics.swift */,
 				367527772710AA6F0087FC4B /* Colors.swift */,
 				36EA699A272C0EAA00A81E26 /* WidgetUpdater.swift */,
 				36D3F2A6272D362B00694E0F /* Formatter.swift */,
@@ -261,15 +269,60 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		36D3F2AB272FE93900694E0F /* Settings */ = {
+		36C4D5622745855F00F70BDC /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				360A63EB27118DFE005E9AAB /* Settings.swift */,
-				36D3F2B2272FF47300694E0F /* About.swift */,
-				36D3F2B0272FF09D00694E0F /* MailView.swift */,
-				368FF629273849CA00918714 /* GDPRView.swift */,
+				36C4D5632745855F00F70BDC /* Todos.swift */,
+				36C4D5642745855F00F70BDC /* TodoEdit.swift */,
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		36C4D5652745855F00F70BDC /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				36C4D5662745856000F70BDC /* Categories.swift */,
+				36C4D5672745856000F70BDC /* CategoryEdit.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		36C4D5682745856000F70BDC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				36C4D5702745856000F70BDC /* Settings.swift */,
+				36C4D5712745856000F70BDC /* SettingsApp.swift */,
+				36C4D56E2745856000F70BDC /* SettingsColors.swift */,
+				36C4D5692745856000F70BDC /* SettingsIcons.swift */,
+				36C4D56C2745856000F70BDC /* SettingsSupport.swift */,
+				36C4D56F2745856000F70BDC /* SettingsInfo.swift */,
+				36C4D56B2745856000F70BDC /* GDPRView.swift */,
+				36C4D56A2745856000F70BDC /* MailView.swift */,
+				36C4D56D2745856000F70BDC /* About.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		36C4D5722745856000F70BDC /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				36C4D5732745856000F70BDC /* DashboardWelcome.swift */,
+				36C4D5742745856000F70BDC /* Dashboard.swift */,
+				36C4D5752745856000F70BDC /* DashboardCalendar.swift */,
+				36C4D5762745856000F70BDC /* DashboardDatebar.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		36C4D58C274585F500F70BDC /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				36C4D58D274585F500F70BDC /* Products.plist */,
+				36C4D58E274585F500F70BDC /* Products.storekit */,
+				36C4D58F274585F500F70BDC /* InAppPurchase.swift */,
+				36C4D590274585F500F70BDC /* StoreManager.swift */,
+			);
+			path = IAP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,8 +417,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36C4D591274585F500F70BDC /* Products.plist in Resources */,
 				36C1B5BD270CC1C000249259 /* Preview Assets.xcassets in Resources */,
 				3661F568272C3C8300546006 /* Localizable.strings in Resources */,
+				36C4D592274585F500F70BDC /* Products.storekit in Resources */,
 				36C1B5BA270CC1C000249259 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,31 +441,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				368FF62A273849CA00918714 /* GDPRView.swift in Sources */,
+				36C4D58A2745859600F70BDC /* CategoryHelper.swift in Sources */,
+				36C4D593274585F500F70BDC /* InAppPurchase.swift in Sources */,
+				36C4D5782745856000F70BDC /* TodoEdit.swift in Sources */,
+				36C4D594274585F500F70BDC /* StoreManager.swift in Sources */,
 				36D3F2A7272D362B00694E0F /* Formatter.swift in Sources */,
-				36C1B5DF270DD92B00249259 /* Haptics.swift in Sources */,
 				36C1B5C9270CC2F900249259 /* ViewContent.swift in Sources */,
 				3661F563272C28D300546006 /* Localization.swift in Sources */,
-				36C1B5D5270CCAFE00249259 /* TodoNew.swift in Sources */,
-				36D3F2A9272D3E0500694E0F /* Todos.swift in Sources */,
-				36A250B227282577003BC001 /* CategoryNew.swift in Sources */,
-				36A250B627283738003BC001 /* Categories.swift in Sources */,
-				360A63EC27118DFE005E9AAB /* Settings.swift in Sources */,
-				36C1B5BF270CC1C000249259 /* Persistence.swift in Sources */,
+				36C4D5802745856000F70BDC /* SettingsColors.swift in Sources */,
+				36C4D57C2745856000F70BDC /* MailView.swift in Sources */,
+				36C4D5852745856000F70BDC /* Dashboard.swift in Sources */,
+				36C4D5792745856000F70BDC /* Categories.swift in Sources */,
+				36C4D57E2745856000F70BDC /* SettingsSupport.swift in Sources */,
+				36C4D57A2745856000F70BDC /* CategoryEdit.swift in Sources */,
 				36C1B5D9270DD4B100249259 /* UserSettings.swift in Sources */,
-				36E9E4692737166C00A54BE1 /* TodoEdit.swift in Sources */,
+				36C4D5822745856000F70BDC /* Settings.swift in Sources */,
+				36C4D5872745856000F70BDC /* DashboardDatebar.swift in Sources */,
+				36C4D57B2745856000F70BDC /* SettingsIcons.swift in Sources */,
+				36C4D5842745856000F70BDC /* DashboardWelcome.swift in Sources */,
 				367527782710AA6F0087FC4B /* Colors.swift in Sources */,
+				36C4D598274586D600F70BDC /* Persistence.swift in Sources */,
 				36C1B5C2270CC1C000249259 /* tiX.xcdatamodeld in Sources */,
 				3681FB562728755E00248951 /* SerializableColor.swift in Sources */,
-				36D3F2B3272FF47300694E0F /* About.swift in Sources */,
 				36EA699B272C0EAA00A81E26 /* WidgetUpdater.swift in Sources */,
+				36C4D57D2745856000F70BDC /* GDPRView.swift in Sources */,
 				36D3F2AF272FE97F00694E0F /* Update.swift in Sources */,
-				36A250B4272836C9003BC001 /* CategoryEdit.swift in Sources */,
-				36D3F2B1272FF09D00694E0F /* MailView.swift in Sources */,
-				36D3F2B527307A7000694E0F /* Dashboard.swift in Sources */,
+				36C4D5812745856000F70BDC /* SettingsInfo.swift in Sources */,
+				36C4D57F2745856000F70BDC /* About.swift in Sources */,
+				36C4D5832745856000F70BDC /* SettingsApp.swift in Sources */,
 				36D3F2AD272FE96C00694E0F /* Onboarding.swift in Sources */,
+				36C4D5862745856000F70BDC /* DashboardCalendar.swift in Sources */,
 				36C1B5B6270CC1BF00249259 /* tiXApp.swift in Sources */,
+				36C4D58B2745859600F70BDC /* CalendarImporter.swift in Sources */,
 				36E9E4672737163700A54BE1 /* TabView.swift in Sources */,
+				36C4D5772745856000F70BDC /* Todos.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,7 +509,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -456,14 +520,14 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,6";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -474,7 +538,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = tixWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = APRDSH5Y65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tixWidget/Info.plist;
@@ -485,14 +549,14 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX.tixWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,6";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Release;
 		};
@@ -531,6 +595,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -592,6 +657,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -616,20 +682,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBlue,AppIconBrown,AppIconCyan,AppIconGray,AppIconGreen,AppIconIndigo,AppIconMint,AppIconOrange,AppIconPink,AppIconRed,AppIconTeal,AppIconTixDark,AppIconWhite,AppIconYellow";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				ENABLE_ON_DEMAND_RESOURCES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tiX/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "tiX needs access to your calendar in order to display calendar events in your todo list and dashboard";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -637,14 +708,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -652,20 +723,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconBlue,AppIconBrown,AppIconCyan,AppIconGray,AppIconGreen,AppIconIndigo,AppIconMint,AppIconOrange,AppIconPink,AppIconRed,AppIconTeal,AppIconTixDark,AppIconWhite,AppIconYellow";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = tiX/tiX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tiX/Preview Content\"";
 				DEVELOPMENT_TEAM = APRDSH5Y65;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				ENABLE_ON_DEMAND_RESOURCES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = tiX/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "tiX needs access to your calendar in order to display calendar events in your todo list and dashboard";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -673,14 +749,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.nicolasott.tiX;
 				PRODUCT_NAME = "tiX todos";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -6,18 +6,18 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct SetupView: View {
     
     @ObservedObject var settings: UserSettings
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) var viewContext
     @FocusState private var isFocused: Bool
+
+    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)], predicate: NSPredicate(format: "isDefault == true")) var categories: FetchedResults<Category>
     
-    @State private var name = true
    
-    @State var colorz1 = ["tix", "tixDark", "Brown", "Orange", "Red", "Magenta"]
-    @State var colorz2 = ["Cyan", "Green", "Blue", "Purple", "Yellow", "White"]
-    
     var body: some View {
         VStack {
             HStack {
@@ -29,7 +29,7 @@ struct SetupView: View {
             }
             ScrollView  {
                 HStack(alignment: .center) {
-                    Image("AppIcons")
+                    Image("\(settings.icon)")
                         .resizable()
                         .cornerRadius(18)
                         .frame(width: 96, height: 96, alignment: .center)
@@ -40,7 +40,7 @@ struct SetupView: View {
                    
                 }.padding()
                 
-                if name {
+          
                     Text(loc_how).font(.body).foregroundColor(Color(settings.globalForeground)).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
                     VStack(alignment: .center) {
                         TextField("", text: $settings.userName)
@@ -57,75 +57,17 @@ struct SetupView: View {
                     Spacer()
                     Button(action: {
                         withAnimation {
-                            name = false
+                            cancelAction()
                         }
                     }) {
                         Text(loc_ok)
-                    }.foregroundColor(.tix)
-                        .padding(10)
-                        .background(Color.white)
-                        .cornerRadius(8)
-                     .disabled(settings.userName.isEmpty)
-                } else {
-                    Text(loc_theme).font(.body).foregroundColor(Color(settings.globalForeground)).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            ForEach(colorz1, id: \.self) { col in
-                                Button(action: {
-                                    withAnimation {
-                                        settings.globalBackground = col
-                                        settings.globalForeground = "White"
-                                    }
-                                }) {
-                                    Image(systemName: col == settings.globalBackground ? "dot.square.fill" : "square.fill")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(Color(col))
-                                }
-                                Spacer()
-                            }
-                            
-                        }
-                        HStack {
-                            Spacer()
-                            ForEach(colorz2, id: \.self) { col in
-                                Button(action: {
-                                    withAnimation {
-                                        settings.globalBackground = col
-                                        settings.globalForeground = "tix"
-                                    }
-                                }) {
-                                    Image(systemName: col == settings.globalBackground ? col == "White" ? "dot.square" : "dot.square.fill" : col == "White" ? "square" : "square.fill")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(col == "White" ? Color.tixDark : Color(col))
-                                }
-                                Spacer()
-                            }
-                            
-                        }
                     }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Button(action: {
-                        withAnimation {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                    }) {
-                        Text(loc_go)
-                    }.foregroundColor(.tix)
+                    .foregroundColor(.tix)
                     .padding(10)
-                    .background(Color.white)
+                    .background(settings.userName.isEmpty ? Color.white.opacity(0.5) : Color.white)
                     .cornerRadius(8)
-                     
-                }
+                    .disabled(settings.userName.isEmpty)
+                
                 
             }.padding(.leading).padding(.trailing)
         }
@@ -136,9 +78,31 @@ struct SetupView: View {
     }
     
     func onAppear() {
+        
         isFocused = true
+        if categories.count == 0 {
+            let newC = Category(context: self.viewContext)
+            newC.name = "Inbox"
+            newC.isDefault = true
+            newC.timestamp = Date()
+            newC.color = SerializableColor(from: Color.tix)
+            newC.id = UUID()
+            do {
+                try self.viewContext.save()
+                let dc = DefaultCategory()
+                dc.getDefault(viewContext: viewContext)
+                //self.cat = dc.defaultCategory
+            } catch {
+                NSLog(error.localizedDescription)
+            }
+        }
     }
+    
     func onDisappear() {
         settings.launchedBefore = true
+    }
+    
+    func cancelAction() {
+        self.presentationMode.wrappedValue.dismiss()
     }
 }

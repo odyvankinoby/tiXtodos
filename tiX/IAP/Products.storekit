@@ -1,0 +1,38 @@
+{
+  "identifier" : "974CC210",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "6CD5EE82",
+      "localizations" : [
+        {
+          "description" : "tiX Premium",
+          "displayName" : "tiX Premium",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "tiX Premium",
+          "displayName" : "tiX Premium",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "de.nicolasott.tiX.premium",
+      "referenceName" : "tiX_premium",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}

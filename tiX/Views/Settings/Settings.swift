@@ -6,275 +6,133 @@
 //
 
 import SwiftUI
-import UIKit
 import MessageUI
 import WebKit
-import CoreData
+
 
 struct Settings: View {
     
     // Observable Objects
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) var viewContext
     @ObservedObject var settings: UserSettings
-    @Binding var tabSelected: Int
-    @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State var noMail = false
-    @State var deletedTodos = 0
-    @State var inlineEdit = false
-    @State var showAbout = false
-    @State var showGDPR = false
-    @FocusState private var isFocused: Bool
+    @StateObject var storeManager: StoreManager
     
-    @State var colorz1 = ["tix", "tixDark", "Brown", "Orange", "Red", "Magenta"]
-    @State var colorz2 = ["Cyan", "Green", "Blue", "Purple", "Yellow", "White"]
+    @Binding var tabSelected: Int
+    
+    @State var showPremium = false
     
     var body: some View {
         
         VStack {
             
-            if showAbout {
-                About(settings: settings, show: $showAbout)
-            } else if showGDPR {
-                GDPRView(settings: settings, show: $showGDPR)
-            } else {
+            
+            HStack {
                 
-                HStack {
-                    Button(action: {
-                        withAnimation {
-                            self.tabSelected = 1
-                        }
-                    }) {
-                        Image(systemName: "house.circle").foregroundColor(Color(settings.globalForeground)).font(.title).padding(.top)
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 2
                     }
-                    
-                    Spacer()
-                    Button(action: {
-                        withAnimation {
-                            self.tabSelected = 2
+                }) {
+                    Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title).padding(.top)
+                }
+                
+                Spacer()
+                
+                Button(action: {
+                    withAnimation {
+                        self.tabSelected = 1
+                    }
+                }) {
+                    Image(systemName: "house.circle").foregroundColor(Color(settings.globalForeground)).font(.title).padding(.top)
+                }
+            }
+            
+            HStack {
+                Text(loc_settings)
+                    .font(.title).bold()
+                    .foregroundColor(Color(settings.globalForeground))
+                    .frame(alignment: .leading)
+                    .padding(.top, 5)
+                Spacer()
+                
+            }
+            
+            ScrollView {
+                
+                SettingsApp(settings: settings).environment(\.managedObjectContext, viewContext)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Image(systemName: "crown")
+                            .font(.title3)
+                            .foregroundColor(.yellow)
+                        Text(loc_premium).frame(alignment: .leading).foregroundColor(Color(settings.globalText))
+                        Spacer()
+                        if settings.purchased {
+                            Text(loc_purchased).frame(alignment: .leading).foregroundColor(.tixDark)
                         }
-                    }) {
-                        Image(systemName: "list.bullet.circle").foregroundColor(Color(settings.globalForeground)).font(.title).padding(.top)
+                    }.onTapGesture {
+                        showPremium.toggle()
                     }
                     
                 }
+                .padding(10)
+                .background(Color.white)
+                .cornerRadius(10)
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                )
                 
-                HStack {
-                    Text(loc_settings)
-                        .font(.title).bold()
-                        .foregroundColor(Color(settings.globalForeground))
-                        .frame(alignment: .leading)
-                        .padding(.top, 5)
-                    Spacer()
+                SettingsColors(settings: settings, storeManager: storeManager)
+                                
+                SettingsIcons(settings: settings, storeManager: storeManager).environment(\.managedObjectContext, viewContext)
+                
+                SettingsSupport(settings: settings)
+                
+                SettingsInfo(settings: settings)
+                
+                VStack(alignment: .leading) {
+                    
+                    
+                    HStack {
+                        Text(loc_more_apps).frame(alignment: .leading).foregroundColor(Color(settings.globalText))
+                        Spacer()
+                    }.frame(alignment: .leading).onTapGesture(perform: {
+                        if let url = URL(string: "https://apps.apple.com/developer/nicolas-ott/id1527796947") {
+                            UIApplication.shared.open(url)
+                        }
+                    })
                     
                 }
+                .padding(10)
+                .background(Color.white)
+                .cornerRadius(10)
+                .frame(maxWidth: .infinity)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                )
                 
-                ScrollView {
-                    
+                // DEVELOPER
+                if settings.developerMode {
                     VStack(alignment: .leading) {
-                        
-                        HStack {
-                            Text(loc_name)
-                                .frame(alignment: .leading)
-                                .foregroundColor(.tix)
-                            Spacer()
-                            if !inlineEdit {
-                                Text(settings.userName)
-                                    .frame(alignment: .trailing)
-                                    .foregroundColor(.tixDark)
-                                    .onTapGesture {
-                                        withAnimation {
-                                            inlineEdit = true
-                                            isFocused = true
-                                        }
-                                    }
-                            } else {
-                                Button(action: {
-                                    withAnimation {
-                                        inlineEdit = false
-                                        isFocused = false
-                                    }
-                                }) {
-                                    Image(systemName: "checkmark.circle").resizable()
-                                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(.tix)
-                                }
-                            }
-                        }
-                        
-                        if inlineEdit {
-                            TextField("", text: $settings.userName)
-                                .focused($isFocused)
-                                .frame(alignment: .trailing)
-                                .foregroundColor(Color.tixDark)
-                        }
-                        
-                        Divider()
-                        
-                        Toggle(isOn: $settings.hideTicked) {
-                            Text(loc_hide_ticked)
-                                .foregroundColor(.tix).frame(alignment: .trailing)
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Text(loc_delete_ticked)
-                                .frame(alignment: .leading)
-                                .foregroundColor(.tix)
-                            Spacer()
-                            Spacer()
-                            Button(action: {
-                                withAnimation {
-                                    deleteTicked()
-                                }
-                            }) {
-                                HStack {
-                                    Image(systemName: "circle.slash.fill")
-                                    Text(loc_delete)
-                                }
-                            }
-                            .foregroundColor(.white)
-                            .padding(10)
-                            .background(Color.tix)
-                            .cornerRadius(8)
-                        }
-                        if deletedTodos > 0 {
-                            HStack() {
-                                Spacer()
-                                Text("\(deletedTodos)")
-                                    .foregroundColor(.tix)
-                                Text(loc_deleted)
-                                    .foregroundColor(.tix)
-                                Spacer()
-                            }.padding(10)
-                        }
+                        Toggle(isOn: $settings.purchased) {
+                            Text("Premium")
+                                .foregroundColor(Color(settings.globalText)).frame(alignment: .trailing)
+                        }.padding(.leading).padding(.trailing)
                     }
                     .padding(10)
                     .background(Color.white)
                     .cornerRadius(10)
                     .frame(maxWidth: .infinity)
-                    
-                    
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Spacer()
-                            ForEach(colorz1, id: \.self) { col in
-                                Button(action: {
-                                    withAnimation {
-                                        settings.globalBackground = col
-                                        settings.globalForeground = "White"
-                                    }
-                                }) {
-                                    Image(systemName: col == settings.globalBackground ? "dot.square.fill" : "square.fill")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(Color(col))
-                                }
-                                Spacer()
-                            }
-                            
-                        }
-                        HStack {
-                            Spacer()
-                            ForEach(colorz2, id: \.self) { col in
-                                Button(action: {
-                                    withAnimation {
-                                        settings.globalBackground = col
-                                        settings.globalForeground = "tix"
-                                    }
-                                }) {
-                                    Image(systemName: col == settings.globalBackground ? col == "White" ? "dot.square" : "dot.square.fill" : col == "White" ? "square" : "square.fill")
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(col == "White" ? Color.tixDark : Color(col))
-                                }
-                                Spacer()
-                            }
-                            
-                        }
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
-                    
-                    VStack(alignment: .leading) {
-                        
-                        HStack {
-                            Text(loc_help).frame(alignment: .leading).foregroundColor(.tix)
-                            Spacer()
-                        }.frame(alignment: .leading).onTapGesture(perform: {
-                            if let url = URL(string: "https://www.nicolasott.de/en/tix/support/index.html") {
-                                UIApplication.shared.open(url)
-                            }
-                        })
-                        
-                        Divider()
-                        
-                        HStack {
-                            NavigationLink(destination: MailView(result: self.$result).accentColor(Color.tix)
-                                            .edgesIgnoringSafeArea(.bottom)) {
-                                HStack {
-                                    Text(loc_feedback).frame(alignment: .leading).foregroundColor(noMail ? .gray : .tix)
-                                    Spacer()
-                                }
-                            }.disabled(!MFMailComposeViewController.canSendMail())
-                        }
-                        
-                        Divider()
-                        
-                        HStack {
-                            Text(loc_contact).frame(alignment: .leading).foregroundColor(.tix)
-                            Spacer()
-                        }.frame(alignment: .leading).onTapGesture(perform: {
-                            if let url = URL(string: "https://www.nicolasott.de/en/contact/") {
-                                UIApplication.shared.open(url)
-                            }
-                        })
-                        Divider()
-                        HStack {
-                            Text("Twitter").frame(alignment: .leading).foregroundColor(.tix)
-                            Spacer()
-                        }.frame(alignment: .leading).onTapGesture(perform: {
-                            if let url = URL(string: "https://twitter.com/trax_tracker") {
-                                UIApplication.shared.open(url)
-                            }
-                        })
-                        
-                    }
-                    .padding(10)
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
-                    
-                    VStack(alignment: .leading) {
-                        
-                        
-                        HStack {
-                            Text(loc_about).frame(alignment: .leading).foregroundColor(.tix)
-                            Spacer()
-                        }.onTapGesture(perform: {
-                            showAbout.toggle()
-                        })
-                        Divider()
-                        HStack {
-                            Text(loc_gdpr).frame(alignment: .leading).foregroundColor(.tix)
-                            Spacer()
-                        }.onTapGesture(perform: {
-                            showGDPR.toggle()
-                        })
-                        Divider()
-                        HStack {
-                            Text(loc_app_version).frame(alignment: .leading).foregroundColor(.tix)
-                            Spacer()
-                            Text("\(getCurrentAppBuildVersionString())").frame(alignment: .trailing).foregroundColor(.tixDark)
-                        }
-                        
-                    }
-                    .padding(10)
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
-                
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                    )
+                }
+                // DEVELOPER
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -284,54 +142,15 @@ struct Settings: View {
                 .padding(10).padding(.bottom, 100)
                 .frame(maxWidth: .infinity)
             }
-            }
-        
+            
+            
         }
-        .onAppear(perform: onAppear)
-        .onDisappear(perform: {deletedTodos=0})
-        .accentColor(Color(settings.globalForeground))
+        .sheet(isPresented: self.$showPremium) {
+            InAppPurchase(settings: settings, storeManager: storeManager)
+        }
+        .accentColor(Color(settings.globalText))
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
-        
-    }
-    
-    
-    func onAppear() {
-        if !MFMailComposeViewController.canSendMail() {
-            self.noMail = true
-        }
-    }
- 
-    func deleteTicked() {
-        deletedTodos = 0
-        let setRequest = NSFetchRequest<Todo>(entityName: "Todo")
-        let setPredicate = NSPredicate(format: "isDone == true")
-        let setSortDescriptor1 = NSSortDescriptor(keyPath: \Todo.todo, ascending: true)
-        setRequest.predicate = setPredicate
-        setRequest.sortDescriptors = [setSortDescriptor1]
-        do {
-            let sets = try self.viewContext.fetch(setRequest) as [Todo]
-            
-            for cat in sets {
-                viewContext.delete(cat)
-                do {
-                    try viewContext.save()
-                    deletedTodos+=1
-                } catch {
-                    NSLog("error deleting todo: \(error.localizedDescription)")
-                }
-                
-            }
-        } catch let error {
-            NSLog("error in FetchRequest trying to get default category: \(error.localizedDescription)")
-        }
-    }
-    
-    func getCurrentAppBuildVersionString() -> String {
-        let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
-        let buildString = "\(versionNumber) (\(buildNumber))"
-        return String(buildString)
     }
 }
 

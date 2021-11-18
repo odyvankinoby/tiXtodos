@@ -19,6 +19,7 @@ struct TodoEdit: View {
     @Binding var inlineEdit: Bool
     @Binding var inlineItem: UUID
     @State var inlineTodo: String
+    @State var inlineText: String
     @FocusState var isFocused: Bool
     @State var cat: Category
     @State var hasDD: Bool
@@ -54,6 +55,7 @@ struct TodoEdit: View {
                         ViewContextMethods.saveItem(
                             todo: todo,
                             toDoText: inlineTodo,
+                            text: inlineText,
                             hasDD: hasDD,
                             dueDate: dd,
                             prio: prio,
@@ -61,11 +63,14 @@ struct TodoEdit: View {
                             context: viewContext)
                         inlineEdit = false
                         inlineItem = UUID()
+                        accentColor = Color(settings.globalText)
                     }
                 }) {
-                    Image(systemName: "checkmark.circle").resizable()
-                        .frame(width: 24, height: 24, alignment: .top).foregroundColor(Color(settings.globalForeground))
-                }
+                    Image(systemName: "checkmark.circle")
+                        .resizable()
+                        .frame(width: 24, height: 24, alignment: .top)
+                        .foregroundColor(inlineTodo.isEmpty ? Color(settings.globalForeground).opacity(0.5) : Color(settings.globalForeground))
+                }.disabled(inlineTodo.isEmpty)
             }
             
             
@@ -83,20 +88,42 @@ struct TodoEdit: View {
                         }
                         .foregroundColor(fgColor)
                         .padding(.trailing, 10)
-                    TextEditor(text: $inlineTodo)
-                        .keyboardType(.default)
-                        .focused($isFocused)
-                        .font(.headline)
-                        .foregroundColor(fgColor)
-                        .background(Color.clear)
-                        .onDisappear(perform: {
-                            isFocused = false
-                            accentColor = Color.white
-                        })
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(5)
-                        
+                    
+                    ZStack(alignment: .topLeading) {
+                        if inlineTodo.isEmpty {
+                            Text(loc_todo)
+                                .foregroundColor(Color(UIColor.placeholderText))
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 8)
+                                .font(.headline)
+                                .background(Color.clear)
+                        }
+                        TextEditor(text: $inlineTodo)
+                            .keyboardType(.default)
+                            .font(.headline)
+                            .foregroundColor(fgColor)
+                            .focused($isFocused)
+                            .background(Color.clear)
+                    }.onDisappear(perform: {
+                        isFocused = false
+                        accentColor = Color.white
+                    })
                     Spacer()
+                }
+                Divider()
+                
+                ZStack(alignment: .topLeading) {
+                    if inlineText.isEmpty {
+                        Text(loc_notes)
+                            .foregroundColor(Color(UIColor.placeholderText))
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 8)
+                    }
+                    TextEditor(text: $inlineText).keyboardType(.default)
+                        .foregroundColor(Color.tix)
+                        .background(Color.clear)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(10)
                 }
                 Divider()
                 
@@ -152,8 +179,15 @@ struct TodoEdit: View {
             .frame(maxWidth: .infinity, minHeight: 150, maxHeight: .infinity)
             .padding()
             .background(RoundedCorners(color: Color.white, tl: 10, tr: 10, bl: 10, br: 10))
-            
-        }.onAppear(perform: onAppear)
+            .cornerRadius(10)
+            .frame(maxWidth: .infinity)
+            .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                )
+        }
+        .onAppear(perform: onAppear)
+        .onAppear(perform: onDisappear)
     }
     
     private func onAppear() {
@@ -161,6 +195,9 @@ struct TodoEdit: View {
         fgColor = todo.todoCategory?.color?.color.opacity(todo.isDone ? 0.5 : 1) ?? Color.tix.opacity(todo.isDone ? 0.5 : 1)
     }
     
+    private func onDisappear() {
+        self.accentColor = Color(settings.globalText)
+    }
     
     private func endInlineEdit() {
         inlineEdit = false

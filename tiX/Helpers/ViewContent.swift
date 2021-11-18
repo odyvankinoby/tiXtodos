@@ -13,15 +13,21 @@ struct ViewContextMethods {
 
     static func addItem(
         context: NSManagedObjectContext,
+        hasDD: Bool,
         dueDate: Date,
         toDoText: String,
-        category: String
+        category: String,
+        text: String,
+        prio: Bool
     ) {
         withAnimation {
             let newItem = Todo(context: context)
             newItem.timestamp = Date()
+            newItem.hasDueDate = hasDD
             newItem.dueDate = dueDate
             newItem.todo = toDoText
+            newItem.text = text
+            newItem.important = prio
             newItem.isDone = false
             newItem.id = UUID()
             //newItem.category = category
@@ -45,6 +51,7 @@ struct ViewContextMethods {
         }
         do {
             try context.save()
+            
         } catch {
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -107,6 +114,7 @@ struct ViewContextMethods {
     static func saveItem(
         todo: Todo,
         toDoText: String,
+        text: String,
         hasDD: Bool,
         dueDate: Date,
         prio: Bool,
@@ -114,6 +122,7 @@ struct ViewContextMethods {
         context: NSManagedObjectContext) {
         withAnimation{
             todo.todo = toDoText
+            todo.text = text
             todo.hasDueDate = hasDD
             todo.dueDate = dueDate
             todo.important = prio
@@ -122,8 +131,6 @@ struct ViewContextMethods {
         do {
             try context.save()
         } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }

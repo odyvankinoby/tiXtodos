@@ -29,12 +29,15 @@ struct About: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(alignment: .center) {
-                        Image("AppIcons")
+                        Image("\(settings.icon)")
                             .resizable()
                             .cornerRadius(12)
                             .frame(width: 64, height: 64)
-                            .padding(.all, 10)
                             .frame(alignment: .leading)
+                            .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(settings.icon == "IconWhite" ? Color(settings.globalForeground) : Color.white, lineWidth: 1)
+                                )
                         VStack(alignment: .leading) {
                             Text("tiX").font(.headline).foregroundColor(Color(settings.globalForeground))
                             Text("track your tasks").font(.subheadline).foregroundColor(Color(settings.globalForeground))

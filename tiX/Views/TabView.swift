@@ -7,59 +7,66 @@
 
 import SwiftUI
 import CoreData
+import StoreKit
 
 struct TabViewView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var settings = UserSettings()
-    let coloredNavAppearance = UINavigationBarAppearance()
     
-    init() {
-        // Segmented Picker
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.white)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tix") ?? Color.black], for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "tixDark") ?? Color.black], for: .normal)
-        // TextEditor
-        UITextView.appearance().backgroundColor = .clear
-    }
-    
-    
-    @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)], predicate: NSPredicate(format: "isDefault == true")) var categories: FetchedResults<Category>
-    
+    let productIDs = [
+        "de.nicolasott.tiX.premium"
+    ]
+    @StateObject var storeManager = StoreManager()
+
     // Navigation
     @State var tabSelected: Int = 1
     @State var showSheet = false
     @State var showSetup = false
     @State var showUpdate = false
     
+    // Category
+    @State var dc = DefaultCategory()
+    
     var body: some View {
        
         TabView(selection: $tabSelected) {
-            Dashboard(settings: settings, tabSelected: $tabSelected)
+            Dashboard(settings: settings, storeManager: storeManager, dc: dc, tabSelected: $tabSelected)
+                .environment(\.managedObjectContext, viewContext)
                 .tabItem {}.tag(1)
-            Todos(settings: settings)
+            Todos(settings: settings, dc: dc, tabSelected: $tabSelected)
+                .environment(\.managedObjectContext, viewContext)
                 .tabItem {}.tag(2)
-            Categories(settings: settings, tabSelected: $tabSelected)
+            Categories(settings: settings, storeManager: storeManager, tabSelected: $tabSelected).environment(\.managedObjectContext, viewContext)
                 .tabItem {}.tag(3)
-            Settings(settings: settings, tabSelected: $tabSelected)
+            Settings(settings: settings, storeManager: storeManager, tabSelected: $tabSelected).environment(\.managedObjectContext, viewContext)
                 .tabItem {}.tag(4)
         }
         .edgesIgnoringSafeArea(.all)
         .tabViewStyle(PageTabViewStyle())
-        
         .sheet(isPresented: self.$showSheet) {
             if self.showSetup {
-                SetupView(settings: settings)
+                SetupView(settings: settings).environment(\.managedObjectContext, viewContext)
             } else if self.showUpdate {
-                UpdateView(settings: settings)
+                UpdateView(settings: settings).environment(\.managedObjectContext, viewContext)
             }
         }
-        .accentColor(Color.white)
+        .background(Color(settings.globalBackground))
+        .accentColor(Color(settings.globalForeground))
         .onAppear(perform: onAppear)
+     
     }
     
     func onAppear() {
-       
+        
+        //settings.purchased = true
+        
+        
+        SKPaymentQueue.default().add(storeManager)
+        storeManager.getProducts(productIDs: productIDs)
+        
+        dc.getDefault(viewContext: viewContext)
+    
         // Launched Before
         print("settings.launchedbefore = \(settings.launchedBefore)")
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
@@ -80,24 +87,18 @@ struct TabViewView: View {
             if savedVersion != newVersion || savedBuild != newBuild {
                 self.showUpdate = true
                 self.showSheet = true
+                // Update from 1.1 => Newer
+                if settings.globalBackground == "White" {
+                    settings.globalForeground = "tix"
+                    settings.globalText = "tix"
+                    settings.icon = "AppIcons"
+                }
             }
         } else {
             self.showSetup = true
             self.showSheet = true
         }
-        
-        if categories.count == 0 {
-            let newC = Category(context: self.viewContext)
-            newC.name = "Inbox"
-            newC.isDefault = true
-            newC.color = SerializableColor(from: Color.tix)
-            newC.id = UUID()
-            do {
-                try self.viewContext.save()
-            } catch {
-                NSLog(error.localizedDescription)
-            }
-        }
+           
     }
     
     // Get current Version of the App

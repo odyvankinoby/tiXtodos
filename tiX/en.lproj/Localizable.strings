@@ -7,10 +7,11 @@
 */
 
 "loc_rn" = "
-- New Widget Layout
-- Minor Bugfixes
-- Larger top Buttons
-- Better Onboarding with Theme selection";
+- New Todos can now be created directly in the Todo list
+- tiX now available on iPads as well
+- New iCloud sync now lets you access and edit your Todos on multiple devices
+- New in PREMIUM:
+  - Show your Calendar Events on Dashboard";
 
 "loc_whatsnew" = "What's new?";
 "loc_all" = "All";
@@ -55,9 +56,36 @@
 "loc_app_version" = "App Version";
 "loc_deleted" = "Todo(s) deleted";
 "loc_theme" = "Choose your App background color";
+"loc_notes" = "Notes";
+"loc_more_apps" = "More Apps";
+"loc_show_welcome" = "Show Welcome Box";
+"loc_premium" = "tiX Premium";
+"loc_app_settings" = "App Settings";
+"loc_app_bg" = "Background Color";
+"loc_app_icon" = "App Icon";
+"loc_app_support" = "Support";
+"loc_app_info" = "App Info";
+"loc_show_events" = "Show Calendar Events";
+"loc_no_events" = "No Events today";
 
+"loc_iap_text" = "Premium Features:
 
+- Choose your favorite tiX App Icon
+- Choose your favorite App background color
+- Show your Calendar Events on Dashboard
+- Configure the Dashboard
+- Create more than 3 categories
+- Support an independant developer
 
+Activate tiX Premium now, one-time purchase, no subscription!
+
+Thank you for your support!";
+
+"loc_iap_success" = "That went well, thank you very much for your support!";
+"loc_iap_restored" = "That went well, purchase restored, thank you for your support!";
+"loc_iap_failure" = "Oops, something went wrong here. Maybe try again?";
+"loc_purchased" = "Purchased";
+"loc_iap_restore" = "Restore Purchase";
 
 "loc_gdpr" = "Data Privacy";
 "loc_gdpr_header" = "Privacy Policy";

@@ -5,6 +5,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isDefault" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="todo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Todo" inverseName="todoCategory" inverseEntity="Todo"/>
     </entity>
     <entity name="Todo" representedClassName="Todo" isAbstract="YES" syncable="YES" codeGenerationType="class">
@@ -19,7 +20,7 @@
         <relationship name="todoCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="todo" inverseEntity="Category"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-63" positionY="9" width="128" height="104"/>
+        <element name="Category" positionX="-63" positionY="9" width="128" height="119"/>
         <element name="Todo" positionX="-63" positionY="-18" width="128" height="164"/>
     </elements>
 </model>

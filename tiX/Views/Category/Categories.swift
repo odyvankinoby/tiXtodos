@@ -10,14 +10,13 @@ import CoreData
 
 struct Categories: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) var viewContext
 
     @ObservedObject var settings: UserSettings
+    @StateObject var storeManager: StoreManager
     @Binding var tabSelected: Int
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]) var categories: FetchedResults<Category>
     @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.timestamp, ascending: false)]) var todos: FetchedResults<Todo>
-
-    @State var newCategory = false
     
     // Inline Edit
     @State private var inlineEdit = false
@@ -26,9 +25,13 @@ struct Categories: View {
        
     @State private var accentColor = Color.white
     
+    @State var showPremium = false
+    
     var body: some View {
         VStack {
+            
             HStack {
+                Spacer()
                 Button(action: {
                     withAnimation {
                         self.tabSelected = 4
@@ -37,9 +40,6 @@ struct Categories: View {
                     Image(systemName: "gear").foregroundColor(Color(settings.globalForeground)).font(.title)
                         .padding(.top)
                 }
-                Spacer()
-                
-              
             }
             
             HStack {
@@ -59,24 +59,41 @@ struct Categories: View {
                     // Inline Edit
                     if inlineEdit && cat.id == inlineItem {
                         
-                        CategoryEdit(settings: settings, cat: cat, inlineEdit: $inlineEdit, inlineItem: $inlineItem, inlineCat: cat.name ?? "", inlineColor: cat.color?.color ?? Color.tix, accentColor: $accentColor)
+                        CategoryEdit(settings: settings,
+                                     cat: cat,
+                                     inlineEdit: $inlineEdit,
+                                     inlineItem: $inlineItem,
+                                     inlineCat: cat.name ?? "",
+                                     inlineColor: cat.color?.color ?? Color.tix,
+                                     accentColor: $accentColor).environment(\.managedObjectContext, viewContext)
                         
                     } else {
 
-                        VStack(alignment: .leading) {
+                        //VStack(alignment: .leading) {
                             HStack(alignment: .center) {
                                 Image(systemName: "square.fill")
                                     .resizable()
                                     .frame(width: 30, height: 30)
                                     .foregroundColor(cat.color?.color ?? Color.tix)
                                     .padding(.trailing, 10)
-                                    .padding(.bottom, 10)
-                                    .padding(.top, 10)
+                                    .padding(.bottom)
+                                    .padding(.top)
                                 
-                                Text(cat.name ?? "category")
-                                    .font(.callout)
-                                    .foregroundColor(cat.color?.color ?? Color.tix)
-                                Spacer()
+                                
+                                VStack(alignment: .leading){
+                                    HStack(alignment: .top) {
+                                        Text(cat.name ?? "category")
+                                            .font(.headline)
+                                            .foregroundColor(cat.color?.color ?? Color.tix)
+                                        Spacer()
+                                    }
+                                    HStack(alignment: .bottom) {
+                                        Text("\(cat.todo?.count ?? 0) Todo(s)")
+                                            .font(.subheadline)
+                                            .foregroundColor(cat.color?.color ?? Color.tix)
+                                        Spacer()
+                                    }
+                                }
                             }
                             .onTapGesture {
                                 withAnimation {
@@ -94,7 +111,11 @@ struct Categories: View {
                             .background(Color.white)
                             .cornerRadius(10)
                             .frame(maxWidth: .infinity)
-                        }
+                            .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
+                                )
+                        //}
                     }
                 }
             }
@@ -107,16 +128,15 @@ struct Categories: View {
                         Spacer()
                         Button(action: {
                             withAnimation {
-                                newCategory.toggle()
+                                createCategory()
                             }
                         }) {
                             Image(systemName: "plus.circle.fill")
                                 .resizable()
                                 .frame(width: 50, height: 50)
-                                .foregroundColor(.tixDark.opacity(0.6))
-                                .shadow(color: Color(settings.globalForeground), radius: 10, x: 0, y: 0)
-                        }.padding(.bottom,30)//.padding(.trailing)
-                        //.buttonStyle(PlainButtonStyle())
+                                .foregroundColor(Color(settings.globalForeground))
+                                .shadow(color: Color(settings.globalBackground).opacity(0.5), radius: 10, x: 0, y: 0)
+                        }.padding(.bottom,30)
                     }
                 }
                 .padding(.bottom)
@@ -125,7 +145,9 @@ struct Categories: View {
                 }
 
         }
-        .sheet(isPresented: $newCategory) { CategoryNew(settings: settings) }
+        .sheet(isPresented: self.$showPremium) {
+            InAppPurchase(settings: settings, storeManager: storeManager)
+        }
         .accentColor(self.accentColor)
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
@@ -134,13 +156,39 @@ struct Categories: View {
     }
 
     private func onAppear() {
-        self.accentColor = Color(settings.globalForeground)
+        self.accentColor = Color(settings.globalText)
     }
 
     private func onDisappear() {
         inlineEdit = false
         inlineItem = UUID()
     }
+    
+    private func createCategory() {
+        if (categories.count > 2 ) && settings.purchased == false {
+            showPremium.toggle()
+        } else {
+            newCategory()
+        }
+    }
+   
+    func newCategory() {
+        let newC = Category(context: self.viewContext)
+        newC.name = "Name"
+        newC.color = SerializableColor(from: Color.tix)
+        newC.timestamp = Date()
+        newC.id = UUID()
+        do {
+            try self.viewContext.save()
+            inlineEdit = true
+            inlineItem = newC.id ?? UUID()
+            inlineCat = newC.name ?? ""
+            accentColor = Color.tix
+        } catch {
+            NSLog(error.localizedDescription)
+        }
+    }
+    
     
 }
 private let itemFormatter: DateFormatter = {

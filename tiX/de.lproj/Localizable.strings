@@ -6,10 +6,11 @@
   
 */
 "loc_rn" = "
-- Neues Widget Design
-- Kleinere Fehlerbehebungen
-- Größere Buttons
-- Besseres Onboarding mit Themeauswahl";
+- Neue Todos können jetzt direkt in der Todoliste erstellt werden
+- tiX ist jetzt auch für Dein iPad verfügbar
+- Mit dem neuen iCloud Sync kannst Du Deine Todos auf mehreren Geräten verwalten
+- Neu in PREMIUM:
+  - Kalendertermine auf dem Dashboard anzeigen";
 
 "loc_whatsnew" = "Was ist neu?";
 "loc_all" = "Alle";
@@ -21,12 +22,12 @@
 "loc_today" = "Heute";
 "loc_overdue" = "Überfällig";
 "loc_open_tasks" = "Offene Tasks";
-"loc_todo" = "ToDo";
-"loc_todos" = "ToDos";
-"loc_all_todos" = "Alle ToDos";
+"loc_todo" = "Todo";
+"loc_todos" = "Todos";
+"loc_all_todos" = "Alle Todos";
 "loc_category" = "Kategorie";
 "loc_categories" = "Kategorien";
-"loc_new_todo" = "Neues ToDo";
+"loc_new_todo" = "Neues Todo";
 "loc_new_cat" = "Neue Kategorie";
 "loc_choose_category" = "Bitte Kategorie wählen";
 "loc_duedate" = "Fällig am";
@@ -35,8 +36,8 @@
 "loc_discard" = "Verwerfen";
 "loc_set_duedate" = "Fälligkeit setzen";
 "loc_settings" = "Einstellungen";
-"loc_hide_ticked" = "Erledigte ToDos ausblenden";
-"loc_delete_ticked" = "Erledigte ToDos löschen";
+"loc_hide_ticked" = "Erledigte Todos ausblenden";
+"loc_delete_ticked" = "Erledigte Todos löschen";
 "loc_help" = "Hilfe & Support";
 "loc_feedback" = "Feedback";
 "loc_support" = "Support";
@@ -45,17 +46,45 @@
 "loc_madewithlove" = "Handgemacht mit ❤️ in München.";
 "loc_color" = "Farbe";
 "loc_select_color" = "Farbe auswählen";
-"loc_your_todos" = "Deine ToDos";
+"loc_your_todos" = "Deine Todos";
 "loc_delete" = "Löschen";
 "loc_ok" = "OK";
 "loc_go" = "Los geht's!";
 "loc_default_cat" = "Standard Kategorie";
-"loc_no_todos" = "Keine ToDos";
+"loc_no_todos" = "Keine Todos";
 "loc_app_version" = "App Version";
-"loc_deleted" = "ToDo(s) gelöscht";
+"loc_deleted" = "Todo(s) gelöscht";
 "loc_theme" = "Wähle Deine App-Hintergrundfarbe";
+"loc_notes" = "Notizen";
+"loc_more_apps" = "Weitere Apps";
+"loc_show_welcome" = "Willkommen Box anzeigen";
+"loc_premium" = "tiX Premium";
+"loc_app_settings" = "App Einstellungen";
+"loc_app_bg" = "Hintergrundfarbe";
+"loc_app_icon" = "App Icon";
+"loc_app_support" = "Hilfe und Support";
+"loc_app_info" = "App Info";
+"loc_show_events" = "Kalendertermine anzeigen";
+"loc_no_events" = "Heute keine Termine";
 
+"loc_iap_text" = "Premium Features:
 
+- Wähle Dein bevorzugtes tiX App-Icon
+- Wähle Deine bevorzugte App-Hintergrundfarbe
+- Kalendertermine auf dem Dashboard anzeigen
+- Konfiguriere das Dashboard
+- Erstelle Sie mehr als 3 Kategorien
+- Unterstütze einen unabhängigen Entwickler
+
+Aktiviere jetzt tiX Premium, einmaliger Kauf, kein Abonnement!
+
+Vielen Dank für Deine Unterstützung!";
+
+"loc_iap_success" = "Das hat funktioniert, vielen Dank für Deine Unterstützung!";
+"loc_iap_restored" = "Das hat funktioniert, Kauf wiederhergestellt, vielen Dank für Deine Unterstützung!";
+"loc_iap_failure" = "Ups, hier ist etwas schief gelaufen. Vielleicht noch einmal versuchen?";
+"loc_purchased" = "Gekauft";
+"loc_iap_restore" = "Kauf wiederherstellen";
 
 "loc_gdpr" = "Datenschutz";
 "loc_gdpr_header" = "Datenschutzerklärung";

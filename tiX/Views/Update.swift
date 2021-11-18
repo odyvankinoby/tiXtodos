@@ -30,7 +30,7 @@ struct UpdateView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack(alignment: .center) {
-                        Image("AppIcons")
+                        Image("\(settings.icon)")
                             .resizable()
                             .cornerRadius(18)
                             .frame(width: 96, height: 96)
