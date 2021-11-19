@@ -137,13 +137,8 @@ struct InAppPurchase: View {
         .accentColor(Color(settings.globalForeground))
         .padding(.leading).padding(.trailing)
         .background(Color(settings.globalBackground))
-        .onAppear(perform: {
-            print(storeManager.transactionState)})
-        
     }
-    
-    
-    
+
     func cancelAction() {
         self.presentationMode.wrappedValue.dismiss()
     }

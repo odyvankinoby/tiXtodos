@@ -67,7 +67,7 @@ struct DashboardCalendar: View {
                     var dateComps = DateComponents()
                     dateComps.day = 1
                     let endDate = Calendar.current.date(byAdding: dateComps, to: today)
-                    let predicate = self.eventStore.predicateForEvents(withStart: today ?? Date(), end: endDate ?? Date(), calendars: nil)
+                    let predicate = self.eventStore.predicateForEvents(withStart: today, end: endDate ?? Date(), calendars: nil)
                     self.calEvents = self.eventStore.events(matching: predicate)
                     
                 }
