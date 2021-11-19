@@ -66,12 +66,10 @@ struct DashboardCalendar: View {
                     let today = Date().midnight
                     var dateComps = DateComponents()
                     dateComps.day = 1
-                    var dateCompsY = DateComponents()
-                    dateCompsY.day = -1
-                    let startDate = Calendar.current.date(byAdding: dateCompsY, to: today)
                     let endDate = Calendar.current.date(byAdding: dateComps, to: today)
-                    let predicate = self.eventStore.predicateForEvents(withStart: startDate ?? Date(), end: endDate ?? Date(), calendars: nil)
+                    let predicate = self.eventStore.predicateForEvents(withStart: today ?? Date(), end: endDate ?? Date(), calendars: nil)
                     self.calEvents = self.eventStore.events(matching: predicate)
+                    
                 }
             }
         }
@@ -83,4 +81,3 @@ private let timeFormatter: DateFormatter = {
     formatter.timeStyle = .short
     return formatter
 }()
-

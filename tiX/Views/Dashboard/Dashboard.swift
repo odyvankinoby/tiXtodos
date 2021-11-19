@@ -28,8 +28,6 @@ struct Dashboard: View {
     @State var dc: DefaultCategory
     @Binding var tabSelected: Int
     
-    
-    @State private var categorySort = ["1"]
     @State private var categorySelected = true
     @State private var cat = Category()
     @State private var buy = false

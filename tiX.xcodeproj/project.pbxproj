@@ -245,11 +245,11 @@
 		36C1B5D6270DCDA200249259 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				36E9E4662737163700A54BE1 /* TabView.swift */,
 				36C4D5722745856000F70BDC /* Dashboard */,
 				36C4D5622745855F00F70BDC /* Todo */,
 				36C4D5652745855F00F70BDC /* Category */,
 				36C4D5682745856000F70BDC /* Settings */,
-				36E9E4662737163700A54BE1 /* TabView.swift */,
 				36D3F2AC272FE96C00694E0F /* Onboarding.swift */,
 				36D3F2AE272FE97F00694E0F /* Update.swift */,
 			);
@@ -306,8 +306,8 @@
 		36C4D5722745856000F70BDC /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				36C4D5732745856000F70BDC /* DashboardWelcome.swift */,
 				36C4D5742745856000F70BDC /* Dashboard.swift */,
+				36C4D5732745856000F70BDC /* DashboardWelcome.swift */,
 				36C4D5752745856000F70BDC /* DashboardCalendar.swift */,
 				36C4D5762745856000F70BDC /* DashboardDatebar.swift */,
 			);
