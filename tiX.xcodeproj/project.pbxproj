@@ -188,8 +188,8 @@
 		36924ED12725721A001D1258 /* Coredata */ = {
 			isa = PBXGroup;
 			children = (
-				36C4D597274586D600F70BDC /* Persistence.swift */,
 				36C1B5C0270CC1C000249259 /* tiX.xcdatamodeld */,
+				36C4D597274586D600F70BDC /* Persistence.swift */,
 				3681FB552728755D00248951 /* SerializableColor.swift */,
 			);
 			path = Coredata;
@@ -373,7 +373,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					36644F60272B0DB100DA328F = {
 						CreatedOnToolsVersion = 13.1;
@@ -564,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -626,6 +627,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

@@ -17,6 +17,7 @@ struct SetupView: View {
 
     @FetchRequest(entity: Category.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)], predicate: NSPredicate(format: "isDefault == true")) var categories: FetchedResults<Category>
     
+    @FetchRequest(entity: Todo.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Todo.todo, ascending: true)], predicate: NSPredicate(format: "isDone == false")) var todos: FetchedResults<Todo>
    
     var body: some View {
         VStack {
@@ -41,32 +42,32 @@ struct SetupView: View {
                 }.padding()
                 
           
-                    Text(loc_how).font(.body).foregroundColor(Color(settings.globalForeground)).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
-                    VStack(alignment: .center) {
-                        TextField("", text: $settings.userName)
-                            .frame(alignment: .center)
-                            .foregroundColor(Color.tix)
-                            .padding()
+                Text(loc_how).font(.body).foregroundColor(Color(settings.globalForeground)).bold().allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/).padding()
+                VStack(alignment: .center) {
+                    TextField("", text: $settings.userName)
+                        .frame(alignment: .center)
+                        .foregroundColor(Color.tix)
+                        .padding()
+                }
+                .background(Color.white)
+                .cornerRadius(10)
+                .frame(maxWidth: .infinity)
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Button(action: {
+                    withAnimation {
+                        cancelAction()
                     }
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .frame(maxWidth: .infinity)
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Button(action: {
-                        withAnimation {
-                            cancelAction()
-                        }
-                    }) {
-                        Text(loc_ok)
-                    }
-                    .foregroundColor(.tix)
-                    .padding(10)
-                    .background(settings.userName.isEmpty ? Color.white.opacity(0.5) : Color.white)
-                    .cornerRadius(8)
-                    .disabled(settings.userName.isEmpty)
+                }) {
+                    Text(loc_go).padding(.leading, 25).padding(.trailing, 25)
+                }
+                .foregroundColor(.tix)
+                .padding(10)
+                .background(settings.userName.isEmpty ? Color.white.opacity(0.5) : Color.white)
+                .cornerRadius(8)
+                .disabled(settings.userName.isEmpty)
                 
                 
             }.padding(.leading).padding(.trailing)

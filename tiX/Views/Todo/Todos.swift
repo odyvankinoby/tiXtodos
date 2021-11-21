@@ -545,6 +545,7 @@ struct Todos: View {
     }
     
     func newTodo(cat: Category) {
+        
         let newTodo = Todo(context: self.viewContext)
         newTodo.todo = "Todo"
         newTodo.text = ""
@@ -554,14 +555,12 @@ struct Todos: View {
         newTodo.timestamp = Date()
         newTodo.important = false
         newTodo.id = UUID()
-        do {
-            try self.viewContext.save()
-            inlineEdit = true
-            inlineItem = newTodo.id ?? UUID()
-            inlineTodo = newTodo.todo ?? ""
-        } catch {
-            NSLog(error.localizedDescription)
-        }
+        
+        try? self.viewContext.save()
+        inlineEdit = true
+        inlineItem = newTodo.id ?? UUID()
+        inlineTodo = newTodo.todo ?? ""
+       
     }
 }
 

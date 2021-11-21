@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import CoreData
+import EventKit
 
 struct Dashboard: View {
     
@@ -25,7 +26,13 @@ struct Dashboard: View {
     
     @ObservedObject var settings: UserSettings
     @StateObject var storeManager: StoreManager
-    @State var dc: DefaultCategory
+    @Binding var calEvents: [EKEvent]
+    
+    //@State var dc: DefaultCategory
+    @State var dc = DefaultCategory()
+    
+    @State var defaultCat: Category
+    
     @Binding var tabSelected: Int
     
     @State private var categorySelected = true
@@ -64,6 +71,16 @@ struct Dashboard: View {
                     }
                 }) {
                     Image(systemName: "gear")
+                        .foregroundColor(Color(settings.globalForeground))
+                        .font(.title)
+                        .padding(.top)
+                }
+                Button(action: {
+                    withAnimation {
+                        dc.getDefault(viewContext: viewContext)
+                    }
+                }) {
+                    Image(systemName: "arrow.down.forward.and.arrow.up.backward.circle")
                         .foregroundColor(Color(settings.globalForeground))
                         .font(.title)
                         .padding(.top)
@@ -122,25 +139,8 @@ struct Dashboard: View {
                             
                         }.padding(.trailing, 1).padding(.top, 5)
                         
-                        
-                        if dc.updating {
-                            
-                            HStack(alignment: .center) {
-                                Text("Updating...")
-                            }
-                            .padding(.leading).padding(.trailing)
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(settings.globalBackground == "White" ? Color.tix : Color(settings.globalForeground), lineWidth: 1).padding(1)
-                            )
-                            .frame(maxWidth: .infinity)
-                            
-                        }
-                        
                         if settings.showEvents {
-                            DashboardCalendar(settings: settings)
+                            DashboardCalendar(settings: settings, calEvents: $calEvents)
                         }
                         
                         ForEach(todosFiltered, id: \.self) { todo in
@@ -209,7 +209,7 @@ struct Dashboard: View {
 
     func onAppear() {
         //settings.purchased = true
-        self.cat = dc.defaultCategory
+        self.cat = defaultCat // dc.defaultCategory
         WidgetUpdater().getSetValues(viewContext: viewContext)
     }
     

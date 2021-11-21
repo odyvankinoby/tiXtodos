@@ -12,7 +12,7 @@ struct DashboardCalendar: View {
     
     @ObservedObject var settings: UserSettings
     @State var eventStore = EKEventStore()
-    @State var calEvents = [EKEvent]()
+    @Binding var calEvents: [EKEvent]
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -30,6 +30,9 @@ struct DashboardCalendar: View {
                             Text(loc_no_events)
                                 .font(.subheadline)
                                 .foregroundColor(Color(settings.globalText))
+                                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                                    onAppear()
+                                }
                             Spacer()
                         }
                     } else {

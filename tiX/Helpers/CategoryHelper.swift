@@ -11,8 +11,7 @@ import CoreData
 class DefaultCategory: NSObject, ObservableObject {
     
     @Published var defaultCategory = Category()
-    @Published var updating = true
-
+    
     func getDefault(viewContext: NSManagedObjectContext) {
         let setRequest = NSFetchRequest<Category>(entityName: "Category")
         let setPredicate = NSPredicate(format: "isDefault == true")
@@ -27,13 +26,13 @@ class DefaultCategory: NSObject, ObservableObject {
                     mergeInbox(first: first, viewContext: viewContext)
                     mergeEmpty(first: first, viewContext: viewContext)
                     self.defaultCategory = first
-                    self.updating = false
+                    
                 }
             } else if cats.count == 1 {
                 for cat in cats {
                     mergeEmpty(first: cat, viewContext: viewContext)
                     self.defaultCategory = cat
-                    self.updating = false
+                    
                 }
             } else {
                 createInbox(viewContext: viewContext)
@@ -96,7 +95,6 @@ class DefaultCategory: NSObject, ObservableObject {
         do {
             try viewContext.save()
             self.defaultCategory = newC
-            self.updating = false
         } catch {
             NSLog(error.localizedDescription)
         }
