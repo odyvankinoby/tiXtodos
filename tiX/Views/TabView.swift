@@ -76,6 +76,9 @@ struct TabViewView: View {
         storeManager.getProducts(productIDs: productIDs)
         
         
+        dc.getDefault(viewContext: viewContext)
+        
+        /*
         var i = 0
         var dorepeat = true
         Timer.scheduledTimer(withTimeInterval: 3, repeats: dorepeat) { _ in
@@ -83,8 +86,7 @@ struct TabViewView: View {
             i+=1
             if i == 3 { dorepeat = false }
         }
-        
-        
+        */
         
         
         // Launched Before

@@ -38,17 +38,17 @@ struct UpdateView: View {
                             .frame(alignment: .leading)
                         VStack(alignment: .leading) {
                             Text(loc_welcome)
-                                .font(.title)
-                                .foregroundColor(Color(settings.globalForeground))
-                                .allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                                
-                            Text(loc_tix)
                                 .font(.title2)
                                 .foregroundColor(Color(settings.globalForeground))
                                 .allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                                 
-                            Text("Version \(settings.appVersion)")
+                            Text(loc_tix)
                                 .font(.title3)
+                                .foregroundColor(Color(settings.globalForeground))
+                                .allowsTightening(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                                
+                            Text("Version \(settings.appVersion)")
+                                .font(.headline)
                                 .foregroundColor(Color(settings.globalForeground))
                         }
                     }

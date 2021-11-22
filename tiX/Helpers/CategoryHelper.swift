@@ -20,7 +20,7 @@ class DefaultCategory: NSObject, ObservableObject {
         setRequest.sortDescriptors = [setSortDescriptor1]
         do {
             let cats = try viewContext.fetch(setRequest) as [Category]
-            if cats.count > 1 {
+            /*if cats.count > 1 {
                 print("Merging Inboxes")
                 for first in cats {
                     mergeInbox(first: first, viewContext: viewContext)
@@ -28,9 +28,10 @@ class DefaultCategory: NSObject, ObservableObject {
                     self.defaultCategory = first
                     
                 }
-            } else if cats.count == 1 {
+            } else */
+            if cats.count == 1 {
                 for cat in cats {
-                    mergeEmpty(first: cat, viewContext: viewContext)
+                    //mergeEmpty(first: cat, viewContext: viewContext)
                     self.defaultCategory = cat
                     
                 }
