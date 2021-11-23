@@ -72,8 +72,12 @@ struct SettingsApp: View {
             Toggle(isOn: $settings.hideTicked) {
                 Text(loc_hide_ticked)
                     .foregroundColor(Color(settings.globalText)).frame(alignment: .trailing)
-            }.padding(.leading).padding(.trailing)
-            
+            }
+            .onTapGesture {
+                WidgetUpdater().getSetValues(viewContext: viewContext)
+            }
+            .padding(.leading).padding(.trailing)
+                
             Divider()
             
             HStack {

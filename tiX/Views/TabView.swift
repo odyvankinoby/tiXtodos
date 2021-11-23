@@ -74,21 +74,9 @@ struct TabViewView: View {
  
         SKPaymentQueue.default().add(storeManager)
         storeManager.getProducts(productIDs: productIDs)
-        
-        
+
         dc.getDefault(viewContext: viewContext)
-        
-        /*
-        var i = 0
-        var dorepeat = true
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: dorepeat) { _ in
-            dc.getDefault(viewContext: viewContext)
-            i+=1
-            if i == 3 { dorepeat = false }
-        }
-        */
-        
-        
+
         // Launched Before
         print("settings.launchedbefore = \(settings.launchedBefore)")
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")

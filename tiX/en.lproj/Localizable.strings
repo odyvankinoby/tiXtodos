@@ -7,9 +7,7 @@
 */
 
 "loc_rn" = "
-- New Todos can now be created directly in the Todo list
-- New in PREMIUM:
-  - Show your Calendar Events on Dashboard";
+- Bugfixes";
 
 "loc_whatsnew" = "What's new?";
 "loc_all" = "All";
